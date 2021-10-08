@@ -7,7 +7,7 @@ module OneBit_Div(in_dividend, in_divisor, out_quotient, out_remainder);
 
     always @ (*) begin
         out_quotient = (in_dividend > in_divisor) ? 1'b1 : 1'b0;
-        out_remainder = (out_quotient) ? (in_dividend - in_divisor) : (in_dividend << 1);
+        out_remainder = (out_quotient) ? ((in_dividend - in_divisor) << 1) : (in_dividend << 1);
     end
 
 endmodule
