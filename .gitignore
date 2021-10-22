@@ -3,3 +3,4 @@
 **.temp
 Scripts/Test/AES256.cpp
 Diagrams/Lecture11.pdf
+Scripts/Test/codeGenerator.py
