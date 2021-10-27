@@ -1,4 +1,6 @@
 // Floating-point Adder/Subtractor Normaliser
+// This module normalises the input mantissa and adjust the exponent accordingly.
+
 module AddSubNorm(in_Exp, in_Mant, out_result, out_flag_OF, out_flag_UF);
     parameter EXP_WIDTH = 11;
     parameter MANT_WIDTH = 52;

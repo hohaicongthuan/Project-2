@@ -1,3 +1,5 @@
+// Top-level module of floating-point divisor
+
 module FP_Div(in_numA, in_numB, out_result);
     parameter DATA_WIDTH = 64;
     parameter EXP_WIDTH = 11;

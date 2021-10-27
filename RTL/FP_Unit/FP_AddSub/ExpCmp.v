@@ -1,4 +1,7 @@
 // Exponent Comparator
+// Compare two given exponents and output the bigger one, the difference,
+// and the signal indicating which one is bigger
+
 module ExpCmp(in_expA, in_expB, out_result, out_biggerExp, out_diff);
     parameter DATA_WIDTH = 11;
 

@@ -1,3 +1,5 @@
+// This is the top module for floating-point adder/subtractor
+
 module FP_AddSub(in_numA, in_numB, in_addsub, out_result, out_flag_OF, out_flag_UF);
     parameter DATA_WIDTH = 64;
     parameter EXP_WIDTH = 11;
