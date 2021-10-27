@@ -1,181 +1,169 @@
 module Mant_Div(in_dividend, in_divisor, out_quotient, out_remainder);
-    input [45:0] in_dividend;
-    input [23:0] in_divisor;
+    input [105:0] in_dividend;
+    input [52:0] in_divisor;
 
-    output [23:0] out_quotient;
-    output [45:0] out_remainder;
+    output [52:0] out_quotient;
+    output [105:0] out_remainder;
 
-    wire [45:0] remainder_23, remainder_22, remainder_21, remainder_20, remainder_19,
-                remainder_18, remainder_17, remainder_16, remainder_15, remainder_14,
-                remainder_13, remainder_12, remainder_11, remainder_10, remainder_9,
-                remainder_8, remainder_7, remainder_6, remainder_5, remainder_4,
-                remainder_3, remainder_2, remainder_1;
+    wire [105:0] remainder_1, remainder_2, remainder_3, remainder_4, remainder_5, remainder_6, remainder_7, remainder_8, remainder_9, remainder_10, remainder_11, remainder_12, remainder_13, remainder_14, remainder_15, remainder_16, remainder_17, remainder_18, remainder_19, remainder_20, remainder_21, remainder_22, remainder_23, remainder_24, remainder_25, remainder_26, remainder_27, remainder_28, remainder_29, remainder_30, remainder_31, remainder_32, remainder_33, remainder_34, remainder_35, remainder_36, remainder_37, remainder_38, remainder_39, remainder_40, remainder_41, remainder_42, remainder_43, remainder_44, remainder_45, remainder_46, remainder_47, remainder_48, remainder_49, remainder_50, remainder_51, remainder_52;
 
+    OneBit_Div OneBit_Div_Inst52(
+	    .in_dividend(in_dividend), .in_divisor(in_divisor),
+	    .out_quotient(out_quotient[52]), .out_remainder(remainder_52));
+    OneBit_Div OneBit_Div_Inst51(
+        .in_dividend(remainder_52), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[51]), .out_remainder(remainder_51));
+    OneBit_Div OneBit_Div_Inst50(
+        .in_dividend(remainder_51), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[50]), .out_remainder(remainder_50));
+    OneBit_Div OneBit_Div_Inst49(
+        .in_dividend(remainder_50), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[49]), .out_remainder(remainder_49));
+    OneBit_Div OneBit_Div_Inst48(
+        .in_dividend(remainder_49), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[48]), .out_remainder(remainder_48));
+    OneBit_Div OneBit_Div_Inst47(
+        .in_dividend(remainder_48), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[47]), .out_remainder(remainder_47));
+    OneBit_Div OneBit_Div_Inst46(
+        .in_dividend(remainder_47), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[46]), .out_remainder(remainder_46));
+    OneBit_Div OneBit_Div_Inst45(
+        .in_dividend(remainder_46), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[45]), .out_remainder(remainder_45));
+    OneBit_Div OneBit_Div_Inst44(
+        .in_dividend(remainder_45), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[44]), .out_remainder(remainder_44));
+    OneBit_Div OneBit_Div_Inst43(
+        .in_dividend(remainder_44), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[43]), .out_remainder(remainder_43));
+    OneBit_Div OneBit_Div_Inst42(
+        .in_dividend(remainder_43), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[42]), .out_remainder(remainder_42));
+    OneBit_Div OneBit_Div_Inst41(
+        .in_dividend(remainder_42), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[41]), .out_remainder(remainder_41));
+    OneBit_Div OneBit_Div_Inst40(
+        .in_dividend(remainder_41), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[40]), .out_remainder(remainder_40));
+    OneBit_Div OneBit_Div_Inst39(
+        .in_dividend(remainder_40), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[39]), .out_remainder(remainder_39));
+    OneBit_Div OneBit_Div_Inst38(
+        .in_dividend(remainder_39), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[38]), .out_remainder(remainder_38));
+    OneBit_Div OneBit_Div_Inst37(
+        .in_dividend(remainder_38), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[37]), .out_remainder(remainder_37));
+    OneBit_Div OneBit_Div_Inst36(
+        .in_dividend(remainder_37), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[36]), .out_remainder(remainder_36));
+    OneBit_Div OneBit_Div_Inst35(
+        .in_dividend(remainder_36), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[35]), .out_remainder(remainder_35));
+    OneBit_Div OneBit_Div_Inst34(
+        .in_dividend(remainder_35), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[34]), .out_remainder(remainder_34));
+    OneBit_Div OneBit_Div_Inst33(
+        .in_dividend(remainder_34), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[33]), .out_remainder(remainder_33));
+    OneBit_Div OneBit_Div_Inst32(
+        .in_dividend(remainder_33), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[32]), .out_remainder(remainder_32));
+    OneBit_Div OneBit_Div_Inst31(
+        .in_dividend(remainder_32), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[31]), .out_remainder(remainder_31));
+    OneBit_Div OneBit_Div_Inst30(
+        .in_dividend(remainder_31), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[30]), .out_remainder(remainder_30));
+    OneBit_Div OneBit_Div_Inst29(
+        .in_dividend(remainder_30), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[29]), .out_remainder(remainder_29));
+    OneBit_Div OneBit_Div_Inst28(
+        .in_dividend(remainder_29), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[28]), .out_remainder(remainder_28));
+    OneBit_Div OneBit_Div_Inst27(
+        .in_dividend(remainder_28), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[27]), .out_remainder(remainder_27));
+    OneBit_Div OneBit_Div_Inst26(
+        .in_dividend(remainder_27), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[26]), .out_remainder(remainder_26));
+    OneBit_Div OneBit_Div_Inst25(
+        .in_dividend(remainder_26), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[25]), .out_remainder(remainder_25));
+    OneBit_Div OneBit_Div_Inst24(
+        .in_dividend(remainder_25), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[24]), .out_remainder(remainder_24));
     OneBit_Div OneBit_Div_Inst23(
-        .in_dividend(in_dividend),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[23]),
-        .out_remainder(remainder_23)
-    );
-
+        .in_dividend(remainder_24), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[23]), .out_remainder(remainder_23));
     OneBit_Div OneBit_Div_Inst22(
-        .in_dividend(remainder_23),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[22]),
-        .out_remainder(remainder_22)
-    );
-
+        .in_dividend(remainder_23), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[22]), .out_remainder(remainder_22));
     OneBit_Div OneBit_Div_Inst21(
-        .in_dividend(remainder_22),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[21]),
-        .out_remainder(remainder_21)
-    );
-
+        .in_dividend(remainder_22), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[21]), .out_remainder(remainder_21));
     OneBit_Div OneBit_Div_Inst20(
-        .in_dividend(remainder_21),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[20]),
-        .out_remainder(remainder_20)
-    );
-
+        .in_dividend(remainder_21), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[20]), .out_remainder(remainder_20));
     OneBit_Div OneBit_Div_Inst19(
-        .in_dividend(remainder_20),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[19]),
-        .out_remainder(remainder_19)
-    );
-
+        .in_dividend(remainder_20), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[19]), .out_remainder(remainder_19));
     OneBit_Div OneBit_Div_Inst18(
-        .in_dividend(remainder_19),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[18]),
-        .out_remainder(remainder_18)
-    );
-
+        .in_dividend(remainder_19), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[18]), .out_remainder(remainder_18));
     OneBit_Div OneBit_Div_Inst17(
-        .in_dividend(remainder_18),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[17]),
-        .out_remainder(remainder_17)
-    );
-
+        .in_dividend(remainder_18), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[17]), .out_remainder(remainder_17));
     OneBit_Div OneBit_Div_Inst16(
-        .in_dividend(remainder_17),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[16]),
-        .out_remainder(remainder_16)
-    );
-
+        .in_dividend(remainder_17), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[16]), .out_remainder(remainder_16));
     OneBit_Div OneBit_Div_Inst15(
-        .in_dividend(remainder_16),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[15]),
-        .out_remainder(remainder_15)
-    );
-
+        .in_dividend(remainder_16), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[15]), .out_remainder(remainder_15));
     OneBit_Div OneBit_Div_Inst14(
-        .in_dividend(remainder_15),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[14]),
-        .out_remainder(remainder_14)
-    );
-
+        .in_dividend(remainder_15), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[14]), .out_remainder(remainder_14));
     OneBit_Div OneBit_Div_Inst13(
-        .in_dividend(remainder_14),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[13]),
-        .out_remainder(remainder_13)
-    );
-
+        .in_dividend(remainder_14), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[13]), .out_remainder(remainder_13));
     OneBit_Div OneBit_Div_Inst12(
-        .in_dividend(remainder_13),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[12]),
-        .out_remainder(remainder_12)
-    );
-
+        .in_dividend(remainder_13), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[12]), .out_remainder(remainder_12));
     OneBit_Div OneBit_Div_Inst11(
-        .in_dividend(remainder_12),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[11]),
-        .out_remainder(remainder_11)
-    );
-
+        .in_dividend(remainder_12), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[11]), .out_remainder(remainder_11));
     OneBit_Div OneBit_Div_Inst10(
-        .in_dividend(remainder_11),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[10]),
-        .out_remainder(remainder_10)
-    );
-
+        .in_dividend(remainder_11), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[10]), .out_remainder(remainder_10));
     OneBit_Div OneBit_Div_Inst9(
-        .in_dividend(remainder_10),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[9]),
-        .out_remainder(remainder_9)
-    );
-
+        .in_dividend(remainder_10), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[9]), .out_remainder(remainder_9));
     OneBit_Div OneBit_Div_Inst8(
-        .in_dividend(remainder_9),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[8]),
-        .out_remainder(remainder_8)
-    );
-
+        .in_dividend(remainder_9), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[8]), .out_remainder(remainder_8));
     OneBit_Div OneBit_Div_Inst7(
-        .in_dividend(remainder_8),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[7]),
-        .out_remainder(remainder_7)
-    );
-
+        .in_dividend(remainder_8), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[7]), .out_remainder(remainder_7));
     OneBit_Div OneBit_Div_Inst6(
-        .in_dividend(remainder_7),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[6]),
-        .out_remainder(remainder_6)
-    );
-
+        .in_dividend(remainder_7), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[6]), .out_remainder(remainder_6));
     OneBit_Div OneBit_Div_Inst5(
-        .in_dividend(remainder_6),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[5]),
-        .out_remainder(remainder_5)
-    );
-
+        .in_dividend(remainder_6), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[5]), .out_remainder(remainder_5));
     OneBit_Div OneBit_Div_Inst4(
-        .in_dividend(remainder_5),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[4]),
-        .out_remainder(remainder_4)
-    );
-
+        .in_dividend(remainder_5), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[4]), .out_remainder(remainder_4));
     OneBit_Div OneBit_Div_Inst3(
-        .in_dividend(remainder_4),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[3]),
-        .out_remainder(remainder_3)
-    );
-
+        .in_dividend(remainder_4), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[3]), .out_remainder(remainder_3));
     OneBit_Div OneBit_Div_Inst2(
-        .in_dividend(remainder_3),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[2]),
-        .out_remainder(remainder_2)
-    );
-
+        .in_dividend(remainder_3), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[2]), .out_remainder(remainder_2));
     OneBit_Div OneBit_Div_Inst1(
-        .in_dividend(remainder_2),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[1]),
-        .out_remainder(remainder_1)
-    );
-
+        .in_dividend(remainder_2), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[1]), .out_remainder(remainder_1));
     OneBit_Div OneBit_Div_Inst0(
-        .in_dividend(remainder_1),
-        .in_divisor(in_divisor),
-        .out_quotient(out_quotient[0]),
-        .out_remainder(out_remainder)
-    );
+        .in_dividend(remainder_1), .in_divisor(in_divisor),
+        .out_quotient(out_quotient[0]), .out_remainder(out_remainder));
 endmodule
