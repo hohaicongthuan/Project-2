@@ -1,6 +1,6 @@
 module Datapath(in_ctrl_signal, in_inst, in_DM_data, in_Clk, out_inst_addr, out_addr, out_wr_data, out_flag);
     input   Clk;
-    input   [22:0] in_ctrl_signal;
+    input   [21:0] in_ctrl_signal;
     input   [31:0] in_inst;
     input   [63:0] in_DM_data;
 

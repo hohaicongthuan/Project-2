@@ -8,10 +8,10 @@ module RV64IFD_top(in_DM_data, in_inst, in_Clk, out_inst_addr, out_addr, out_wr_
     wire    [4:0] wire_flag;
     wire    [22:0] wire_ctrl_signal;
 
-    assign out_DM_wr_en = wire_ctrl_signal[22];
+    assign out_DM_wr_en = wire_ctrl_signal[0];
 
     Datapath Datapath_Inst0 (
-        .in_ctrl_signal(wire_ctrl_signal[21:0]),
+        .in_ctrl_signal(wire_ctrl_signal[22:1]),
         .in_inst(in_inst),
         .in_DM_data(in_DM_data),
         .in_Clk(in_Clk),
