@@ -1,19 +1,20 @@
-module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, out_data, out_ALU_flag);
+module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, in_output_fmt, in_sub_aShift_ctrl, out_data, out_ALU_flag);
     parameter DATA_WIDTH = 64;
 
+    input   in_output_fmt, in_sub_aShift_ctrl;
     input   [1:0] in_fmt;
     input   [DATA_WIDTH - 1:0] in_rs1, in_rs2;
     input   [3:0] in_ALU_Op;
 
-    output  [DATA_WIDTH - 1:0] data_out;
+    output  [DATA_WIDTH - 1:0] out_data;
     output  [4:0] out_ALU_flag;
 
-    wire    [DATA_WIDTH - 1:0] AddSub_Out, And_Out, Or_Out, Xor_Out, Signed_Cmp_Out, Unsigned_Cmp_Out, Left_Shift_Out, Right_Shift_Out, IntToFP_Out;
+    wire    [DATA_WIDTH - 1:0] AddSub_Out, And_Out, Or_Out, Xor_Out, Signed_Cmp_Out, Unsigned_Cmp_Out, Left_Shift_Out, Right_Shift_Out, IntToFP_Out, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6, wire_7, wire_8;
 
     AddSub AddSub_Inst0(
         .in_numA(in_rs1), 
         .in_numB(in_rs2),
-        .in_ctrl_AddSub(),
+        .in_ctrl_AddSub(in_sub_aShift_ctrl),
         .out_data(AddSub_Out)
     );
     And_Or_Xor And_Or_Xor_Inst0(
@@ -33,7 +34,7 @@ module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, out_data, out_ALU_flag);
     Shift Shift_Inst0(
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .in_ctrl(),
+        .in_ctrl(in_sub_aShift_ctrl),
         .out_LeftShift(Left_Shift_Out),
         .out_RightShift(Right_Shift_Out)
     );
@@ -41,7 +42,7 @@ module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, out_data, out_ALU_flag);
         .in_data(in_rs1),
         .in_fmt(in_fmt[1]),
         .in_signed_unsigned(in_fmt[0]),
-        .in_output_fmt(),
+        .in_output_fmt(in_output_fmt),
         .out_data(IntToFP_Out)
     );
 
