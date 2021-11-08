@@ -11,19 +11,19 @@ This repo contains codes from my Project 2 class. My task is implementing RISC-V
 
 Module | Description | Status
 -|-|-
-AddSub | Integer adder/subtractor | Untested
-And_Or_Xor | Integer logical AND/OR/XOR | Untested
-Cmp | Integer comparator | Untested
-IntToFP | Integer to floating-point Converter | Untested
-Shift| Integer logical/arithmetic left/right Shifter | Untested
-FP_AddSub | Floating-point adder/subtractor | Untested
-FP_Cmp | Floating-point comparator | Untested
-FP_Div | Floating-point divisor | Untested
-FP_Mul | Floating-point multiplier | Untested
-FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | Untested
-FP_Int_Convert | Floating-point to Integer Converter | Untested
-FP_MinMax | Floating-point Min/Max | Untested
-FP_SGNJ | Floating-point sign injector | Untested
+AddSub | Integer adder/subtractor | TESTED
+And_Or_Xor | Integer logical AND/OR/XOR | TESTED
+Cmp | Integer comparator | TESTED
+IntToFP | Integer to floating-point Converter | TESTED
+Shift| Integer logical/arithmetic left/right Shifter | TESTED
+FP_AddSub | Floating-point adder/subtractor | UNTESTED
+FP_Cmp | Floating-point comparator | UNTESTED
+FP_Div | Floating-point divisor | UNTESTED
+FP_Mul | Floating-point multiplier | UNTESTED
+FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | UNTESTED
+FP_Int_Convert | Floating-point to Integer Converter | UNTESTED
+FP_MinMax | Floating-point Min/Max | UNTESTED
+FP_SGNJ | Floating-point sign injector | UNTESTED
 
 ## 3. Supported Instructions
 
