@@ -17,13 +17,13 @@ Cmp | Integer comparator | TESTED
 IntToFP | Integer to floating-point Converter | TESTED
 Shift| Integer logical/arithmetic left/right Shifter | TESTED
 FP_AddSub | Floating-point adder/subtractor | UNTESTED
-FP_Cmp | Floating-point comparator | UNTESTED
+FP_Cmp | Floating-point comparator | TESTED
 FP_Div | Floating-point divisor | UNTESTED
 FP_Mul | Floating-point multiplier | UNTESTED
-FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | UNTESTED
-FP_Int_Convert | Floating-point to Integer Converter | UNTESTED
+FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | TESTED
+FP_Int_Convert | Floating-point to Integer Converter | TESTED
 FP_MinMax | Floating-point Min/Max | UNTESTED
-FP_SGNJ | Floating-point sign injector | UNTESTED
+FP_SGNJ | Floating-point sign injector | TESTED
 
 ## 3. Supported Instructions
 

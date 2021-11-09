@@ -4,13 +4,13 @@ module FP_RegisterFile(
     data_outB,
     addr_A,
     addr_B,
-    writeAddr;
+    writeAddr,
     write_En,
     Clk
 );
 
     parameter DATA_WIDTH = 64;
-    parameter ADDR_WIDTH = $clog2(DATA_WIDTH);
+    parameter ADDR_WIDTH = 6;
 
     input   Clk, write_En;
     input   [ADDR_WIDTH - 1:0] addr_A, addr_B, writeAddr;

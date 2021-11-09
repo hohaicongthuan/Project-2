@@ -4,7 +4,7 @@ module RegisterFile(
     data_outB,
     addr_A,
     addr_B,
-    writeAddr;
+    writeAddr,
     write_En,
     Clk
 );

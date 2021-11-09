@@ -7,11 +7,11 @@ module ImmGen(in_data, in_inst_type, out_data);
 
     wire [63:0] I_Imm, S_Imm, B_Imm, U_Imm, J_Imm, wire_1, wire_2, wire_3, wire_4;
 
-    assign I_Imm = {53{in_data[31]}, in_data[30:20]};
-    assign S_Imm = {53{in_data[31]}, in_data[30:25], in_data[11:7]};
-    assign B_Imm = {52{in_data[31]}, in_data[7], in_data[30:25], in_data[11:8], 1'b0};
-    assign U_Imm = {32{in_data[31]}, in_data[31:12], 13{1'b0}};
-    assign J_Imm = {45{in_data[31]}, in_data[19:12], in_data[20], in_data[30:21], 1'b0};
+    assign I_Imm = {{53{in_data[31]}}, in_data[30:20]};
+    assign S_Imm = {{53{in_data[31]}}, in_data[30:25], in_data[11:7]};
+    assign B_Imm = {{52{in_data[31]}}, in_data[7], in_data[30:25], in_data[11:8], 1'b0};
+    assign U_Imm = {{31{in_data[31]}}, in_data[31:12], {13{1'b0}}};
+    assign J_Imm = {{44{in_data[31]}}, in_data[19:12], in_data[20], in_data[30:21], 1'b0};
 
     assign out_data = (in_inst_type == 3'd0) ? I_Imm : wire_1;
     assign wire_1   = (in_inst_type == 3'd1) ? S_Imm : wire_2;
