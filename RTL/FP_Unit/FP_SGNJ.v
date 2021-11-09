@@ -17,9 +17,9 @@ module FP_SGNJ(in_numA, in_numB, in_ctrl_jnx, in_fmt, out_data);
     assign wire_1 = (in_ctrl_jnx == 2'd1) ? ({!in_numB[63], in_numA[62:0]}) : wire_2;
     assign wire_2 = (in_ctrl_jnx == 2'd1) ? ({(in_numA[63] ^ in_numB[63]), in_numA[62:0]}) : in_numA;
 
-    assign sp_fp_sgnj = (in_ctrl_jnx == 2'd0) ? (32{1'b1}, {in_numB[31], in_numA[30:0]}) : wire_3;
-    assign wire_3 = (in_ctrl_jnx == 2'd1) ? ({32{1'b1}, !in_numB[31], in_numA[30:0]}) : wire_4;
-    assign wire_4 = (in_ctrl_jnx == 2'd1) ? ({32{1'b1}, (in_numA[31] ^ in_numB[31]), in_numA[30:0]}) : in_numA;
+    assign sp_fp_sgnj = (in_ctrl_jnx == 2'd0) ? ({{32{1'b1}}, in_numB[31], in_numA[30:0]}) : wire_3;
+    assign wire_3 = (in_ctrl_jnx == 2'd1) ? ({{32{1'b1}}, !in_numB[31], in_numA[30:0]}) : wire_4;
+    assign wire_4 = (in_ctrl_jnx == 2'd1) ? ({{32{1'b1}}, (in_numA[31] ^ in_numB[31]), in_numA[30:0]}) : in_numA;
 
     assign out_data = (!in_fmt) ? sp_fp_sgnj : dp_fp_sgnj;
 endmodule

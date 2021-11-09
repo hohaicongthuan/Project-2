@@ -17,21 +17,21 @@ module FP_Int_Convert(in_data, in_fmt, in_output_fmt, out_data, out_flg_NV);
     // Internal wires
     wire    [DATA_WIDTH - 1:0] converted_input, input_fp, output_1, output_2;
     wire    [115:0] shifted_num, mant;
-    wire    sign;
+    wire    sign, invalid_case_1, invalid_case_2, invalid_case_3, invalid_case_4;
     wire    [10:0] exp, exp_abs;
 
     // Converting 32-bit to 64-bit FP format
-    assign converted_input = {in_data[31], ({3{1'b0}, in_data[30:23]} + 11'd896), {in_data[22:0], 29{1'b0}}};
+    assign converted_input = {in_data[31], ({{3{1'b0}}, in_data[30:23]} + 11'd896), {in_data[22:0], {29{1'b0}}}};
 
     assign input_fp = (in_fmt) ? in_data : converted_input;
 
     assign sign = input_fp[63];
     assign exp = input_fp[62:52] - 11'd1023;
-    assign mant = {63{1'b0}, 1'b1, input_fp[51:0]};
+    assign mant = {{63{1'b0}}, 1'b1, input_fp[51:0]};
 
     assign shifted_num = mant << exp[5:0];
 
-    assign output_1 = (in_output_fmt[1]) ? shifted_num[115:52] : {32{1'b0}, shifted_num[83:52]};
+    assign output_1 = (in_output_fmt[1]) ? shifted_num[115:52] : {{32{1'b0}}, shifted_num[83:52]};
     assign output_2 = (sign & !in_output_fmt[0]) ? (~output_1 + 64'd1) : (output_1);
 
     assign out_data = (exp[10]) ? 64'd0 : output_2;

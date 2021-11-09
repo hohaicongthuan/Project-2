@@ -13,14 +13,15 @@ module FP_Cmp(in_numA, in_numB, in_cmp_type, in_fmt, out_data, out_flag_NV);
     output  [DATA_WIDTH - 1:0] out_data;
 
     // Internal wires
-    wire    NaN_exception, NaN_exception_1, NaN_exception_2;
+    wire    NaN_exception, NaN_exception_1, NaN_exception_2, numA_dp_exception, numA_sp_exception, numB_dp_exception, numB_sp_exception;
     wire    [DATA_WIDTH - 1:0]  converted_num_1, converted_num_2, input_fp_1, input_fp_2,
                                 equ_result, lt_result, lte_result,
-                                wire_1, wire_2, wire_3, wire_4, wire_5, wire_6;
+                                wire_1, wire_2, wire_3, wire_4, wire_5, wire_6,
+                                sign_cmp, exp_cmp;
 
     // Converting 32-bit to 64-bit FP format
-    assign converted_num_1 = {in_numA[31], ({3{1'b0}, in_numA[30:23]} + 11'd896), {in_numA[22:0], 29{1'b0}}};
-    assign converted_num_2 = {in_numB[31], ({3{1'b0}, in_numB[30:23]} + 11'd896), {in_numB[22:0], 29{1'b0}}};
+    assign converted_num_1 = {in_numA[31], ({{3{1'b0}}, in_numA[30:23]} + 11'd896), {in_numA[22:0], {29{1'b0}}}};
+    assign converted_num_2 = {in_numB[31], ({{3{1'b0}}, in_numB[30:23]} + 11'd896), {in_numB[22:0], {29{1'b0}}}};
 
     assign input_fp_1 = (in_fmt) ? in_numA : converted_num_1;
     assign input_fp_2 = (in_fmt) ? in_numB : converted_num_2;

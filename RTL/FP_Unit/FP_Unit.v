@@ -10,7 +10,7 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt);
     output  [DATA_WIDTH - 1:0] out_data;
 
     // Internal wires
-    wire    [DATA_WIDTH - 1:0] FP_AddSub_Out, FP_Mul_Out, FP_Div_Out, FP_MinMax_Out, FP_Cmp_Out, FP_SGNJ_Out, FP_Convert_Out, FP_Int_Convert_Out, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6;
+    wire    [DATA_WIDTH - 1:0] FP_AddSub_Out, FP_Mul_Out, FP_Div_Out, FP_MinMax_Out, FP_Cmp_Out, FP_SGNJ_Out, FP_Convert_Out, FP_Int_Convert_Out, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6, wire_7;
 
     FP_AddSub FP_AddSub_Inst0 (
         .in_numA(in_rs1),
