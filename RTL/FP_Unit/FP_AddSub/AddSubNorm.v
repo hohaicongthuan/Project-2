@@ -27,7 +27,7 @@ module AddSubNorm(in_Exp, in_Mant, out_result, out_flag_OF, out_flag_UF);
     // Output result
     assign result_Exp = (in_Mant[52]) ? Exp_2 : normalised_Exp;
     assign result_Mant = (in_Mant[52]) ? Mant_2 : normalised_Mant;
-    assign out_result = {in_Mant[54], (result_Exp[10:0] + 11'd1023), result_Mant[51:0]};
+    assign out_result = {in_Mant[54], result_Exp[10:0], result_Mant[51:0]};
 
     // Assign flags
     assign out_flag_OF = (result_Exp > 12'd1024) ? 1'b1 : 1'b0;

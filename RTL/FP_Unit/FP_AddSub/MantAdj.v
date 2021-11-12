@@ -19,9 +19,9 @@ module MantAdj(in_signA, in_signB, in_biggerExp, in_shiftAmount, in_mantA, in_ma
     assign adjusted_A = trueMantA >> in_shiftAmount;
     assign adjusted_B = trueMantB >> in_shiftAmount;
 
-    // Extend the mantissae to 54 bits
-    assign extended_A = (!in_biggerExp) ? ({2'b0, trueMantA}) : ({2'b0, adjusted_A});
-    assign extended_B = (in_biggerExp) ? ({2'b0, trueMantB}) : ({2'b0, adjusted_B});
+    // Extend the mantissae to 55 bits
+    assign extended_A = (in_biggerExp) ? ({2'b0, adjusted_A}) : ({2'b0, adjusted_B});
+    assign extended_B = (!in_biggerExp) ? ({2'b0, trueMantA}) : ({2'b0, trueMantB});
 
     // Output
     assign out_mantA = (in_signA) ? ~extended_A : extended_A;
