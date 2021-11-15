@@ -1,9 +1,10 @@
 // This module is the top-level of the Floating-point Unit
 
-module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt);
+module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt, in_addsub_ctrl, in_ctrl_minmax_sgnj_cmp);
     parameter DATA_WIDTH = 64;
 
-    input   in_fmt, in_output_fmt;
+    input   in_fmt, in_output_fmt, in_addsub_ctrl;
+    input   [2:0] in_ctrl_minmax_sgnj_cmp;
     input   [3:0] in_FPU_Op;
     input   [DATA_WIDTH - 1:0] in_rs1, in_rs2;
 
@@ -16,7 +17,7 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt);
     FP_AddSub FP_AddSub_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .in_addsub(),
+        .in_addsub(in_addsub_ctrl),
         .out_result(FP_AddSub_Out),
         .out_flag_OF(),
         .out_flag_UF()
@@ -34,14 +35,14 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt);
     FP_MinMax FP_MinMax_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .out_num(FP_MinMax_Out),
-        .in_ctrl_minmax(),
-        .in_fmt()
+        .out_data(FP_MinMax_Out),
+        .in_ctrl_minmax(in_ctrl_minmax_sgnj_cmp[0]),
+        .in_fmt(in_fmt)
     );
     FP_Cmp FP_Cmp_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .in_cmp_type(),
+        .in_cmp_type(in_ctrl_minmax_sgnj_cmp[1:0]),
         .in_fmt(in_fmt),
         .out_data(FP_Cmp_Out),
         .out_flag_NV()
@@ -49,7 +50,7 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt);
     FP_SGNJ FP_SGNJ_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .in_ctrl_jnx(),
+        .in_ctrl_jnx(in_ctrl_minmax_sgnj_cmp[1:0]),
         .in_fmt(in_fmt),
         .out_data(FP_SGNJ_Out)
     );
@@ -62,7 +63,7 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt);
     FP_Int_Convert FP_Int_Convert_Inst0 (
         .in_data(in_rs1),
         .in_fmt(in_fmt),
-        .in_output_fmt(),
+        .in_output_fmt(in_output_fmt),
         .out_data(FP_Int_Convert_Out),
         .out_flg_NV()
     );

@@ -4,8 +4,8 @@ module FP_Cmp(in_numA, in_numB, in_cmp_type, in_fmt, out_data, out_flag_NV);
     parameter DATA_WIDTH = 64;
 
     input   [DATA_WIDTH - 1:0] in_numA, in_numB;
-    input   [1:0] in_cmp_type;  // Comparison type, including: equal (00),
-                                // less than (01), and less than or equal comparison (10)
+    input   [1:0] in_cmp_type;  // Comparison type, including: equal (10),
+                                // less than (01), and less than or equal comparison (00)
     input   in_fmt;     // Determine the inputted number is single-precision or
                         // double-precision
 
@@ -58,7 +58,7 @@ module FP_Cmp(in_numA, in_numB, in_cmp_type, in_fmt, out_data, out_flag_NV);
     assign lte_result = (equ_result == 64'd1 | lt_result == 64'd1) ? 64'd1 : 64'd0;
 
     // Final output
-    assign out_data = (in_cmp_type == 2'b00) ? equ_result : wire_5;
+    assign out_data = (in_cmp_type == 2'b10) ? equ_result : wire_5;
     assign wire_5 = (in_cmp_type == 2'b01) ? lt_result : wire_6;
-    assign wire_6 = (in_cmp_type == 2'b10) ? lte_result : 64'd0;
+    assign wire_6 = (in_cmp_type == 2'b00) ? lte_result : 64'd0;
 endmodule
