@@ -3,6 +3,7 @@ module RV64IFD_top(in_DM_data, in_inst, in_Clk, out_inst_addr, out_addr, out_wr_
     input   [31:0] in_inst;
     input   [63:0] in_DM_data;
 
+    output  out_DM_wr_en;
     output  [63:0] out_inst_addr, out_addr, out_wr_data;
 
     wire    [4:0] wire_flag;
@@ -14,7 +15,7 @@ module RV64IFD_top(in_DM_data, in_inst, in_Clk, out_inst_addr, out_addr, out_wr_
         .in_ctrl_signal(wire_ctrl_signal[22:1]),
         .in_inst(in_inst),
         .in_DM_data(in_DM_data),
-        .in_Clk(in_Clk),
+        .Clk(in_Clk),
         .out_inst_addr(out_inst_addr),
         .out_addr(out_addr),
         .out_wr_data(out_wr_data),

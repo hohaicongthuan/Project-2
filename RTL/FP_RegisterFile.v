@@ -1,16 +1,7 @@
-module FP_RegisterFile(
-    data_in,
-    data_outA,
-    data_outB,
-    addr_A,
-    addr_B,
-    writeAddr,
-    write_En,
-    Clk
-);
+module FP_RegisterFile(data_in, data_outA, data_outB, addr_A, addr_B, writeAddr, write_En, Clk);
 
     parameter DATA_WIDTH = 64;
-    parameter ADDR_WIDTH = 6;
+    parameter ADDR_WIDTH = 5;
 
     input   Clk, write_En;
     input   [ADDR_WIDTH - 1:0] addr_A, addr_B, writeAddr;

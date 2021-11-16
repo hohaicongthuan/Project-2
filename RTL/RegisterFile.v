@@ -1,16 +1,7 @@
-module RegisterFile(
-    data_in,
-    data_outA,
-    data_outB,
-    addr_A,
-    addr_B,
-    writeAddr,
-    write_En,
-    Clk
-);
+module RegisterFile(data_in, data_outA, data_outB, addr_A, addr_B, writeAddr, write_En, Clk);
 
     parameter DATA_WIDTH = 64;
-    parameter ADDR_WIDTH = $clog2(DATA_WIDTH);
+    parameter ADDR_WIDTH = 5;
 
     input   Clk, write_En;
     input   [ADDR_WIDTH - 1:0] addr_A, addr_B, writeAddr;
@@ -24,6 +15,6 @@ module RegisterFile(
         registerFile[writeAddr] <= (write_En) ? data_in : registerFile[writeAddr];
     end
 
-    assign data_outA = (addr_A == 6'd0) ? 64'd0 : registerFile[addr_A];
-    assign data_outB = (addr_A == 6'd0) ? 64'd0 : registerFile[addr_B];
+    assign data_outA = (addr_A == 5'd0) ? 64'd0 : registerFile[addr_A];
+    assign data_outB = (addr_A == 5'd0) ? 64'd0 : registerFile[addr_B];
 endmodule
