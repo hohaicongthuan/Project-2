@@ -7,3 +7,5 @@ Scripts/Test/codeGenerator.py
 **.expected
 **TestCaseA.in
 **TestCaseB.in
+**.out
+**.log

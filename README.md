@@ -22,7 +22,7 @@ FP_Div | Floating-point divisor | UNTESTED
 FP_Mul | Floating-point multiplier | UNTESTED
 FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | TESTED
 FP_Int_Convert | Floating-point to Integer Converter | TESTED
-FP_MinMax | Floating-point Min/Max | UNTESTED
+FP_MinMax | Floating-point Min/Max | TESTED
 FP_SGNJ | Floating-point sign injector | TESTED
 
 ## 3. Supported Instructions
