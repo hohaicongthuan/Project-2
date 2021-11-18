@@ -9,7 +9,7 @@ def Hex_To_Float(x):
     return struct.unpack('!f', bytes.fromhex(x))[0]
 
 # Function that converts a hex string (in 64-bit floating-point format) to a float number
-def Hex_To_Float(x):
+def Hex_To_Double(x):
     return struct.unpack('!d', bytes.fromhex(x))[0]
 
 # Function that converts a 32-bit floating-point number to a hex string
