@@ -1,10 +1,11 @@
 # Project-2
-This repo contains codes from my Project 2 class. My task is implementing RISC-V base 64 integer with F and D extensions, acronym is RV64IFD, ISA on FPGA.
+This repo contains codes from my Project 2 class. My task is implementing RISC-V ISA (Instruction Set Architecture) base 64 integer with F extension, acronym RV64IF, on FPGA.
 
 ## 1. Directory Info
 
 - `Diagrams`: contains diagrams in DRAWIO format, which can be opened in [Draw.io](https://app.diagrams.net), and PNG format.
 - `RTL`: contains the Verilog source code of the project.
+- `Scripts`: some utility scripts for creating test cases for some modules and checking the test results.
 - `Testbench`: contains files for Testbench.
 
 ## 2. Modules' Status
@@ -19,8 +20,7 @@ Shift| Integer logical/arithmetic left/right Shifter | TESTED
 FP_AddSub | Floating-point adder/subtractor | UNTESTED
 FP_Cmp | Floating-point comparator | TESTED
 FP_Div | Floating-point divisor | UNTESTED
-FP_Mul | Floating-point multiplier | UNTESTED
-FP_Convert | Floating-point converter (32-bit FP to 64-bit FP and vice versa) | TESTED
+FP_Mul | Floating-point multiplier | TESTED
 FP_Int_Convert | Floating-point to Integer Converter | TESTED
 FP_MinMax | Floating-point Min/Max | TESTED
 FP_SGNJ | Floating-point sign injector | TESTED
@@ -101,46 +101,22 @@ No. | Mnemonic | Type | Description
 No. | Mnemonic | Type | Description
 :-:|-|:-:|-
 50 | FLW | I | Load a 32-bit floating-point number from memory to register `rd`.
-51 | FLD | I | Load a 64-bit floating-point number from memory to register `rd`.
-52 | FSW | S | Store a 32-bit floating-point number
-53 | FSD | S | Store a 64-bit floating-point number
-54 | FADD.S | R | Add two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-55 | FSUB.S | R | Subtract two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-56 | FMUL.S | R | Multiply two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-57 | FDIV.S | R | Divide two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-58 | ~~FSQRT.S~~ | R | Calculate the square root of the 32-bit floating-point value in register `rs1`. The result is saved in register `rd`.
-59 | FMIN.S | R | Compare two 32-bit floating-point numbers from register `rs1` and `rs2`. Return the smaller one to register `rd`.
-60 | FMAX.S | R | Compare two 32-bit floating-point numbers from register `rs1` and `rs2`. Return the bigger one to register `rd`.
-61 | FADD.D | R | Add two 64-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-62 | FSUB.D | R | Subtract two 64-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-63 | FMUL.D | R | Multiply two 64-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-64 | FDIV.D | R | Divide two 64-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
-65 | ~~FSQRT.D~~ | R | Calculate the square root of the 64-bit floating-point value in register `rs1`. The result is saved in register `rd`.
-66 | FMIN.D | R | Compare two 64-bit floating-point numbers from register `rs1` and `rs2`. Return the smaller one to register `rd`.
-67 | FMAX.D | R | Compare two 64-bit floating-point numbers from register `rs1` and `rs2`. Return the bigger one to register `rd`.
-68 | FCVT.S.D | R | Convert 64-bit floating-point number from floating-point register `rs1` to 32-bit one which will be saved to floating-point register `rd`
-69 | FCVT.D.S | R | Convert 32-bit floating-point number from floating-point register `rs1` to 64-bit one which will be saved to floating-point register `rd`
-70 | FCVT.W.S | R | Convert a 32-bit floating-point number in floating-point register `rs1` to a signed 32-bit integer in integer register `rd`.
-71 | FCVT.S.W | R | Convert a 32-bit integer number in integer register `rs1` to a 32-bit floating-point in floating-point register `rd`.
-72 | FCVT.W.D | R | Convert a 64-bit floating-point number in floating-point register `rs1` to a signed 32-bit integer in integer register `rd`.
-73 | FCVT.D.W | R | Convert a 32-bit integer number in integer register `rs1` to a 64-bit floating-point in floating-point register `rd`.
-74 | FCVT.L.D | R | Convert a 64-bit floating-point number in floating-point register `rs1` to a signed 64-bit integer in integer register `rd`.
-75 | FCVT.D.L | R | Convert a 64-bit integer number in integer register `rs1` to a 64-bit floating-point in floating-point register `rd`.
-76 | FCVT.L.S | R | Convert a 32-bit floating-point number in floating-point register `rs1` to a signed 64-bit integer in integer register `rd`.
-77 | FCVT.S.L | R | Convert a 64-bit integer number in integer register `rs1` to a 32-bit floating-point in floating-point register `rd`.
-78 | FSGNJ.S | R | SiGN inJection. Copy sign bit of the 32-bit floating-point number in register `r2` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-79 | FSGNJN.S | R | SiGN inJection Negated. Copy and invert sign bit of the 32-bit floating-point number in register `r2` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-80 | FSGNJX.S | R | SiGN inJection Xor-ed. XOR two sign bits of the 32-bit floating-point number in register `r2` and `r1` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-81 | FSGNJ.D | R | SiGN inJection. Copy sign bit of the 64-bit floating-point number in register `r2` and place it in the sign bit of the 64-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-82 | FSGNJN.D | R | SiGN inJection Negated. Copy and invert sign bit of the 64-bit floating-point number in register `r2` and place it in the sign bit of the 64-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-83 | FSGNJX.D | R | SiGN inJection Xor-ed. XOR two sign bits of the 64-bit floating-point number in register `r2` and `r1` and place it in the sign bit of the 64-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
-84 | FEQ.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If they're equal, write `1` to the integer register `rd`. Otherwise, write `0`.
-85 | FLT.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
-86 | FLE.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than or equal to the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
-87 | FEQ.D | R | Compare two 64-bit floating-point numbers in floating-point register `rs1` and `rs2`. If they're equal, write `1` to the integer register `rd`. Otherwise, write `0`.
-88 | FLT.D | R | Compare two 64-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
-89 | FLE.D | R | Compare two 64-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than or equal to the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
-90 | FMV.X.W | R | Move 32-bit floating-point from floating-point register `rs1` to lower 32-bit in integer register `rd`.
-91 | FMV.W.X | R | Move 32-bit floating-point from integer register `rs1` to floating-point register `rd`.
-92 | FMV.X.D | R | Move 64-bit floating-point from floating-point register `rs1` to integer register `rd`.
-93 | FMV.D.X | R | Move 64-bit floating-point from integer register `rs1` to floating-point register `rd`.
+51 | FSW | S | Store a 32-bit floating-point number
+52 | FADD.S | R | Add two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
+53 | FSUB.S | R | Subtract two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
+54 | FMUL.S | R | Multiply two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
+55 | FDIV.S | R | Divide two 32-bit floating-point numbers from register `rs1` and `rs2`. The result is saved back to register `rd`.
+56 | FMIN.S | R | Compare two 32-bit floating-point numbers from register `rs1` and `rs2`. Return the smaller one to register `rd`.
+57 | FMAX.S | R | Compare two 32-bit floating-point numbers from register `rs1` and `rs2`. Return the bigger one to register `rd`.
+58 | FCVT.W.S | R | Convert a 32-bit floating-point number in floating-point register `rs1` to a signed 32-bit integer in integer register `rd`.
+59 | FCVT.S.W | R | Convert a 32-bit integer number in integer register `rs1` to a 32-bit floating-point in floating-point register `rd`.
+60 | FCVT.L.S | R | Convert a 32-bit floating-point number in floating-point register `rs1` to a signed 64-bit integer in integer register `rd`.
+61 | FCVT.S.L | R | Convert a 64-bit integer number in integer register `rs1` to a 32-bit floating-point in floating-point register `rd`.
+62 | FSGNJ.S | R | SiGN inJection. Copy sign bit of the 32-bit floating-point number in register `r2` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
+63 | FSGNJN.S | R | SiGN inJection Negated. Copy and invert sign bit of the 32-bit floating-point number in register `r2` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
+64 | FSGNJX.S | R | SiGN inJection Xor-ed. XOR two sign bits of the 32-bit floating-point number in register `r2` and `r1` and place it in the sign bit of the 32-bit floating-point number in register `r1`. The result is saved in floating-point register `rd`.
+65 | FEQ.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If they're equal, write `1` to the integer register `rd`. Otherwise, write `0`.
+66 | FLT.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
+67 | FLE.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than or equal to the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
+68 | FMV.X.W | R | Move 32-bit floating-point from floating-point register `rs1` to lower 32-bit in integer register `rd`.
+69 | FMV.W.X | R | Move 32-bit floating-point from integer register `rs1` to floating-point register `rd`.
