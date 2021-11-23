@@ -1,0 +1,76 @@
+module FP_AddSub(in_numA, in_numB, in_ctrl_addsub, out_data);
+    input   in_ctrl_addsub;
+    input   [31:0] in_numA, in_numB;
+
+    output reg  [31:0] out_data;
+
+    // Internal wires
+    reg signA, signB;
+    reg [7:0] expA, expB, bigger_exp, exp_diff, bigger_exp_1, normalised_exp;
+    reg [22:0] mantA, mantB;
+    reg [25:0] trueMantA, trueMantB, adjusted_A, adjusted_B, final_mantA, final_mantB, sum_mant, sum_mant_1, sum_mant_2, normalised_mant;
+
+    always @ (*) begin
+        signA = in_numA[31];
+        signB = in_numB[31] ^ in_ctrl_addsub;
+        expA = in_numA[30:23];
+        expB = in_numB[30:23];
+        mantA = in_numA[22:0];
+        mantB = in_numB[22:0];
+
+        // Compare exponents
+        bigger_exp = (expA > expB) ? (expA - 8'd127) : (expB - 8'd127);
+        exp_diff = (expA > expB) ? (expA - expB) : (expB - expA);
+
+        // Adjust mantissae
+        trueMantA = {3'b001, mantA};
+        trueMantB = {3'b001, mantB};
+        adjusted_A = (expA > expB) ? (trueMantA) : (trueMantA >> exp_diff);
+        adjusted_B = (expA > expB) ? (trueMantB >> exp_diff) : (trueMantB);
+        final_mantA = (signA) ? ~adjusted_A : adjusted_A;
+        final_mantB = (signB) ? ~adjusted_B : adjusted_B;
+
+        // Add mantissae
+        sum_mant = final_mantA + final_mantB;
+        sum_mant_1 = (sum_mant[25]) ? ~sum_mant : sum_mant;
+
+        if (sum_mant_1[24]) begin
+            sum_mant_2 = sum_mant_1 >> 1;
+            bigger_exp_1 = bigger_exp + 8'd1;
+        end else begin
+            sum_mant_2 = sum_mant_1;
+            bigger_exp_1 = bigger_exp;
+        end
+
+        if (sum_mant_1[23]) begin
+            normalised_exp = bigger_exp_1;
+            normalised_mant = sum_mant_2;
+        end else begin
+            if (sum_mant_1[22]) begin normalised_exp = bigger_exp - 8'd1; normalised_mant = sum_mant_1 << 1; end
+            else if (sum_mant_1[21]) begin normalised_exp = bigger_exp - 8'd2; normalised_mant = sum_mant_1 << 2; end
+            else if (sum_mant_1[20]) begin normalised_exp = bigger_exp - 8'd3; normalised_mant = sum_mant_1 << 3; end
+            else if (sum_mant_1[19]) begin normalised_exp = bigger_exp - 8'd4; normalised_mant = sum_mant_1 << 4; end
+            else if (sum_mant_1[18]) begin normalised_exp = bigger_exp - 8'd5; normalised_mant = sum_mant_1 << 5; end
+            else if (sum_mant_1[17]) begin normalised_exp = bigger_exp - 8'd6; normalised_mant = sum_mant_1 << 6; end
+            else if (sum_mant_1[16]) begin normalised_exp = bigger_exp - 8'd7; normalised_mant = sum_mant_1 << 7; end
+            else if (sum_mant_1[15]) begin normalised_exp = bigger_exp - 8'd8; normalised_mant = sum_mant_1 << 8; end
+            else if (sum_mant_1[14]) begin normalised_exp = bigger_exp - 8'd9; normalised_mant = sum_mant_1 << 9; end
+            else if (sum_mant_1[13]) begin normalised_exp = bigger_exp - 8'd10; normalised_mant = sum_mant_1 << 10; end
+            else if (sum_mant_1[12]) begin normalised_exp = bigger_exp - 8'd11; normalised_mant = sum_mant_1 << 11; end
+            else if (sum_mant_1[11]) begin normalised_exp = bigger_exp - 8'd12; normalised_mant = sum_mant_1 << 12; end
+            else if (sum_mant_1[10]) begin normalised_exp = bigger_exp - 8'd13; normalised_mant = sum_mant_1 << 13; end
+            else if (sum_mant_1[9]) begin normalised_exp = bigger_exp - 8'd14; normalised_mant = sum_mant_1 << 14; end
+            else if (sum_mant_1[8]) begin normalised_exp = bigger_exp - 8'd15; normalised_mant = sum_mant_1 << 15; end
+            else if (sum_mant_1[7]) begin normalised_exp = bigger_exp - 8'd16; normalised_mant = sum_mant_1 << 16; end
+            else if (sum_mant_1[6]) begin normalised_exp = bigger_exp - 8'd17; normalised_mant = sum_mant_1 << 17; end
+            else if (sum_mant_1[5]) begin normalised_exp = bigger_exp - 8'd18; normalised_mant = sum_mant_1 << 18; end
+            else if (sum_mant_1[4]) begin normalised_exp = bigger_exp - 8'd19; normalised_mant = sum_mant_1 << 19; end
+            else if (sum_mant_1[3]) begin normalised_exp = bigger_exp - 8'd20; normalised_mant = sum_mant_1 << 20; end
+            else if (sum_mant_1[2]) begin normalised_exp = bigger_exp - 8'd21; normalised_mant = sum_mant_1 << 21; end
+            else if (sum_mant_1[1]) begin normalised_exp = bigger_exp - 8'd22; normalised_mant = sum_mant_1 << 22; end
+            else begin normalised_exp = bigger_exp - 8'd23; normalised_mant = sum_mant_1 << 23; end
+        end
+
+        out_data = {sum_mant[25], (normalised_exp + 8'd127), normalised_mant[22:0]};
+    end
+endmodule

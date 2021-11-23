@@ -1,9 +1,10 @@
 // This module is the top-level of the Floating-point Unit
 
-module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt, in_addsub_ctrl, in_ctrl_minmax_sgnj_cmp);
-    parameter DATA_WIDTH = 64;
+module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_ctrl_minmax_sgnj_cmp);
+    parameter DATA_WIDTH = 32;
 
-    input   in_fmt, in_output_fmt, in_addsub_ctrl;
+    input   in_addsub_ctrl;
+    input   [1:0] in_fmt;
     input   [2:0] in_ctrl_minmax_sgnj_cmp;
     input   [3:0] in_FPU_Op;
     input   [DATA_WIDTH - 1:0] in_rs1, in_rs2;
@@ -37,13 +38,11 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt, in_ad
         .in_numB(in_rs2),
         .out_data(FP_MinMax_Out),
         .in_ctrl_minmax(in_ctrl_minmax_sgnj_cmp[0]),
-        .in_fmt(in_fmt)
     );
     FP_Cmp FP_Cmp_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
         .in_cmp_type(in_ctrl_minmax_sgnj_cmp[1:0]),
-        .in_fmt(in_fmt),
         .out_data(FP_Cmp_Out),
         .out_flag_NV()
     );
@@ -51,19 +50,11 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt, in_ad
         .in_numA(in_rs1),
         .in_numB(in_rs2),
         .in_ctrl_jnx(in_ctrl_minmax_sgnj_cmp[1:0]),
-        .in_fmt(in_fmt),
         .out_data(FP_SGNJ_Out)
-    );
-    FP_Convert FP_Convert_Inst0 (
-        .in_data(in_rs1),
-        .out_data(FP_Convert_Out),
-        .in_fmt(in_fmt),
-        .out_flag_nx()
     );
     FP_Int_Convert FP_Int_Convert_Inst0 (
         .in_data(in_rs1),
         .in_fmt(in_fmt),
-        .in_output_fmt(in_output_fmt),
         .out_data(FP_Int_Convert_Out),
         .out_flg_NV()
     );
@@ -74,6 +65,5 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_output_fmt, in_ad
     assign wire_3 = (in_FPU_Op == 4'b0011) ? FP_MinMax_Out : wire_4;
     assign wire_4 = (in_FPU_Op == 4'b0100) ? FP_Cmp_Out : wire_5;
     assign wire_5 = (in_FPU_Op == 4'b0101) ? FP_SGNJ_Out : wire_6;
-    assign wire_6 = (in_FPU_Op == 4'b0110) ? FP_Convert_Out : wire_7;
-    assign wire_7 = (in_FPU_Op == 4'b0111) ? FP_Int_Convert_Out : 64'd0;
+    assign wire_6 = (in_FPU_Op == 4'b0110) ? FP_Int_Convert_Out : 64'd0;
 endmodule
