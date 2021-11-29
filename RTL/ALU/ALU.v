@@ -1,7 +1,7 @@
-module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, in_output_fmt, in_sub_aShift_ctrl, out_data, out_ALU_flag);
+module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, in_sub_aShift_ctrl, out_data, out_ALU_flag);
     parameter DATA_WIDTH = 64;
 
-    input   in_output_fmt, in_sub_aShift_ctrl;
+    input   in_sub_aShift_ctrl;
     input   [1:0] in_fmt;
     input   [DATA_WIDTH - 1:0] in_rs1, in_rs2;
     input   [3:0] in_ALU_Op;
@@ -40,9 +40,7 @@ module ALU(in_rs1, in_rs2, in_ALU_Op, in_fmt, in_output_fmt, in_sub_aShift_ctrl,
     );
     IntToFP IntToFP_Inst0(
         .in_data(in_rs1),
-        .in_fmt(in_fmt[1]),
-        .in_signed_unsigned(in_fmt[0]),
-        .in_output_fmt(in_output_fmt),
+        .in_fmt(in_fmt),
         .out_data(IntToFP_Out)
     );
 
