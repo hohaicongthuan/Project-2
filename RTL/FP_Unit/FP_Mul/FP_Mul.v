@@ -8,9 +8,9 @@ module FP_Mul(in_numA, in_numB, out_result);
 
     // Internal wires
     wire    result_sign;
-    wire    [EXP_WIDTH - 1:0] result_exp, normalised_exp, sp_final_exp, sp_exp_A, sp_exp_B;
+    wire    [EXP_WIDTH - 1:0] result_exp, normalised_exp, sp_final_exp;
     wire    [MANT_WIDTH - 1:0] normalised_mant;
-    wire    [DATA_WIDTH - 1:0] numA, numB, dp_out_result, sp_out_result;
+    wire    [DATA_WIDTH - 1:0] numA, numB;
     wire    [47:0] product_mant;
 
     assign numA = {in_numA[31], (in_numA[30:23] - 8'd127), in_numA[22:0]};
