@@ -1,4 +1,4 @@
-module RV64IFD_top(in_DM_data, in_inst, in_Clk, out_inst_addr, out_addr, out_wr_data, out_DM_wr_en);
+module RV64IF_top(in_DM_data, in_inst, in_Clk, out_inst_addr, out_addr, out_wr_data, out_DM_wr_en);
     input   in_Clk;
     input   [31:0] in_inst;
     input   [63:0] in_DM_data;

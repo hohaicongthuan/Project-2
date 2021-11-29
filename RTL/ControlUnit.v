@@ -37,28 +37,16 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
     parameter LWU           = 23'b00000100000010000000000; parameter SB         = 23'b00000001010010000000001;
     parameter SH            = 23'b00000001010010000000001; parameter SW         = 23'b00000001010010000000001;
     parameter SD            = 23'b00000001010010000000001; parameter FLW        = 23'b00000010000010000000000;
-    parameter FLD           = 23'b00000010000010000000000; parameter FSW        = 23'b00000001010011000000001;
-    parameter FSD           = 23'b00000001010011000000001; parameter FADD_S     = 23'b00010010100000000000000;
+    parameter FSW           = 23'b00000001010011000000001; parameter FADD_S     = 23'b00010010100000000000000;
     parameter FSUB_S        = 23'b00010010100000000000000; parameter FMUL_S     = 23'b00010010100000000000010;
-    parameter FDIV_S        = 23'b00010010100000000000100; /* parameter FSQRT_S    = 23'bXXXXXXXXXXXXXXXXXXXXXXX; */
-    parameter FMIN_S        = 23'b00010010100000000000110; parameter FMAX_S     = 23'b00010010100000000001000;
-    parameter FADD_D        = 23'b00010010100000000000000; parameter FSUB_D     = 23'b00010010100000000000000;
-    parameter FMUL_D        = 23'b00010010100000000000010; parameter FDIV_D     = 23'b00010010100000000000100;
-    /* parameter FSQRT_D    = 23'bXXXXXXXXXXXXXXXXXXXXXXX; */ parameter FMIN_D     = 23'b00010010100000000000110;
-    parameter FMAX_D        = 23'b00010010100000000001000; parameter FCVT_S_D   = 23'b00010010100000000001010;
-    parameter FCVT_D_S      = 23'b00010010100000000001010; parameter FCVT_W_S   = 23'b01100100100000000001100;
-    parameter FCVT_S_W      = 23'b00001010100000100100000; parameter FCVT_W_D   = 23'b01100100100000000001100;
-    parameter FCVT_D_W      = 23'b00001010100000100100000; parameter FCVT_L_D   = 23'b01100100100000000001100;
-    parameter FCVT_D_L      = 23'b00001010100000100100000; parameter FCVT_L_S   = 23'b01100100100000000001100;
+    parameter FDIV_S        = 23'b00010010100000000000100; parameter FMIN_S     = 23'b00010010100000000000110;
+    parameter FMAX_S        = 23'b00010010100000000001000; parameter FCVT_W_S   = 23'b01100100100000000001100;
+    parameter FCVT_S_W      = 23'b00001010100000100100000; parameter FCVT_L_S   = 23'b01100100100000000001100;
     parameter FCVT_S_L      = 23'b00001010100000100100000; parameter FSGNJ_S    = 23'b00010010100000000001110;
     parameter FSGNJN_S      = 23'b00010010100000000001110; parameter FSGNJX_S   = 23'b00010010100000000001110;
-    parameter FSGNJ_D       = 23'b00010010100000000001110; parameter FSGNJN_D   = 23'b00010010100000000001110;
-    parameter FSGNJX_D      = 23'b00010010100000000001110; parameter FEQ_S      = 23'b00010010100000000010000;
-    parameter FLT_S         = 23'b00010010100000000010000; parameter FLE_S      = 23'b00010010100000000010000;
-    parameter FEQ_D         = 23'b00010010100000000010000; parameter FLT_D      = 23'b00010010100000000010000;
-    parameter FLE_D         = 23'b00010010100000000010000; parameter FMV_X_W    = 23'b01100100100000001010010;
-    parameter FMV_W_X       = 23'b00001010100000000000000; parameter FMV_X_D    = 23'b01100100100000001010010;
-    parameter FMV_D_X       = 23'b00001010100000000000000;
+    parameter FEQ_S         = 23'b00010010100000000010000; parameter FLT_S      = 23'b00010010100000000010000;
+    parameter FLE_S         = 23'b00010010100000000010000; parameter FMV_X_W    = 23'b01100100100000001010010;
+    parameter FMV_W_X       = 23'b00001010100000000000000;
     
     input   [4:0] in_flag;
     input   [31:0] in_inst;
@@ -143,20 +131,8 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
                     default: out_ctrl_signal = 23'd0;
                 endcase
             end
-            LOAD_FP: begin
-                case (in_inst[14:12])
-                    3'b010: out_ctrl_signal = FLW;
-                    3'b011: out_ctrl_signal = FLD;
-                    default: out_ctrl_signal = 23'd0;
-                endcase
-            end
-            STORE_FP: begin
-                case (in_inst[14:12])
-                    3'b010: out_ctrl_signal = FSW;
-                    3'b011: out_ctrl_signal = FSD;
-                    default: out_ctrl_signal = 23'd0;
-                endcase
-            end
+            LOAD_FP: begin out_ctrl_signal = FLW; end
+            STORE_FP: begin out_ctrl_signal = FSW; end
             OP_FP: begin
                 case (in_inst[31:25])
                     7'b0000000: out_ctrl_signal = FADD_S;
@@ -164,30 +140,13 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
                     7'b0001000: out_ctrl_signal = FMUL_S;
                     7'b0001100: out_ctrl_signal = FDIV_S;
                     7'b0010100: out_ctrl_signal = (in_inst[12]) ? FMAX_S : FMIN_S;
-                    7'b0000001: out_ctrl_signal = FADD_D;
-                    7'b0000101: out_ctrl_signal = FSUB_D;
-                    7'b0001001: out_ctrl_signal = FMUL_D;
-                    7'b0001101: out_ctrl_signal = FDIV_D;
-                    7'b0010101: out_ctrl_signal = (in_inst[12]) ? FMAX_D : FMIN_D;
-                    7'b0100000: out_ctrl_signal = FCVT_S_D;
-                    7'b0100001: out_ctrl_signal = FCVT_D_S;
                     7'b1100000: out_ctrl_signal = (in_inst[21]) ? FCVT_L_S : FCVT_W_S;
                     7'b1101000: out_ctrl_signal = (in_inst[21]) ? FCVT_S_L : FCVT_S_W;
-                    7'b1100001: out_ctrl_signal = (in_inst[21]) ? FCVT_L_D : FCVT_W_D;
-                    7'b1101001: out_ctrl_signal = (in_inst[21]) ? FCVT_D_L : FCVT_D_W;
                     7'b0010000: begin
                         case (in_inst[14:12])
                             3'b000: out_ctrl_signal = FSGNJ_S;
                             3'b001: out_ctrl_signal = FSGNJN_S;
                             3'b010: out_ctrl_signal = FSGNJX_S;
-                            default: out_ctrl_signal = 23'd0;
-                        endcase
-                    end
-                    7'b0010001: begin
-                        case (in_inst[14:12])
-                            3'b000: out_ctrl_signal = FSGNJ_D;
-                            3'b001: out_ctrl_signal = FSGNJN_D;
-                            3'b010: out_ctrl_signal = FSGNJX_D;
                             default: out_ctrl_signal = 23'd0;
                         endcase
                     end
@@ -199,18 +158,8 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
                             default: out_ctrl_signal = 23'd0;
                         endcase
                     end
-                    7'b1010001: begin
-                        case (in_inst[14:12])
-                            3'b000: out_ctrl_signal = FLE_D;
-                            3'b001: out_ctrl_signal = FLT_D;
-                            3'b010: out_ctrl_signal = FEQ_D;
-                            default: out_ctrl_signal = 23'd0;
-                        endcase
-                    end
                     7'b1110000: out_ctrl_signal = FMV_X_W;
-                    7'b1110001: out_ctrl_signal = FMV_X_D;
                     7'b1111000: out_ctrl_signal = FMV_W_X;
-                    7'b1111001: out_ctrl_signal = FMV_D_X;
                     default: out_ctrl_signal = 23'd0;
                 endcase
             end

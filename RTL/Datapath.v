@@ -20,7 +20,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Clk, out_inst_addr, out_add
     // parameter PAM_FPU_Op = in_ctrl_signal[4:1];                 // FPU operation code
 
     // Internal wires
-    wire    [63:0] int_RF_out_A, int_RF_out_B, fp_RF_out_A, fp_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, fp_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, fp_wr_dat_wire_1, PC_Add_Four, PC_Add_Imm, PC_From_ALU;
+    wire    [31:0] fp_RF_out_A, fp_RF_out_B, fp_RF_write_data, fp_wr_dat_wire_1;
+    wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU;
 
     assign rs2_Src = (in_ctrl_signal[9]) ? ImmGen_Out : int_RF_out_B;
     assign out_wr_data = (in_ctrl_signal[8]) ? fp_RF_out_B : int_RF_out_B;
@@ -39,8 +40,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Clk, out_inst_addr, out_add
     assign int_wr_dat_wire_3 = (!in_ctrl_signal[21] & in_ctrl_signal[20] & in_ctrl_signal[19]) ? FPU_Out : PC_Add_Imm;
 
     // FP Register File Write Data Source
-    assign fp_RF_write_data = (!in_ctrl_signal[18] & !in_ctrl_signal[17]) ? in_DM_data : fp_wr_dat_wire_1;
-    assign fp_wr_dat_wire_1 = (!in_ctrl_signal[18] & in_ctrl_signal[17]) ? out_addr : FPU_Out;
+    assign fp_RF_write_data = (!in_ctrl_signal[18] & !in_ctrl_signal[17]) ? in_DM_data[31:0] : fp_wr_dat_wire_1;
+    assign fp_wr_dat_wire_1 = (!in_ctrl_signal[18] & in_ctrl_signal[17]) ? out_addr[31:0] : FPU_Out[31:0];
 
     REG PC_Reg_Inst0(
         .in_data(PC_Src),
@@ -57,8 +58,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Clk, out_inst_addr, out_add
         .in_rs1(int_RF_out_A),
         .in_rs2(rs2_Src),
         .in_ALU_Op(in_ctrl_signal[7:4]),
-        .in_fmt(),
-        .in_output_fmt(),
+        .in_fmt(in_inst[21:20]),
         .in_sub_aShift_ctrl(in_inst[30]),
         .out_data(out_addr),
         .out_ALU_flag(out_flag)
@@ -69,7 +69,6 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Clk, out_inst_addr, out_add
         .out_data(FPU_Out),
         .in_FPU_Op(in_ctrl_signal[3:0]),
         .in_fmt(in_inst[25]),
-        .in_output_fmt(in_inst[21:20]),
         .in_addsub_ctrl(in_inst[27]),
         .in_ctrl_minmax_sgnj_cmp(in_inst[14:12])
     );
