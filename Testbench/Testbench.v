@@ -18,7 +18,7 @@ module Testbench();
         
     end
 
-    RV64IFD_top RV64IFD_top_Inst0(
+    RV64IF_top RV64IF_top_Inst0(
         .in_DM_data(DM_Data),
         .in_inst(Inst),
         .in_Clk(Clk),
