@@ -14,8 +14,10 @@ def Hex_To_Float(x):
 if __name__ == "__main__":
     
     # SET ERROR HERE
-    ERROR = 0.000001
+    ERROR = 0.001
     
+    f_A = open("TestCaseA.in", "r")
+    f_B = open("TestCaseB.in", "r")
     f_sum_expected = open("fp_sum.expected", "r")
     f_diff_expected = open("fp_diff.expected", "r")
     f_product_expected = open("fp_product.expected", "r")
@@ -25,6 +27,8 @@ if __name__ == "__main__":
     f_mul_result = open("Mul_Result.out", "r")
     f_div_result = open("Div_Result.out", "r")
 
+    numA = f_A.readlines()
+    numB = f_B.readlines()
     sum_Expected = f_sum_expected.readlines()
     diff_Expected = f_diff_expected.readlines()
     product_Expected = f_product_expected.readlines()
@@ -43,10 +47,10 @@ if __name__ == "__main__":
         temp1 = Hex_To_Float(sum_Expected[i])
         temp2 = Hex_To_Float(add_Result[i])
         
-        if (abs(temp1 - temp2) < ERROR):
+        if (abs(temp1 - temp2) <= ERROR):
             matched += 1
         else:
-            print("UNMATCHED: ", temp2, "\t\tEXPECTED: ", temp1, sep="")
+            print("ERROR: ", Hex_To_Float(numA[i]), " + ", Hex_To_Float(numB[i]), " = ", temp2, "\tEXPECTED: ", temp1, sep="")
         total += 1
     print("\nRESULT: ", matched, "/", total, " results matched!", "\n", sep="")
 
@@ -62,7 +66,7 @@ if __name__ == "__main__":
         if (abs(temp1 - temp2) < ERROR):
             matched += 1
         else:
-            print("UNMATCHED: ", temp2, "\t\tEXPECTED: ", temp1, sep="")
+            print("ERROR: ", Hex_To_Float(numA[i]), " - ", Hex_To_Float(numB[i]), " = ", temp2, "\tEXPECTED: ", temp1, sep="")
         total += 1
     print("\nRESULT: ", matched, "/", total, " results matched!", "\n", sep="")
 
@@ -78,7 +82,7 @@ if __name__ == "__main__":
         if (abs(temp1 - temp2) < ERROR):
             matched += 1
         else:
-            print("UNMATCHED: ", temp2, "\t\tEXPECTED: ", temp1, sep="")
+            print("ERROR: ", Hex_To_Float(numA[i]), " * ", Hex_To_Float(numB[i]), " = ", temp2, "\tEXPECTED: ", temp1, sep="")
         total += 1
     print("\nRESULT: ", matched, "/", total, " results matched!", "\n", sep="")
 
@@ -94,6 +98,6 @@ if __name__ == "__main__":
         if (abs(temp1 - temp2) < ERROR):
             matched += 1
         else:
-            print("UNMATCHED: ", temp2, "\t\tEXPECTED: ", temp1, sep="")
+            print("ERROR: ", Hex_To_Float(numA[i]), " / ", Hex_To_Float(numB[i]), " = ", temp2, "\tEXPECTED: ", temp1, sep="")
         total += 1
     print("\nRESULT: ", matched, "/", total, " results matched!", "\n", sep="")

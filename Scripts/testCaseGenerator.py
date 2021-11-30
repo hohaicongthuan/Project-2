@@ -30,8 +30,8 @@ if __name__ == "__main__":
     f2 = open("TestCaseB.in", "w")
     
     for i in range(1000000):
-        num1 = random.uniform(-1000000.00, 1000000.00)
-        num2 = random.uniform(-1000000.00, 1000000.00)
+        num1 = random.uniform(-1.00, 1.00)
+        num2 = random.uniform(-1.00, 1.00)
 
         sum = num1 + num2
         diff = num1 - num2
