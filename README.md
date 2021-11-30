@@ -120,3 +120,55 @@ No. | Mnemonic | Type | Description
 67 | FLE.S | R | Compare two 32-bit floating-point numbers in floating-point register `rs1` and `rs2`. If the former is less than or equal to the latter, write `1` to the integer register `rd`. Otherwise, write `0`.
 68 | FMV.X.W | R | Move 32-bit floating-point from floating-point register `rs1` to lower 32-bit in integer register `rd`.
 69 | FMV.W.X | R | Move 32-bit floating-point from integer register `rs1` to floating-point register `rd`.
+
+## 4. Test Instructions
+
+There is a file at `Testbench/Instructions.txt` that contains the instructions to test with the RV64IF. It was originally written in C and compiled by *RISC-V rv64gc gcc* compiler version 10.2.0 using [Compiler Explorer](https://godbolt.org/). The C source code is shown below.
+
+```C
+long Add(long a, long b) {
+    return a + b;
+}
+
+long Sub(long a, long b) {
+    return a - b;
+}
+
+float FP_Add(float a, float b) {
+    return a + b;
+}
+
+float FP_Sub(float a, float b) {
+    return a - b;
+}
+
+float FP_Mul(float a, float b) {
+    return a * b;
+}
+
+float FP_Div(float a, float b) {
+    return a / b;
+}
+
+int main() {
+    // Integer operations
+    long int_a = 4132;
+    long int_b = 2312;
+
+    long int_add = Add(int_a, int_b);
+    long int_sub = Sub(int_a, int_b);
+
+    // Floating-point operations
+    float fp_a = 12.3456;
+    float fp_b = 1.23456;
+
+    float fp_add = FP_Add(fp_a, fp_b);
+    float fp_sub = FP_Sub(fp_a, fp_b);
+    float fp_mul = FP_Mul(fp_a, fp_b);
+    float fp_div = FP_Div(fp_a, fp_b);
+    
+    return 0;
+}
+```
+
+In the compiled binary, the address of the entry point (the `main()` function) is `0x105a0`.
