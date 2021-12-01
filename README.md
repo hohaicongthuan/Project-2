@@ -123,8 +123,9 @@ No. | Mnemonic | Type | Description
 
 ## 4. Test Instructions
 
-There is a file at `Testbench/Instructions.txt` that contains the instructions to test with the RV64IF. It was originally written in C and compiled by *RISC-V rv64gc gcc* compiler version 10.2.0 using [Compiler Explorer](https://godbolt.org/). The C source code is shown below.
+There is a file at `Testbench/Instructions.txt` that contains the instructions to test with the RV64IF. It was originally written in C and compiled by *RISC-V rv64gc gcc* compiler version 10.2.0 using [Compiler Explorer](https://godbolt.org/).
 
+The C source code:
 ```C
 long Add(long a, long b) {
     return a + b;
@@ -171,4 +172,139 @@ int main() {
 }
 ```
 
-In the compiled binary, the address of the entry point (the `main()` function) is `0x105a0`.
+The output assembly code:
+```asm
+load_gp:
+    auipc   gp, 0x2
+    addi    gp, gp, 930 # 12800 <__global_pointer$>
+    ret
+Add(long, long):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    sd      a0, -24(s0)
+    sd      a1, -32(s0)
+    ld      a4, -24(s0)
+    ld      a5, -32(s0)
+    add     a5, a4, a5
+    mv      a0, a5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+Sub(long, long):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    sd      a0, -24(s0)
+    sd      a1, -32(s0)
+    ld      a4, -24(s0)
+    ld      a5, -32(s0)
+    sub     a5, a4, a5
+    mv      a0, a5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+FP_Add(float, float):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    fsw     fa0, -20(s0)
+    fsw     fa1, -24(s0)
+    flw     fa4, -20(s0)
+    flw     fa5, -24(s0)
+    fadd.s  fa5, fa4, fa5
+    fmv.s   fa0, fa5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+FP_Sub(float, float):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    fsw     fa0, -20(s0)
+    fsw     fa1, -24(s0)
+    flw     fa4, -20(s0)
+    flw     fa5, -24(s0)
+    fsub.s  fa5, fa4, fa5
+    fmv.s   fa0, fa5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+FP_Mul(float, float):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    fsw     fa0, -20(s0)
+    fsw     fa1, -24(s0)
+    flw     fa4, -20(s0)
+    flw     fa5, -24(s0)
+    fmul.s  fa5, fa4, fa5
+    fmv.s   fa0, fa5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+FP_Div(float, float):
+    addi    sp, sp, -32
+    sd      s0, 24(sp)
+    addi    s0, sp, 32
+    fsw     fa0, -20(s0)
+    fsw     fa1, -24(s0)
+    flw     fa4, -20(s0)
+    flw     fa5, -24(s0)
+    fdiv.s  fa5, fa4, fa5
+    fmv.s   fa0, fa5
+    ld      s0, 24(sp)
+    addi    sp, sp, 32
+    ret
+main:
+    addi    sp, sp, -80
+    sd      ra, 72(sp)
+    sd      s0, 64(sp)
+    addi    s0, sp, 80
+    lui     a5, 0x1
+    addi    a5, a5, 36 # 1024 <__abi_tag-0xf238>
+    sd      a5, -24(s0)
+    lui     a5, 0x1
+    addi    a5, a5, -1784 # 908 <__abi_tag-0xf954>
+    sd      a5, -32(s0)
+    ld      a1, -32(s0)
+    ld      a0, -24(s0)
+    jal     ra, 104d0 <Add(long, long)>
+    sd      a0, -40(s0)
+    ld      a1, -32(s0)
+    ld      a0, -24(s0)
+    jal     ra, 10500 <Sub(long, long)>
+    sd      a0, -48(s0)
+    lui     a5, 0x10
+    flw     fa5, 1796(a5) # 10704 <__libc_csu_fini+0x4>
+    fsw     fa5, -52(s0)
+    lui     a5, 0x10
+    flw     fa5, 1800(a5) # 10708 <__libc_csu_fini+0x8>
+    fsw     fa5, -56(s0)
+    flw     fa1, -56(s0)
+    flw     fa0, -52(s0)
+    jal     ra, 10530 <FP_Add(float, float)>
+    fsw     fa0, -60(s0)
+    flw     fa1, -56(s0)
+    flw     fa0, -52(s0)
+    jal     ra, 10560 <FP_Sub(float, float)>
+    fsw     fa0, -64(s0)
+    flw     fa1, -56(s0)
+    flw     fa0, -52(s0)
+    jal     ra, 10590 <FP_Mul(float, float)>
+    fsw     fa0, -68(s0)
+    flw     fa1, -56(s0)
+    flw     fa0, -52(s0)
+    jal     ra, 105c0 <FP_Div(float, float)>
+    fsw     fa0, -72(s0)
+    li      a5, 0
+    mv      a0, a5
+    ld      ra, 72(sp)
+    ld      s0, 64(sp)
+    addi    sp, sp, 80
+    ret
+```
+
+The compiler options are: `-march=rv64ifd -mabi=lp64d`. Without these compiler options, the result binary instructions are wrong which I have no idea why.
+
+<!-- In the compiled binary, the address of the entry point (the `main()` function) is `0x105f0`. -->
