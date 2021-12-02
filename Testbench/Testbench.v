@@ -5,9 +5,11 @@ module Testbench();
     parameter waittime      = 20;
     parameter clocktime     = 10;
     
-    reg     DM_wr_en, Clk;
-    reg     [31:0] Inst;
-    reg     [DATA_WIDTH - 1:0] Inst_Addr, Addr, Wr_Data, DM_Data;
+    wire    DM_wr_en;
+
+    reg     Clk;
+    wire    [31:0] Inst;
+    wire    [DATA_WIDTH - 1:0] Inst_Addr, Addr, Wr_Data, DM_Data;
 
     initial begin
         Clk = 1'b0; // Initial value of the clock signal
