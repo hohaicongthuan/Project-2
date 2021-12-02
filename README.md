@@ -123,7 +123,7 @@ No. | Mnemonic | Type | Description
 
 ## 4. Test Instructions
 
-There is a file at `Testbench/Instructions.txt` that contains the instructions to test with the RV64IF. It was originally written in C and compiled by *RISC-V rv64gc gcc* compiler version 10.2.0 using [Compiler Explorer](https://godbolt.org/).
+There is a file at `Testbench/Instructions.txt` that contains the instructions to test with the RV64IF. It was originally written in C and compiled using [GNU toolchain for RISC-V](https://github.com/riscv-collab/riscv-gnu-toolchain).
 
 The C source code:
 ```C
@@ -172,137 +172,145 @@ int main() {
 }
 ```
 
-The output assembly code:
+The object code dump using the `objdump` tool provided by the [GNU toolchain for RISC-V](https://github.com/riscv-collab/riscv-gnu-toolchain) is shown below. The column on the leftmost represents the address (in hexadecimal) of the instruction, the next column represents the hexadecimal form of the instruction and the rightmost column represents the corresponding assembly code.
 ```asm
-load_gp:
-    auipc   gp, 0x2
-    addi    gp, gp, 930 # 12800 <__global_pointer$>
-    ret
-Add(long, long):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    sd      a0, -24(s0)
-    sd      a1, -32(s0)
-    ld      a4, -24(s0)
-    ld      a5, -32(s0)
-    add     a5, a4, a5
-    mv      a0, a5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-Sub(long, long):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    sd      a0, -24(s0)
-    sd      a1, -32(s0)
-    ld      a4, -24(s0)
-    ld      a5, -32(s0)
-    sub     a5, a4, a5
-    mv      a0, a5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-FP_Add(float, float):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    fsw     fa0, -20(s0)
-    fsw     fa1, -24(s0)
-    flw     fa4, -20(s0)
-    flw     fa5, -24(s0)
-    fadd.s  fa5, fa4, fa5
-    fmv.s   fa0, fa5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-FP_Sub(float, float):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    fsw     fa0, -20(s0)
-    fsw     fa1, -24(s0)
-    flw     fa4, -20(s0)
-    flw     fa5, -24(s0)
-    fsub.s  fa5, fa4, fa5
-    fmv.s   fa0, fa5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-FP_Mul(float, float):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    fsw     fa0, -20(s0)
-    fsw     fa1, -24(s0)
-    flw     fa4, -20(s0)
-    flw     fa5, -24(s0)
-    fmul.s  fa5, fa4, fa5
-    fmv.s   fa0, fa5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-FP_Div(float, float):
-    addi    sp, sp, -32
-    sd      s0, 24(sp)
-    addi    s0, sp, 32
-    fsw     fa0, -20(s0)
-    fsw     fa1, -24(s0)
-    flw     fa4, -20(s0)
-    flw     fa5, -24(s0)
-    fdiv.s  fa5, fa4, fa5
-    fmv.s   fa0, fa5
-    ld      s0, 24(sp)
-    addi    sp, sp, 32
-    ret
-main:
-    addi    sp, sp, -80
-    sd      ra, 72(sp)
-    sd      s0, 64(sp)
-    addi    s0, sp, 80
-    lui     a5, 0x1
-    addi    a5, a5, 36 # 1024 <__abi_tag-0xf238>
-    sd      a5, -24(s0)
-    lui     a5, 0x1
-    addi    a5, a5, -1784 # 908 <__abi_tag-0xf954>
-    sd      a5, -32(s0)
-    ld      a1, -32(s0)
-    ld      a0, -24(s0)
-    jal     ra, 104d0 <Add(long, long)>
-    sd      a0, -40(s0)
-    ld      a1, -32(s0)
-    ld      a0, -24(s0)
-    jal     ra, 10500 <Sub(long, long)>
-    sd      a0, -48(s0)
-    lui     a5, 0x10
-    flw     fa5, 1796(a5) # 10704 <__libc_csu_fini+0x4>
-    fsw     fa5, -52(s0)
-    lui     a5, 0x10
-    flw     fa5, 1800(a5) # 10708 <__libc_csu_fini+0x8>
-    fsw     fa5, -56(s0)
-    flw     fa1, -56(s0)
-    flw     fa0, -52(s0)
-    jal     ra, 10530 <FP_Add(float, float)>
-    fsw     fa0, -60(s0)
-    flw     fa1, -56(s0)
-    flw     fa0, -52(s0)
-    jal     ra, 10560 <FP_Sub(float, float)>
-    fsw     fa0, -64(s0)
-    flw     fa1, -56(s0)
-    flw     fa0, -52(s0)
-    jal     ra, 10590 <FP_Mul(float, float)>
-    fsw     fa0, -68(s0)
-    flw     fa1, -56(s0)
-    flw     fa0, -52(s0)
-    jal     ra, 105c0 <FP_Div(float, float)>
-    fsw     fa0, -72(s0)
-    li      a5, 0
-    mv      a0, a5
-    ld      ra, 72(sp)
-    ld      s0, 64(sp)
-    addi    sp, sp, 80
-    ret
+0000000000000000 <Add>:
+   0:	fe010113          	addi	sp,sp,-32
+   4:	00813c23          	sd	s0,24(sp)
+   8:	02010413          	addi	s0,sp,32
+   c:	fea43423          	sd	a0,-24(s0)
+  10:	feb43023          	sd	a1,-32(s0)
+  14:	fe843703          	ld	a4,-24(s0)
+  18:	fe043783          	ld	a5,-32(s0)
+  1c:	00f707b3          	add	a5,a4,a5
+  20:	00078513          	mv	a0,a5
+  24:	01813403          	ld	s0,24(sp)
+  28:	02010113          	addi	sp,sp,32
+  2c:	00008067          	ret
+
+0000000000000030 <Sub>:
+  30:	fe010113          	addi	sp,sp,-32
+  34:	00813c23          	sd	s0,24(sp)
+  38:	02010413          	addi	s0,sp,32
+  3c:	fea43423          	sd	a0,-24(s0)
+  40:	feb43023          	sd	a1,-32(s0)
+  44:	fe843703          	ld	a4,-24(s0)
+  48:	fe043783          	ld	a5,-32(s0)
+  4c:	40f707b3          	sub	a5,a4,a5
+  50:	00078513          	mv	a0,a5
+  54:	01813403          	ld	s0,24(sp)
+  58:	02010113          	addi	sp,sp,32
+  5c:	00008067          	ret
+
+0000000000000060 <FP_Add>:
+  60:	fe010113          	addi	sp,sp,-32
+  64:	00813c23          	sd	s0,24(sp)
+  68:	02010413          	addi	s0,sp,32
+  6c:	fea42627          	fsw	fa0,-20(s0)
+  70:	feb42427          	fsw	fa1,-24(s0)
+  74:	fec42707          	flw	fa4,-20(s0)
+  78:	fe842787          	flw	fa5,-24(s0)
+  7c:	00f777d3          	fadd.s	fa5,fa4,fa5
+  80:	20f78553          	fmv.s	fa0,fa5
+  84:	01813403          	ld	s0,24(sp)
+  88:	02010113          	addi	sp,sp,32
+  8c:	00008067          	ret
+
+0000000000000090 <FP_Sub>:
+  90:	fe010113          	addi	sp,sp,-32
+  94:	00813c23          	sd	s0,24(sp)
+  98:	02010413          	addi	s0,sp,32
+  9c:	fea42627          	fsw	fa0,-20(s0)
+  a0:	feb42427          	fsw	fa1,-24(s0)
+  a4:	fec42707          	flw	fa4,-20(s0)
+  a8:	fe842787          	flw	fa5,-24(s0)
+  ac:	08f777d3          	fsub.s	fa5,fa4,fa5
+  b0:	20f78553          	fmv.s	fa0,fa5
+  b4:	01813403          	ld	s0,24(sp)
+  b8:	02010113          	addi	sp,sp,32
+  bc:	00008067          	ret
+
+00000000000000c0 <FP_Mul>:
+  c0:	fe010113          	addi	sp,sp,-32
+  c4:	00813c23          	sd	s0,24(sp)
+  c8:	02010413          	addi	s0,sp,32
+  cc:	fea42627          	fsw	fa0,-20(s0)
+  d0:	feb42427          	fsw	fa1,-24(s0)
+  d4:	fec42707          	flw	fa4,-20(s0)
+  d8:	fe842787          	flw	fa5,-24(s0)
+  dc:	10f777d3          	fmul.s	fa5,fa4,fa5
+  e0:	20f78553          	fmv.s	fa0,fa5
+  e4:	01813403          	ld	s0,24(sp)
+  e8:	02010113          	addi	sp,sp,32
+  ec:	00008067          	ret
+
+00000000000000f0 <FP_Div>:
+  f0:	fe010113          	addi	sp,sp,-32
+  f4:	00813c23          	sd	s0,24(sp)
+  f8:	02010413          	addi	s0,sp,32
+  fc:	fea42627          	fsw	fa0,-20(s0)
+ 100:	feb42427          	fsw	fa1,-24(s0)
+ 104:	fec42707          	flw	fa4,-20(s0)
+ 108:	fe842787          	flw	fa5,-24(s0)
+ 10c:	18f777d3          	fdiv.s	fa5,fa4,fa5
+ 110:	20f78553          	fmv.s	fa0,fa5
+ 114:	01813403          	ld	s0,24(sp)
+ 118:	02010113          	addi	sp,sp,32
+ 11c:	00008067          	ret
+
+0000000000000120 <main>:
+ 120:	fb010113          	addi	sp,sp,-80
+ 124:	04113423          	sd	ra,72(sp)
+ 128:	04813023          	sd	s0,64(sp)
+ 12c:	05010413          	addi	s0,sp,80
+ 130:	000017b7          	lui	a5,0x1
+ 134:	02478793          	addi	a5,a5,36 # 1024 <main+0xf04>
+ 138:	fef43423          	sd	a5,-24(s0)
+ 13c:	000017b7          	lui	a5,0x1
+ 140:	90878793          	addi	a5,a5,-1784 # 908 <main+0x7e8>
+ 144:	fef43023          	sd	a5,-32(s0)
+ 148:	fe043583          	ld	a1,-32(s0)
+ 14c:	fe843503          	ld	a0,-24(s0)
+ 150:	00000097          	auipc	ra,0x0
+ 154:	000080e7          	jalr	ra # 150 <main+0x30>
+ 158:	fca43c23          	sd	a0,-40(s0)
+ 15c:	fe043583          	ld	a1,-32(s0)
+ 160:	fe843503          	ld	a0,-24(s0)
+ 164:	00000097          	auipc	ra,0x0
+ 168:	000080e7          	jalr	ra # 164 <main+0x44>
+ 16c:	fca43823          	sd	a0,-48(s0)
+ 170:	000007b7          	lui	a5,0x0
+ 174:	0007a787          	flw	fa5,0(a5) # 0 <Add>
+ 178:	fcf42627          	fsw	fa5,-52(s0)
+ 17c:	000007b7          	lui	a5,0x0
+ 180:	0007a787          	flw	fa5,0(a5) # 0 <Add>
+ 184:	fcf42427          	fsw	fa5,-56(s0)
+ 188:	fc842587          	flw	fa1,-56(s0)
+ 18c:	fcc42507          	flw	fa0,-52(s0)
+ 190:	00000097          	auipc	ra,0x0
+ 194:	000080e7          	jalr	ra # 190 <main+0x70>
+ 198:	fca42227          	fsw	fa0,-60(s0)
+ 19c:	fc842587          	flw	fa1,-56(s0)
+ 1a0:	fcc42507          	flw	fa0,-52(s0)
+ 1a4:	00000097          	auipc	ra,0x0
+ 1a8:	000080e7          	jalr	ra # 1a4 <main+0x84>
+ 1ac:	fca42027          	fsw	fa0,-64(s0)
+ 1b0:	fc842587          	flw	fa1,-56(s0)
+ 1b4:	fcc42507          	flw	fa0,-52(s0)
+ 1b8:	00000097          	auipc	ra,0x0
+ 1bc:	000080e7          	jalr	ra # 1b8 <main+0x98>
+ 1c0:	faa42e27          	fsw	fa0,-68(s0)
+ 1c4:	fc842587          	flw	fa1,-56(s0)
+ 1c8:	fcc42507          	flw	fa0,-52(s0)
+ 1cc:	00000097          	auipc	ra,0x0
+ 1d0:	000080e7          	jalr	ra # 1cc <main+0xac>
+ 1d4:	faa42c27          	fsw	fa0,-72(s0)
+ 1d8:	00000793          	li	a5,0
+ 1dc:	00078513          	mv	a0,a5
+ 1e0:	04813083          	ld	ra,72(sp)
+ 1e4:	04013403          	ld	s0,64(sp)
+ 1e8:	05010113          	addi	sp,sp,80
+ 1ec:	00008067          	ret
 ```
 
 The compiler options are: `-march=rv64ifd -mabi=lp64d`. Without these compiler options, the result binary instructions are wrong which I have no idea why.
