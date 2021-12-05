@@ -172,145 +172,139 @@ int main() {
 }
 ```
 
-The object code dump using the `objdump` tool provided by the [GNU toolchain for RISC-V](https://github.com/riscv-collab/riscv-gnu-toolchain) is shown below. The column on the leftmost represents the address (in hexadecimal) of the instruction, the next column represents the hexadecimal form of the instruction and the rightmost column represents the corresponding assembly code.
+The code dump using the `objdump` tool provided by the [GNU toolchain for RISC-V](https://github.com/riscv-collab/riscv-gnu-toolchain) is shown below. The column on the leftmost represents the address (in hexadecimal) of the instruction, the next column represents the hexadecimal form of the instruction and the rightmost column represents the corresponding assembly code.
 ```asm
-0000000000000000 <Add>:
-   0:	fe010113          	addi	sp,sp,-32
-   4:	00813c23          	sd	s0,24(sp)
-   8:	02010413          	addi	s0,sp,32
-   c:	fea43423          	sd	a0,-24(s0)
-  10:	feb43023          	sd	a1,-32(s0)
-  14:	fe843703          	ld	a4,-24(s0)
-  18:	fe043783          	ld	a5,-32(s0)
-  1c:	00f707b3          	add	a5,a4,a5
-  20:	00078513          	mv	a0,a5
-  24:	01813403          	ld	s0,24(sp)
-  28:	02010113          	addi	sp,sp,32
-  2c:	00008067          	ret
+0000000000010450 <Add>:
+   10450:	fe010113          	addi	sp,sp,-32
+   10454:	00813c23          	sd	s0,24(sp)
+   10458:	02010413          	addi	s0,sp,32
+   1045c:	fea43423          	sd	a0,-24(s0)
+   10460:	feb43023          	sd	a1,-32(s0)
+   10464:	fe843703          	ld	a4,-24(s0)
+   10468:	fe043783          	ld	a5,-32(s0)
+   1046c:	00f707b3          	add	a5,a4,a5
+   10470:	00078513          	mv	a0,a5
+   10474:	01813403          	ld	s0,24(sp)
+   10478:	02010113          	addi	sp,sp,32
+   1047c:	00008067          	ret
 
-0000000000000030 <Sub>:
-  30:	fe010113          	addi	sp,sp,-32
-  34:	00813c23          	sd	s0,24(sp)
-  38:	02010413          	addi	s0,sp,32
-  3c:	fea43423          	sd	a0,-24(s0)
-  40:	feb43023          	sd	a1,-32(s0)
-  44:	fe843703          	ld	a4,-24(s0)
-  48:	fe043783          	ld	a5,-32(s0)
-  4c:	40f707b3          	sub	a5,a4,a5
-  50:	00078513          	mv	a0,a5
-  54:	01813403          	ld	s0,24(sp)
-  58:	02010113          	addi	sp,sp,32
-  5c:	00008067          	ret
+0000000000010480 <Sub>:
+   10480:	fe010113          	addi	sp,sp,-32
+   10484:	00813c23          	sd	s0,24(sp)
+   10488:	02010413          	addi	s0,sp,32
+   1048c:	fea43423          	sd	a0,-24(s0)
+   10490:	feb43023          	sd	a1,-32(s0)
+   10494:	fe843703          	ld	a4,-24(s0)
+   10498:	fe043783          	ld	a5,-32(s0)
+   1049c:	40f707b3          	sub	a5,a4,a5
+   104a0:	00078513          	mv	a0,a5
+   104a4:	01813403          	ld	s0,24(sp)
+   104a8:	02010113          	addi	sp,sp,32
+   104ac:	00008067          	ret
 
-0000000000000060 <FP_Add>:
-  60:	fe010113          	addi	sp,sp,-32
-  64:	00813c23          	sd	s0,24(sp)
-  68:	02010413          	addi	s0,sp,32
-  6c:	fea42627          	fsw	fa0,-20(s0)
-  70:	feb42427          	fsw	fa1,-24(s0)
-  74:	fec42707          	flw	fa4,-20(s0)
-  78:	fe842787          	flw	fa5,-24(s0)
-  7c:	00f777d3          	fadd.s	fa5,fa4,fa5
-  80:	20f78553          	fmv.s	fa0,fa5
-  84:	01813403          	ld	s0,24(sp)
-  88:	02010113          	addi	sp,sp,32
-  8c:	00008067          	ret
+00000000000104b0 <FP_Add>:
+   104b0:	fe010113          	addi	sp,sp,-32
+   104b4:	00813c23          	sd	s0,24(sp)
+   104b8:	02010413          	addi	s0,sp,32
+   104bc:	fea42627          	fsw	fa0,-20(s0)
+   104c0:	feb42427          	fsw	fa1,-24(s0)
+   104c4:	fec42707          	flw	fa4,-20(s0)
+   104c8:	fe842787          	flw	fa5,-24(s0)
+   104cc:	00f777d3          	fadd.s	fa5,fa4,fa5
+   104d0:	20f78553          	fmv.s	fa0,fa5
+   104d4:	01813403          	ld	s0,24(sp)
+   104d8:	02010113          	addi	sp,sp,32
+   104dc:	00008067          	ret
 
-0000000000000090 <FP_Sub>:
-  90:	fe010113          	addi	sp,sp,-32
-  94:	00813c23          	sd	s0,24(sp)
-  98:	02010413          	addi	s0,sp,32
-  9c:	fea42627          	fsw	fa0,-20(s0)
-  a0:	feb42427          	fsw	fa1,-24(s0)
-  a4:	fec42707          	flw	fa4,-20(s0)
-  a8:	fe842787          	flw	fa5,-24(s0)
-  ac:	08f777d3          	fsub.s	fa5,fa4,fa5
-  b0:	20f78553          	fmv.s	fa0,fa5
-  b4:	01813403          	ld	s0,24(sp)
-  b8:	02010113          	addi	sp,sp,32
-  bc:	00008067          	ret
+00000000000104e0 <FP_Sub>:
+   104e0:	fe010113          	addi	sp,sp,-32
+   104e4:	00813c23          	sd	s0,24(sp)
+   104e8:	02010413          	addi	s0,sp,32
+   104ec:	fea42627          	fsw	fa0,-20(s0)
+   104f0:	feb42427          	fsw	fa1,-24(s0)
+   104f4:	fec42707          	flw	fa4,-20(s0)
+   104f8:	fe842787          	flw	fa5,-24(s0)
+   104fc:	08f777d3          	fsub.s	fa5,fa4,fa5
+   10500:	20f78553          	fmv.s	fa0,fa5
+   10504:	01813403          	ld	s0,24(sp)
+   10508:	02010113          	addi	sp,sp,32
+   1050c:	00008067          	ret
 
-00000000000000c0 <FP_Mul>:
-  c0:	fe010113          	addi	sp,sp,-32
-  c4:	00813c23          	sd	s0,24(sp)
-  c8:	02010413          	addi	s0,sp,32
-  cc:	fea42627          	fsw	fa0,-20(s0)
-  d0:	feb42427          	fsw	fa1,-24(s0)
-  d4:	fec42707          	flw	fa4,-20(s0)
-  d8:	fe842787          	flw	fa5,-24(s0)
-  dc:	10f777d3          	fmul.s	fa5,fa4,fa5
-  e0:	20f78553          	fmv.s	fa0,fa5
-  e4:	01813403          	ld	s0,24(sp)
-  e8:	02010113          	addi	sp,sp,32
-  ec:	00008067          	ret
+0000000000010510 <FP_Mul>:
+   10510:	fe010113          	addi	sp,sp,-32
+   10514:	00813c23          	sd	s0,24(sp)
+   10518:	02010413          	addi	s0,sp,32
+   1051c:	fea42627          	fsw	fa0,-20(s0)
+   10520:	feb42427          	fsw	fa1,-24(s0)
+   10524:	fec42707          	flw	fa4,-20(s0)
+   10528:	fe842787          	flw	fa5,-24(s0)
+   1052c:	10f777d3          	fmul.s	fa5,fa4,fa5
+   10530:	20f78553          	fmv.s	fa0,fa5
+   10534:	01813403          	ld	s0,24(sp)
+   10538:	02010113          	addi	sp,sp,32
+   1053c:	00008067          	ret
 
-00000000000000f0 <FP_Div>:
-  f0:	fe010113          	addi	sp,sp,-32
-  f4:	00813c23          	sd	s0,24(sp)
-  f8:	02010413          	addi	s0,sp,32
-  fc:	fea42627          	fsw	fa0,-20(s0)
- 100:	feb42427          	fsw	fa1,-24(s0)
- 104:	fec42707          	flw	fa4,-20(s0)
- 108:	fe842787          	flw	fa5,-24(s0)
- 10c:	18f777d3          	fdiv.s	fa5,fa4,fa5
- 110:	20f78553          	fmv.s	fa0,fa5
- 114:	01813403          	ld	s0,24(sp)
- 118:	02010113          	addi	sp,sp,32
- 11c:	00008067          	ret
+0000000000010540 <FP_Div>:
+   10540:	fe010113          	addi	sp,sp,-32
+   10544:	00813c23          	sd	s0,24(sp)
+   10548:	02010413          	addi	s0,sp,32
+   1054c:	fea42627          	fsw	fa0,-20(s0)
+   10550:	feb42427          	fsw	fa1,-24(s0)
+   10554:	fec42707          	flw	fa4,-20(s0)
+   10558:	fe842787          	flw	fa5,-24(s0)
+   1055c:	18f777d3          	fdiv.s	fa5,fa4,fa5
+   10560:	20f78553          	fmv.s	fa0,fa5
+   10564:	01813403          	ld	s0,24(sp)
+   10568:	02010113          	addi	sp,sp,32
+   1056c:	00008067          	ret
 
-0000000000000120 <main>:
- 120:	fb010113          	addi	sp,sp,-80
- 124:	04113423          	sd	ra,72(sp)
- 128:	04813023          	sd	s0,64(sp)
- 12c:	05010413          	addi	s0,sp,80
- 130:	000017b7          	lui	a5,0x1
- 134:	02478793          	addi	a5,a5,36 # 1024 <main+0xf04>
- 138:	fef43423          	sd	a5,-24(s0)
- 13c:	000017b7          	lui	a5,0x1
- 140:	90878793          	addi	a5,a5,-1784 # 908 <main+0x7e8>
- 144:	fef43023          	sd	a5,-32(s0)
- 148:	fe043583          	ld	a1,-32(s0)
- 14c:	fe843503          	ld	a0,-24(s0)
- 150:	00000097          	auipc	ra,0x0
- 154:	000080e7          	jalr	ra # 150 <main+0x30>
- 158:	fca43c23          	sd	a0,-40(s0)
- 15c:	fe043583          	ld	a1,-32(s0)
- 160:	fe843503          	ld	a0,-24(s0)
- 164:	00000097          	auipc	ra,0x0
- 168:	000080e7          	jalr	ra # 164 <main+0x44>
- 16c:	fca43823          	sd	a0,-48(s0)
- 170:	000007b7          	lui	a5,0x0
- 174:	0007a787          	flw	fa5,0(a5) # 0 <Add>
- 178:	fcf42627          	fsw	fa5,-52(s0)
- 17c:	000007b7          	lui	a5,0x0
- 180:	0007a787          	flw	fa5,0(a5) # 0 <Add>
- 184:	fcf42427          	fsw	fa5,-56(s0)
- 188:	fc842587          	flw	fa1,-56(s0)
- 18c:	fcc42507          	flw	fa0,-52(s0)
- 190:	00000097          	auipc	ra,0x0
- 194:	000080e7          	jalr	ra # 190 <main+0x70>
- 198:	fca42227          	fsw	fa0,-60(s0)
- 19c:	fc842587          	flw	fa1,-56(s0)
- 1a0:	fcc42507          	flw	fa0,-52(s0)
- 1a4:	00000097          	auipc	ra,0x0
- 1a8:	000080e7          	jalr	ra # 1a4 <main+0x84>
- 1ac:	fca42027          	fsw	fa0,-64(s0)
- 1b0:	fc842587          	flw	fa1,-56(s0)
- 1b4:	fcc42507          	flw	fa0,-52(s0)
- 1b8:	00000097          	auipc	ra,0x0
- 1bc:	000080e7          	jalr	ra # 1b8 <main+0x98>
- 1c0:	faa42e27          	fsw	fa0,-68(s0)
- 1c4:	fc842587          	flw	fa1,-56(s0)
- 1c8:	fcc42507          	flw	fa0,-52(s0)
- 1cc:	00000097          	auipc	ra,0x0
- 1d0:	000080e7          	jalr	ra # 1cc <main+0xac>
- 1d4:	faa42c27          	fsw	fa0,-72(s0)
- 1d8:	00000793          	li	a5,0
- 1dc:	00078513          	mv	a0,a5
- 1e0:	04813083          	ld	ra,72(sp)
- 1e4:	04013403          	ld	s0,64(sp)
- 1e8:	05010113          	addi	sp,sp,80
- 1ec:	00008067          	ret
+0000000000010570 <main>:
+   10570:	fb010113          	addi	sp,sp,-80
+   10574:	04113423          	sd	ra,72(sp)
+   10578:	04813023          	sd	s0,64(sp)
+   1057c:	05010413          	addi	s0,sp,80
+   10580:	000017b7          	lui	a5,0x1
+   10584:	02478793          	addi	a5,a5,36 # 1024 <__abi_tag-0xf238>
+   10588:	fef43423          	sd	a5,-24(s0)
+   1058c:	000017b7          	lui	a5,0x1
+   10590:	90878793          	addi	a5,a5,-1784 # 908 <__abi_tag-0xf954>
+   10594:	fef43023          	sd	a5,-32(s0)
+   10598:	fe043583          	ld	a1,-32(s0)
+   1059c:	fe843503          	ld	a0,-24(s0)
+   105a0:	eb1ff0ef          	jal	ra,10450 <Add>
+   105a4:	fca43c23          	sd	a0,-40(s0)
+   105a8:	fe043583          	ld	a1,-32(s0)
+   105ac:	fe843503          	ld	a0,-24(s0)
+   105b0:	ed1ff0ef          	jal	ra,10480 <Sub>
+   105b4:	fca43823          	sd	a0,-48(s0)
+   105b8:	000107b7          	lui	a5,0x10
+   105bc:	6847a787          	flw	fa5,1668(a5) # 10684 <__libc_csu_fini+0x4>
+   105c0:	fcf42627          	fsw	fa5,-52(s0)
+   105c4:	000107b7          	lui	a5,0x10
+   105c8:	6887a787          	flw	fa5,1672(a5) # 10688 <__libc_csu_fini+0x8>
+   105cc:	fcf42427          	fsw	fa5,-56(s0)
+   105d0:	fc842587          	flw	fa1,-56(s0)
+   105d4:	fcc42507          	flw	fa0,-52(s0)
+   105d8:	ed9ff0ef          	jal	ra,104b0 <FP_Add>
+   105dc:	fca42227          	fsw	fa0,-60(s0)
+   105e0:	fc842587          	flw	fa1,-56(s0)
+   105e4:	fcc42507          	flw	fa0,-52(s0)
+   105e8:	ef9ff0ef          	jal	ra,104e0 <FP_Sub>
+   105ec:	fca42027          	fsw	fa0,-64(s0)
+   105f0:	fc842587          	flw	fa1,-56(s0)
+   105f4:	fcc42507          	flw	fa0,-52(s0)
+   105f8:	f19ff0ef          	jal	ra,10510 <FP_Mul>
+   105fc:	faa42e27          	fsw	fa0,-68(s0)
+   10600:	fc842587          	flw	fa1,-56(s0)
+   10604:	fcc42507          	flw	fa0,-52(s0)
+   10608:	f39ff0ef          	jal	ra,10540 <FP_Div>
+   1060c:	faa42c27          	fsw	fa0,-72(s0)
+   10610:	00000793          	li	a5,0
+   10614:	00078513          	mv	a0,a5
+   10618:	04813083          	ld	ra,72(sp)
+   1061c:	04013403          	ld	s0,64(sp)
+   10620:	05010113          	addi	sp,sp,80
+   10624:	00008067          	ret
 ```
 
 The compiler options are: `-march=rv64ifd -mabi=lp64d`. Without these compiler options, the result binary instructions are wrong which I have no idea why.
