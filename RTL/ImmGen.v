@@ -13,9 +13,9 @@ module ImmGen(in_data, in_inst_type, out_data);
     assign U_Imm = {{31{in_data[31]}}, in_data[31:12], {13{1'b0}}};
     assign J_Imm = {{44{in_data[31]}}, in_data[19:12], in_data[20], in_data[30:21], 1'b0};
 
-    assign out_data = (in_inst_type == 3'd0) ? I_Imm : wire_1;
-    assign wire_1   = (in_inst_type == 3'd1) ? S_Imm : wire_2;
-    assign wire_2   = (in_inst_type == 3'd2) ? B_Imm : wire_3;
-    assign wire_3   = (in_inst_type == 3'd3) ? U_Imm : wire_4;
-    assign wire_4   = (in_inst_type == 3'd4) ? J_Imm : 64'd0;
+    assign out_data = (in_inst_type == 3'b000) ? I_Imm : wire_1;
+    assign wire_1   = (in_inst_type == 3'b001) ? U_Imm : wire_2;
+    assign wire_2   = (in_inst_type == 3'b011) ? J_Imm : wire_3;
+    assign wire_3   = (in_inst_type == 3'b100) ? B_Imm : wire_4;
+    assign wire_4   = (in_inst_type == 3'b101) ? S_Imm : 64'd0;
 endmodule
