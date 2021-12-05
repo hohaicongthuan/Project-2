@@ -10,7 +10,7 @@ module FP_Div(in_numA, in_numB, out_result);
 
     // Internal wires
     wire    result_sign;
-    wire    [EXP_WIDTH - 1:0] result_exp, normalised_exp;
+    wire    [EXP_WIDTH - 1:0] result_exp, normalised_exp, final_Exp;
     wire    [MANT_WIDTH:0] result_mant, result_quotient;
     wire    [DATA_WIDTH - 1:0] numA, numB;
 
@@ -18,7 +18,7 @@ module FP_Div(in_numA, in_numB, out_result);
     assign numB = {in_numB[31], (in_numB[30:23] - 8'd127), in_numB[22:0]};
 
     assign result_sign = in_numA[31] ^ in_numB[31];
-    assign result_exp = (result_mant == 23'd0) ? 8'd0 : normalised_exp;
+    assign result_exp = normalised_exp + 8'd127;
 
     Mant_Div Mant_Div_Inst0(
         .in_dividend({2'd1, numA[22:0]}),
@@ -33,5 +33,6 @@ module FP_Div(in_numA, in_numB, out_result);
         .out_Mant(result_mant)
     );
 
-    assign out_result = {result_sign, (result_exp + 8'd127), result_mant[22:0]};
+    assign final_Exp = (result_mant == 24'd0) ? 8'd0 : result_exp;
+    assign out_result = {result_sign, final_Exp, result_mant[22:0]};
 endmodule
