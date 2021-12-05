@@ -5,9 +5,11 @@ module Testbench();
     parameter waittime      = 20;
     parameter clocktime     = 10;
     
-    wire    DM_wr_en;
+    integer i;
 
-    reg     Clk;
+    wire    DM_wr_en, done_load_inst;
+    reg     Clk, Rst_N, in_load_init_addr;
+    reg     [DATA_WIDTH - 1:0] in_PC;
     wire    [31:0] Inst;
     wire    [DATA_WIDTH - 1:0] Inst_Addr, Addr, Wr_Data, DM_Data;
 
@@ -17,7 +19,27 @@ module Testbench();
     end
 
     initial begin
+        Rst_N = 1'b0;
+        in_load_init_addr = 1'b0;
+        #waittime;
         
+        while (!done_load_inst) begin
+            #waittime;
+        end
+
+        Rst_N = 1'b1;
+        in_PC = 64'h10570;
+        in_load_init_addr = 1'b1;
+        #waittime;
+        in_load_init_addr = 1'b0;
+
+        i = 0;
+        while (i < 500) begin
+            #waittime;
+            i = i + 1;
+        end
+
+        $finish;
     end
 
     RV64IF_top RV64IF_top_Inst0(
@@ -27,12 +49,16 @@ module Testbench();
         .out_inst_addr(Inst_Addr),
         .out_addr(Addr),
         .out_wr_data(Wr_Data),
-        .out_DM_wr_en(DM_wr_en)
+        .out_DM_wr_en(DM_wr_en),
+        .Rst_N(Rst_N),
+        .in_PC(in_PC),
+        .in_load_init_addr(in_load_init_addr)
     );
 
     IMem IMem_Inst0(
         .out_inst(Inst),
-        .in_inst_addr(Inst_Addr)
+        .in_inst_addr(Inst_Addr),
+        .done_load_inst(done_load_inst)
     );
 
     DMem DMem_Inst0(

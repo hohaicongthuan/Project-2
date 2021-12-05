@@ -8,7 +8,7 @@ module DMem(in_data, in_addr, in_wr_en, out_data);
     
     output reg  [DATA_WIDTH - 1:0] out_data;
 
-    reg     [7:0] Mem [65535:0];
+    reg     [7:0] Mem [1048576:0]; // 2^20
 
     always @ (*) begin
         if (in_wr_en) begin
