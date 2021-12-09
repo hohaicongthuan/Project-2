@@ -127,41 +127,27 @@ There is a file at `Testbench/Instructions.txt` that contains the instructions t
 
 The C source code:
 ```C
-long Add(long a, long b) {
-    return a + b;
-}
+long Add(long a, long b) { return a + b; }
 
-long Sub(long a, long b) {
-    return a - b;
-}
+long Sub(long a, long b) { return a - b; }
 
-float FP_Add(float a, float b) {
-    return a + b;
-}
+float FP_Add(float a, float b) { return a + b; }
 
-float FP_Sub(float a, float b) {
-    return a - b;
-}
+float FP_Sub(float a, float b) { return a - b; }
 
-float FP_Mul(float a, float b) {
-    return a * b;
-}
+float FP_Mul(float a, float b) { return a * b; }
 
-float FP_Div(float a, float b) {
-    return a / b;
-}
+float FP_Div(float a, float b) { return a / b; }
 
 int main() {
     // Integer operations
-    long int_a = 4132;
-    long int_b = 2312;
+    long int_a = 4132; long int_b = 2312;
 
     long int_add = Add(int_a, int_b);
     long int_sub = Sub(int_a, int_b);
 
     // Floating-point operations
-    float fp_a = 12.3456;
-    float fp_b = 1.23456;
+    float fp_a = 12.3456; float fp_b = 1.23456;
 
     float fp_add = FP_Add(fp_a, fp_b);
     float fp_sub = FP_Sub(fp_a, fp_b);
