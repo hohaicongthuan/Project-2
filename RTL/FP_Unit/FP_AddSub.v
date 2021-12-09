@@ -7,26 +7,24 @@ module FP_AddSub(in_numA, in_numB, in_ctrl_addsub, out_data);
     // Internal wires
     reg signA, signB;
     reg [7:0] expA, expB, bigger_exp, exp_diff, normalised_exp, normalised_new_exp;
-    reg [22:0] mantA, mantB;
-    reg [25:0] trueMantA, trueMantB, adjusted_A, adjusted_B, final_mantA, final_mantB, sum_mant, sum_mant_1, normalised_mant, normalised_new_mant;
+    reg [25:0] mantA, mantB, adjusted_A, adjusted_B, final_mantA, final_mantB, sum_mant, sum_mant_1, normalised_mant, normalised_new_mant;
 
     always @ (*) begin
+        // Separate components
         signA = in_numA[31];
         signB = in_numB[31] ^ in_ctrl_addsub;
         expA = in_numA[30:23];
         expB = in_numB[30:23];
-        mantA = in_numA[22:0];
-        mantB = in_numB[22:0];
+        mantA = {3'b001, in_numA[22:0]};
+        mantB = {3'b001, in_numB[22:0]};
 
         // Compare exponents
         bigger_exp = (expA > expB) ? (expA - 8'd127) : (expB - 8'd127);
         exp_diff = (expA > expB) ? (expA - expB) : (expB - expA);
 
         // Adjust mantissae
-        trueMantA = {3'b001, mantA};
-        trueMantB = {3'b001, mantB};
-        adjusted_A = (expA > expB) ? (trueMantA) : (trueMantA >> exp_diff);
-        adjusted_B = (expA > expB) ? (trueMantB >> exp_diff) : (trueMantB);
+        adjusted_A = (expA > expB) ? (mantA) : (mantA >> exp_diff);
+        adjusted_B = (expA > expB) ? (mantB >> exp_diff) : (mantB);
         final_mantA = (signA) ? ~adjusted_A : adjusted_A;
         final_mantB = (signB) ? ~adjusted_B : adjusted_B;
 
