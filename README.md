@@ -17,9 +17,9 @@ And_Or_Xor | Integer logical AND/OR/XOR | TESTED
 Cmp | Integer comparator | TESTED
 IntToFP | Integer to floating-point Converter | TESTED
 Shift| Integer logical/arithmetic left/right Shifter | TESTED
-FP_AddSub | Floating-point adder/subtractor | UNTESTED
+FP_AddSub | Floating-point adder/subtractor | TESTED
 FP_Cmp | Floating-point comparator | TESTED
-FP_Div | Floating-point divisor | UNTESTED
+FP_Div | Floating-point divisor | TESTED
 FP_Mul | Floating-point multiplier | TESTED
 FP_Int_Convert | Floating-point to Integer Converter | TESTED
 FP_MinMax | Floating-point Min/Max | TESTED
