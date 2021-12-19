@@ -3,6 +3,7 @@
 main:
     addi sp, x0, 0
 
+    # BASE INTEGER INSTRUCTIONS
     jal ra, addi_inst
     addi sp, sp, 4
     jal ra, slti_inst
@@ -44,8 +45,52 @@ main:
     jal ra, sub_inst
     addi sp, sp, 4
     jal ra, sra_inst
+    addi sp, sp, 4
 
-    jal x0, HALT        # Halts the programme
+    # FLOATING-POINT INSTRUCTIONS
+    jal ra, fadd_s_inst
+    addi sp, sp, 4
+    jal ra, fsub_s_inst
+    addi sp, sp, 4
+    jal ra, fmul_s_inst
+    addi sp, sp, 4
+    jal ra, fdiv_s_inst
+    addi sp, sp, 4
+    jal ra, fmin_s_inst
+    addi sp, sp, 4
+    jal ra, fmax_s_inst
+    addi sp, sp, 4
+    jal ra, fcvt_w_s_inst
+    addi sp, sp, 4
+    jal ra, fcvt_s_w_inst
+    addi sp, sp, 4
+    jal ra, fcvt_l_s_inst
+    addi sp, sp, 4
+    jal ra, fcvt_s_l_inst
+    addi sp, sp, 4
+    jal ra, fsgnj_s_inst
+    addi sp, sp, 4
+    jal ra, fsgnjn_s_inst
+    addi sp, sp, 4
+    jal ra, fsgnjx_s_inst
+    addi sp, sp, 4
+    jal ra, feq_s_inst
+    addi sp, sp, 4
+    jal ra, flt_s_inst
+    addi sp, sp, 4
+    jal ra, fle_s_inst
+
+    # READ OUT THE RESULTS IN DATA MEM
+    addi t0, x0, 36
+    addi sp, x0, 0
+loop:
+    ld t1, 0(sp)
+    beq t0, x0, HALT
+    addi t0, t0, -1
+    addi sp, sp, 4
+    j loop
+
+    j HALT        # Halts the programme
 
 #############################
 # ADD IMMEDIATE INSTRUCTION #
@@ -54,15 +99,15 @@ addi_inst:
     addi t1, x0, 123
     addi t2, x0, 123
     beq t1, t2, addi_inst_true
-    jal x0, addi_inst_false
+    j addi_inst_false
 addi_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, addi_inst_ret
+    j addi_inst_ret
 addi_inst_false:
     sd x0, 0(sp)
 addi_inst_ret:
-    jal x0, ra
+    j ra
 
 ############################################
 # SET (IF) LESS THAN IMMEDIATE INSTRUCTION #
@@ -75,7 +120,7 @@ slti_inst:
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
-    jal x0, ra
+    j ra
 
 #######################################
 # (LOGICAL) AND IMMEDIATE INSTRUCTION #
@@ -85,15 +130,15 @@ andi_inst:
     andi t2, t1, 456        # 123 AND 456 = 72
     addi t3, x0, 72
     beq t2, t3, andi_inst_true
-    jal x0, andi_inst_false
+    j andi_inst_false
 andi_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, andi_inst_ret
+    j andi_inst_ret
 andi_inst_false:
     sd x0, 0(sp)
 andi_inst_ret:
-    jal x0, ra
+    j ra
 
 ######################################
 # (LOGICAL) OR IMMEDIATE INSTRUCTION #
@@ -103,15 +148,15 @@ ori_inst:
     ori t2, t1, 456        # 123 OR 456 = 507
     addi t3, x0, 507
     beq t2, t3, ori_inst_true
-    jal x0, ori_inst_false
+    j ori_inst_false
 ori_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, ori_inst_ret
+    j ori_inst_ret
 ori_inst_false:
     sd x0, 0(sp)
 ori_inst_ret:
-    jal x0, ra
+    j ra
 
 #######################################
 # (LOGICAL) XOR IMMEDIATE INSTRUCTION #
@@ -121,15 +166,15 @@ xori_inst:
     xori t2, t1, 456        # 123 XOR 456 = 435
     addi t3, x0, 435
     beq t2, t3, xori_inst_true
-    jal x0, xori_inst_false
+    j xori_inst_false
 xori_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, xori_inst_ret
+    j xori_inst_ret
 xori_inst_false:
     sd x0, 0(sp)
 xori_inst_ret:
-    jal x0, ra
+    j ra
 
 #####################################################
 # SET (IF) LESS THAN IMMEDIATE UNSIGNED INSTRUCTION #
@@ -142,7 +187,7 @@ sltiu_inst:
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
-    jal x0, ra
+    j ra
 
 ############################################
 # SHIFT LEFT LOGICAL IMMEDIATE INSTRUCTION #
@@ -152,15 +197,15 @@ slli_inst:
     slli t2, t1, 3          # 1 << 3 = 8
     addi t3, x0, 8
     beq t2, t3, slli_inst_true
-    jal x0, slli_inst_false
+    j slli_inst_false
 slli_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, slli_inst_ret
+    j slli_inst_ret
 slli_inst_false:
     sd x0, 0(sp)
 slli_inst_ret:
-    jal x0, ra
+    j ra
 
 #############################################
 # SHIFT RIGHT LOGICAL IMMEDIATE INSTRUCTION #
@@ -170,15 +215,15 @@ srli_inst:
     srli t2, t1, 3          # 16 >> 3 = 2
     addi t3, x0, 2
     beq t2, t3, srli_inst_true
-    jal x0, srli_inst_false
+    j srli_inst_false
 srli_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, srli_inst_ret
+    j srli_inst_ret
 srli_inst_false:
     sd x0, 0(sp)
 srli_inst_ret:
-    jal x0, ra
+    j ra
 
 ################################################
 # SHIFT RIGHT ARITHMETIC IMMEDIATE INSTRUCTION #
@@ -188,15 +233,15 @@ srai_inst:
     srai t2, t1, 3          # -16 >> 3 = -2
     addi t3, x0, -2
     beq t2, t3, srai_inst_true
-    jal x0, srai_inst_false
+    j srai_inst_false
 srai_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, srai_inst_ret
+    j srai_inst_ret
 srai_inst_false:
     sd x0, 0(sp)
 srai_inst_ret:
-    jal x0, ra
+    j ra
 
 ####################################
 # LOAD UPPER IMMEDIATE INSTRUCTION #
@@ -206,18 +251,18 @@ lui_inst:
     addi t2, x0, 1
     slli t2, t2, 12         # t2 = 1 << 12 = 4096
     beq t1, t2, lui_inst_true
-    jal x0, lui_inst_false
+    j lui_inst_false
 lui_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, lui_inst_ret
-lui_inst_false
+    j lui_inst_ret
+lui_inst_false:
     sd x0, 0(sp)
 lui_inst_ret:
-    jal x0, ra
+    j ra
 
 # auipc_inst:
-#     jal x0, ra
+#     j ra
 
 ###################
 # ADD INSTRUCTION #
@@ -228,15 +273,15 @@ add_inst:
     add t3, t1, t2          # 123 + 456 = 579
     addi t4, x0, 579
     beq t3, t4, add_inst_true
-    jal x0, add_inst_false
+    j add_inst_false
 add_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, add_inst_ret
+    j add_inst_ret
 add_inst_false:
     sd x0, 0(sp)
 add_inst_ret:
-    jal x0, ra
+    j ra
 
 ##################################
 # SET (IF) LESS THAN INSTRUCTION #
@@ -247,15 +292,15 @@ slt_inst:
     slt t3, t1, t2          # 123 < 456 = 1
     addi t4, x0, 1
     beq t3, t4, slt_inst_true
-    jal x0, slt_inst_false
+    j slt_inst_false
 slt_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, slt_inst_ret
+    j slt_inst_ret
 slt_inst_false:
     sd x0, 0(sp)
 slt_inst_ret:
-    jal x0, ra
+    j ra
 
 ###########################################
 # SET (IF) LESS THAN UNSIGNED INSTRUCTION #
@@ -265,16 +310,16 @@ sltu_inst:
     addi t2, x0, 456
     slt t3, t1, t2          # 123 < 456 = 1
     addi t4, x0, 1
-    beq t3, t4, slt_inst_true
-    jal x0, slt_inst_false
-slt_inst_true:
+    beq t3, t4, sltu_inst_true
+    j sltu_inst_false
+sltu_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, slt_inst_ret
-slt_inst_false:
+    j sltu_inst_ret
+sltu_inst_false:
     sd x0, 0(sp)
-slt_inst_ret:
-    jal x0, ra
+sltu_inst_ret:
+    j ra
 
 #############################
 # (LOGICAL) AND INSTRUCTION #
@@ -285,15 +330,15 @@ and_inst:
     and t3, t1, t2          # 123 AND 678 = 34
     addi t4, x0, 34
     beq t3, t4, and_inst_true
-    jal x0, and_inst_false
+    j and_inst_false
 and_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, and_inst_ret
+    j and_inst_ret
 and_inst_false:
     sd x0, 0(sp)
 and_inst_ret:
-    jal x0, ra
+    j ra
 
 ############################
 # (LOGICAL) OR INSTRUCTION #
@@ -304,15 +349,15 @@ or_inst:
     or t3, t1, t2          # 123 OR 678 = 767
     addi t4, x0, 767
     beq t3, t4, or_inst_true
-    jal x0, or_inst_false
+    j or_inst_false
 or_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, or_inst_ret
+    j or_inst_ret
 or_inst_false:
     sd x0, 0(sp)
 or_inst_ret:
-    jal x0, ra
+    j ra
 
 #############################
 # (LOGICAL) XOR INSTRUCTION #
@@ -323,15 +368,15 @@ xor_inst:
     and t3, t1, t2          # 123 XOR 678 = 733
     addi t4, x0, 733
     beq t3, t4, xor_inst_true
-    jal x0, xor_inst_false
+    j xor_inst_false
 xor_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, xor_inst_ret
+    j xor_inst_ret
 xor_inst_false:
     sd x0, 0(sp)
 xor_inst_ret:
-    jal x0, ra
+    j ra
 
 ##################################
 # SHIFT LEFT LOGICAL INSTRUCTION #
@@ -342,15 +387,15 @@ sll_inst:
     sll t3, t1, t2          # 1 << 3 = 8
     addi t4, x0, 8
     beq t3, t4, sll_inst_true
-    jal x0, sll_inst_false
+    j sll_inst_false
 sll_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, sll_inst_ret
+    j sll_inst_ret
 sll_inst_false:
     sd x0, 0(sp)
 sll_inst_ret:
-    jal x0, ra
+    j ra
 
 ###################################
 # SHIFT RIGHT LOGICAL INSTRUCTION #
@@ -361,15 +406,15 @@ srl_inst:
     srl t3, t1, t2          # 16 >> 3 = 2
     addi t4, x0, 2
     beq t3, t4, srl_inst_true
-    jal x0, srl_inst_false
+    j srl_inst_false
 srl_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, srl_inst_ret
+    j srl_inst_ret
 srl_inst_false:
     sd x0, 0(sp)
 srl_inst_ret:
-    jal x0, ra
+    j ra
 
 ########################
 # SUBTRACT INSTRUCTION #
@@ -380,15 +425,15 @@ sub_inst:
     sub t3, t1, t2          # 123 - 456 = -333
     addi t4, x0, -333
     beq t3, t4, sub_inst_true
-    jal x0, sub_inst_false
+    j sub_inst_false
 sub_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, sub_inst_ret
+    j sub_inst_ret
 sub_inst_false:
     sd x0, 0(sp)
 sub_inst_ret:
-    jal x0, ra
+    j ra
 
 ######################################
 # SHIFT RIGHT ARITHMETIC INSTRUCTION #
@@ -399,15 +444,15 @@ sra_inst:
     sra t3, t1, t2          # -16 >>> 3 = -2
     addi t4, x0, -2
     beq t3, t4, sra_inst_true
-    jal x0, sra_inst_false
+    j sra_inst_false
 sra_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
-    jal x0, sra_inst_ret
+    j sra_inst_ret
 sra_inst_false:
     sd x0, 0(sp)
 sra_inst_ret:
-    jal x0, ra
+    j ra
 
 # Floating-point instructions
 
@@ -415,109 +460,266 @@ sra_inst_ret:
 # FP ADD INSTRUCTION #
 ######################
 fadd_s_inst:
-    
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fadd.s ft3, ft1, ft2            # ft3 = ft1 + ft2 = 123.456 + 12.34 = 135.796
+    li t4, 0x4307CBC7               # t4 = 135.796
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ###########################
 # FP SUBTRACT INSTRUCTION #
 ###########################
 fsub_s_inst:
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fsub.s ft3, ft1, ft2            # ft3 = ft1 - ft2 = 123.456 - 12.34 = 111.116
+    li t4, 0x42DE3B64               # t4 = 111.116
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 #################################
 # FP MULTIPLICATION INSTRUCTION #
 #################################
 fmul_s_inst:
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fmul.s ft3, ft1, ft2            # ft3 = ft1 * ft2 = 123.456 * 12.34 = 1523.447
+    li t4, 0x44BE6E4E               # t4 = 1523.447
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ###########################
 # FP DIVISION INSTRUCTION #
 ###########################
 fdiv_s_inst:
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fdiv.s ft3, ft1, ft2            # ft3 = ft1 / ft2 = 123.456 / 12.34 = 10.004539
+    li t4, 0x41201297               # t4 = 10.004539
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ##########################
 # FP MINIMUM INSTRUCTION #
 ##########################
 fmin_s_inst:
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fmin.s ft3, ft1, ft2            # ft3 = min(ft1, ft2) = 12.34
+    li t4, 0x414570A4               # t4 = 12.34
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ##########################
 # FP MAXIMUM INSTRUCTION #
 ##########################
 fmax_s_inst:
-    jal x0, ra
+    li t1, 0x42F6E979               # t1 = 123.456
+    fmv.w.x ft1, t1
+    li t2, 0x414570A4               # t2 = 12.34
+    fmv.w.x ft2, t2
+    fmax.s ft3, ft1, ft2            # ft3 = max(ft1, ft2) = 123.456
+    li t4, 0x42F6E979               # t4 = 123.456
+    fmv.w.x ft4, t4
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ###############################################
 # FP TO 32-BIT INTEGER CONVERSION INSTRUCTION #
 ###############################################
 fcvt_w_s_inst:
-    jal x0, ra
+    li t1, 0x41291614               # t1 = 10.56789
+    fmv.w.x ft1, t1
+    fcvt.w.s t3, ft1
+    li t2, 10                       # t2 = 10
+    beq t2, t3, fcvt_w_s_inst_true
+    j fcvt_w_s_inst_false
+fcvt_w_s_inst_true:
+    addi t0, x0, 1
+    sd t0, 0(sp)
+    j fcvt_w_s_inst_ret
+fcvt_w_s_inst_false:
+    sd x0, 0(sp)
+fcvt_w_s_inst_ret:
+    j ra
 
 ###############################################
 # 32-BIT INTEGER TO FP CONVERSION INSTRUCTION #
 ###############################################
 fcvt_s_w_inst:
-    jal x0, ra
+    li t1, 123
+    fcvt.s.w ft1, t1
+    fmv.x.w t2, ft1
+    li t3, 0x42F60000               # t3 = 123.0
+    beq t2, t3, fcvt_s_w_inst_true
+    j fcvt_s_w_inst_false
+fcvt_s_w_inst_true:
+    addi t0, x0, 1
+    sd t0, 0(sp)
+    j fcvt_s_w_inst_ret
+fcvt_s_w_inst_false:
+    sd x0, 0(sp)
+fcvt_s_w_inst_ret:
+    j ra
 
 ###############################################
 # FP TO 64-BIT INTEGER CONVERSION INSTRUCTION #
 ###############################################
 fcvt_l_s_inst:
-    jal x0, ra
+    li t1, 0x41291614               # t1 = 10.56789
+    fmv.w.x ft1, t1
+    fcvt.l.s t3, ft1
+    li t2, 10                       # t2 = 10
+    beq t2, t3, fcvt_l_s_inst_true
+    j fcvt_l_s_inst_false
+fcvt_l_s_inst_true:
+    addi t0, x0, 1
+    sd t0, 0(sp)
+    j fcvt_l_s_inst_ret
+fcvt_l_s_inst_false:
+    sd x0, 0(sp)
+fcvt_l_s_inst_ret:
+    j ra
 
 ###############################################
 # 64-BIT INTEGER TO FP CONVERSION INSTRUCTION #
 ###############################################
 fcvt_s_l_inst:
-    jal x0, ra
+    li t1, 123
+    fcvt.s.l ft1, t1
+    fmv.x.w t2, ft1
+    li t3, 0x42F60000               # t3 = 123.0
+    beq t2, t3, fcvt_s_l_inst_true
+    j fcvt_s_l_inst_false
+fcvt_s_l_inst_true:
+    addi t0, x0, 1
+    sd t0, 0(sp)
+    j fcvt_s_l_inst_ret
+fcvt_s_l_inst_false:
+    sd x0, 0(sp)
+fcvt_s_l_inst_ret:
+    j ra
 
 #################################
 # FP SIGN INJECTION INSTRUCTION #
 #################################
 fsgnj_s_inst:
-    jal x0, ra
+    li t1, 0x4212B3CB               # t1 = 36.67558
+    fmv.w.x ft1, t1
+    li t2, 0xC2F6B180               # t2 = -123.34668
+    fmv.w.x ft2, t2
+    li t3, 0xC212B3CB               # t3 = -36.67558
+    fmv.w.x ft3, t3
+    fsgnj.s ft4, ft1, ft2           # ft4 = -36.67558
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 #########################################
 # FP SIGN INJECTION NEGATED INSTRUCTION #
 #########################################
 fsgnjn_s_inst:
-    jal x0, ra
+    li t1, 0x4212B3CB               # t1 = 36.67558
+    fmv.w.x ft1, t1
+    li t2, 0xC2F6B180               # t2 = -123.34668
+    fmv.w.x ft2, t2
+    li t3, 0xC212B3CB               # t3 = 36.67558
+    fmv.w.x ft3, t3
+    fsgnjn.s ft4, ft1, ft2           # ft4 = 36.67558
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ########################################
 # FP SIGN INJECTION XOR-ED INSTRUCTION #
 ########################################
 fsgnjx_s_inst:
-    jal x0, ra
+    li t1, 0x4212B3CB               # t1 = 36.67558
+    fmv.w.x ft1, t1
+    li t2, 0xC2F6B180               # t2 = -123.34668
+    fmv.w.x ft2, t2
+    li t3, 0xC212B3CB               # t3 = -36.67558
+    fmv.w.x ft3, t3
+    fsgnjx.s ft4, ft1, ft2           # ft4 = -36.67558
+    feq.s t0, ft3, ft4
+    sd t0, 0(sp)
+    j ra
 
 ###################################
 # FP EQUAL COMPARISON INSTRUCTION #
 ###################################
-feq_s:
-    jal x0, ra
+feq_s_inst:
+    li t1, 0x414570A4               # t1 = 12.34
+    fmv.w.x ft1, t1
+    li t2, 0x42F6E979               # t2 = 123.456
+    fmv.w.x ft2, t2
+    feq.s t0, ft1, ft2
+    beq t0, x0, feq_s_inst_true
+    j feq_s_inst_false
+feq_s_inst_true:
+    addi t0, x0, 1
+    sd t0, 0(sp)
+feq_s_inst_false:
+    sd x0, 0(sp)
+feq_s_inst_ret:
+    j ra
 
 #######################################
 # FP LESS THAN COMPARISON INSTRUCTION #
 #######################################
-flt_s:
-    jal x0, ra
+flt_s_inst:
+    li t1, 0x414570A4               # t1 = 12.34
+    fmv.w.x ft1, t1
+    li t2, 0x42F6E979               # t2 = 123.456
+    fmv.w.x ft2, t2
+    flt.s t0, ft1, ft2
+    sd t0, 0(sp)
+    j ra
 
 ################################################
 # FP LESS THAN OR EQUAL COMPARISON INSTRUCTION #
 ################################################
-fle_s:
-    jal x0, ra
+fle_s_inst:
+    li t1, 0x414570A4               # t1 = 12.34
+    fmv.w.x ft1, t1
+    li t2, 0x42F6E979               # t2 = 123.456
+    fmv.w.x ft2, t2
+    fle.s t0, ft1, ft2
+    sd t0, 0(sp)
+    j ra
 
 ################################################################
 # MOVE NUMBER FROM INTEGER REGISTER TO FP REGISTER INSTRUCTION #
 ################################################################
-fmv_x_w:
-    jal x0, ra
+# fmv_x_w:
+#     j ra
 
 ################################################################
 # MOVE NUMBER FROM FP REGISTER TO INTEGER REGISTER INSTRUCTION #
 ################################################################
-fmv_w_x:
-    jal x0, ra
+# fmv_w_x:
+#     j ra
 
 HALT:
