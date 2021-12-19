@@ -62,5 +62,6 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_c
     assign wire_3   = (in_FPU_Op == 4'b0011) ? {32'd0, FP_MinMax_Out}   : wire_4;
     assign wire_4   = (in_FPU_Op == 4'b0100) ? {32'd0, FP_Cmp_Out}      : wire_5;
     assign wire_5   = (in_FPU_Op == 4'b0101) ? {32'd0, FP_SGNJ_Out}     : wire_6;
-    assign wire_6   = (in_FPU_Op == 4'b0110) ? FP_Int_Convert_Out       : 64'd0;
+    assign wire_6   = (in_FPU_Op == 4'b0110) ? FP_Int_Convert_Out       : wire_7;
+    assign wire_7   = (in_FPU_Op == 4'b0111) ? {32'd0, in_rs2}          : 64'd0;
 endmodule
