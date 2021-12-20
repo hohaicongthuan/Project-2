@@ -13,7 +13,7 @@ module IMem(out_inst, in_inst_addr, done_load_inst);
     initial begin
         i = 0;
         done_load_inst = 1'b0;
-        Inst_File = $fopen("Instructions.txt", "r");
+        Inst_File = $fopen("Test_Instructions.txt", "r");
         while (! $feof(Inst_File)) begin
             $fscanf(Inst_File, "%h\n", Inst);
 

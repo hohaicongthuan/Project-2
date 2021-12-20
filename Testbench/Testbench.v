@@ -8,8 +8,7 @@ module Testbench();
     integer i;
 
     wire    DM_wr_en, done_load_inst;
-    reg     Clk, Rst_N, in_load_init_addr;
-    reg     [DATA_WIDTH - 1:0] in_PC;
+    reg     Clk, Rst_N;
     wire    [31:0] Inst;
     wire    [DATA_WIDTH - 1:0] Inst_Addr, Addr, Wr_Data, DM_Data;
 
@@ -20,7 +19,7 @@ module Testbench();
 
     initial begin
         Rst_N = 1'b0;
-        in_load_init_addr = 1'b0;
+        // in_load_init_addr = 1'b0;
         #waittime;
         
         while (!done_load_inst) begin
@@ -28,13 +27,13 @@ module Testbench();
         end
 
         Rst_N = 1'b1;
-        in_PC = 64'h10570;
-        in_load_init_addr = 1'b1;
+        // in_PC = 64'h10570;
+        // in_load_init_addr = 1'b1;
         #waittime;
-        in_load_init_addr = 1'b0;
+        // in_load_init_addr = 1'b0;
 
         i = 0;
-        while (i < 500) begin
+        while (i < 1000) begin
             #waittime;
             i = i + 1;
         end
@@ -50,9 +49,9 @@ module Testbench();
         .out_addr(Addr),
         .out_wr_data(Wr_Data),
         .out_DM_wr_en(DM_wr_en),
-        .Rst_N(Rst_N),
-        .in_PC(in_PC),
-        .in_load_init_addr(in_load_init_addr)
+        .Rst_N(Rst_N)//,
+        // .in_PC(in_PC),
+        // .in_load_init_addr(in_load_init_addr)
     );
 
     IMem IMem_Inst0(

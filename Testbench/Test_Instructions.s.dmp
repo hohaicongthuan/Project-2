@@ -16,7 +16,7 @@ Disassembly of section .text:
   20:	00410113          	addi	sp,sp,4
   24:	1b0000ef          	jal	ra,1d4 <xori_inst>
   28:	00410113          	addi	sp,sp,4
-  2c:	fd5ff0ef          	jal	ra,0 <main>
+  2c:	1d0000ef          	jal	ra,1fc <sltiu_inst>
   30:	00410113          	addi	sp,sp,4
   34:	1e8000ef          	jal	ra,21c <slli_inst>
   38:	00410113          	addi	sp,sp,4
@@ -103,7 +103,7 @@ Disassembly of section .text:
  15c:	00013023          	sd	zero,0(sp)
 
 0000000000000160 <addi_inst_ret>:
- 160:	ea1ff06f          	j	0 <main>
+ 160:	00008067          	ret
 
 0000000000000164 <slti_inst>:
  164:	07800313          	li	t1,120
@@ -113,7 +113,7 @@ Disassembly of section .text:
  174:	0ff00313          	li	t1,255
  178:	07b32293          	slti	t0,t1,123
  17c:	00513023          	sd	t0,0(sp)
- 180:	e81ff06f          	j	0 <main>
+ 180:	00008067          	ret
 
 0000000000000184 <andi_inst>:
  184:	07b00313          	li	t1,123
@@ -131,7 +131,7 @@ Disassembly of section .text:
  1a4:	00013023          	sd	zero,0(sp)
 
 00000000000001a8 <andi_inst_ret>:
- 1a8:	e59ff06f          	j	0 <main>
+ 1a8:	00008067          	ret
 
 00000000000001ac <ori_inst>:
  1ac:	07b00313          	li	t1,123
@@ -149,7 +149,7 @@ Disassembly of section .text:
  1cc:	00013023          	sd	zero,0(sp)
 
 00000000000001d0 <ori_inst_ret>:
- 1d0:	e31ff06f          	j	0 <main>
+ 1d0:	00008067          	ret
 
 00000000000001d4 <xori_inst>:
  1d4:	07b00313          	li	t1,123
@@ -167,7 +167,7 @@ Disassembly of section .text:
  1f4:	00013023          	sd	zero,0(sp)
 
 00000000000001f8 <xori_inst_ret>:
- 1f8:	e09ff06f          	j	0 <main>
+ 1f8:	00008067          	ret
 
 00000000000001fc <sltiu_inst>:
  1fc:	07800313          	li	t1,120
@@ -177,7 +177,7 @@ Disassembly of section .text:
  20c:	0ff00313          	li	t1,255
  210:	07b32293          	slti	t0,t1,123
  214:	00513023          	sd	t0,0(sp)
- 218:	de9ff06f          	j	0 <main>
+ 218:	00008067          	ret
 
 000000000000021c <slli_inst>:
  21c:	00100313          	li	t1,1
@@ -195,7 +195,7 @@ Disassembly of section .text:
  23c:	00013023          	sd	zero,0(sp)
 
 0000000000000240 <slli_inst_ret>:
- 240:	dc1ff06f          	j	0 <main>
+ 240:	00008067          	ret
 
 0000000000000244 <srli_inst>:
  244:	01000313          	li	t1,16
@@ -213,7 +213,7 @@ Disassembly of section .text:
  264:	00013023          	sd	zero,0(sp)
 
 0000000000000268 <srli_inst_ret>:
- 268:	d99ff06f          	j	0 <main>
+ 268:	00008067          	ret
 
 000000000000026c <srai_inst>:
  26c:	ff000313          	li	t1,-16
@@ -231,7 +231,7 @@ Disassembly of section .text:
  28c:	00013023          	sd	zero,0(sp)
 
 0000000000000290 <srai_inst_ret>:
- 290:	d71ff06f          	j	0 <main>
+ 290:	00008067          	ret
 
 0000000000000294 <lui_inst>:
  294:	00001337          	lui	t1,0x1
@@ -249,7 +249,7 @@ Disassembly of section .text:
  2b4:	00013023          	sd	zero,0(sp)
 
 00000000000002b8 <lui_inst_ret>:
- 2b8:	d49ff06f          	j	0 <main>
+ 2b8:	00008067          	ret
 
 00000000000002bc <add_inst>:
  2bc:	07b00313          	li	t1,123
@@ -268,7 +268,7 @@ Disassembly of section .text:
  2e0:	00013023          	sd	zero,0(sp)
 
 00000000000002e4 <add_inst_ret>:
- 2e4:	d1dff06f          	j	0 <main>
+ 2e4:	00008067          	ret
 
 00000000000002e8 <slt_inst>:
  2e8:	07b00313          	li	t1,123
@@ -287,7 +287,7 @@ Disassembly of section .text:
  30c:	00013023          	sd	zero,0(sp)
 
 0000000000000310 <slt_inst_ret>:
- 310:	cf1ff06f          	j	0 <main>
+ 310:	00008067          	ret
 
 0000000000000314 <sltu_inst>:
  314:	07b00313          	li	t1,123
@@ -306,7 +306,7 @@ Disassembly of section .text:
  338:	00013023          	sd	zero,0(sp)
 
 000000000000033c <sltu_inst_ret>:
- 33c:	cc5ff06f          	j	0 <main>
+ 33c:	00008067          	ret
 
 0000000000000340 <and_inst>:
  340:	07b00313          	li	t1,123
@@ -325,7 +325,7 @@ Disassembly of section .text:
  364:	00013023          	sd	zero,0(sp)
 
 0000000000000368 <and_inst_ret>:
- 368:	c99ff06f          	j	0 <main>
+ 368:	00008067          	ret
 
 000000000000036c <or_inst>:
  36c:	07b00313          	li	t1,123
@@ -344,7 +344,7 @@ Disassembly of section .text:
  390:	00013023          	sd	zero,0(sp)
 
 0000000000000394 <or_inst_ret>:
- 394:	c6dff06f          	j	0 <main>
+ 394:	00008067          	ret
 
 0000000000000398 <xor_inst>:
  398:	07b00313          	li	t1,123
@@ -363,7 +363,7 @@ Disassembly of section .text:
  3bc:	00013023          	sd	zero,0(sp)
 
 00000000000003c0 <xor_inst_ret>:
- 3c0:	c41ff06f          	j	0 <main>
+ 3c0:	00008067          	ret
 
 00000000000003c4 <sll_inst>:
  3c4:	00100313          	li	t1,1
@@ -382,7 +382,7 @@ Disassembly of section .text:
  3e8:	00013023          	sd	zero,0(sp)
 
 00000000000003ec <sll_inst_ret>:
- 3ec:	c15ff06f          	j	0 <main>
+ 3ec:	00008067          	ret
 
 00000000000003f0 <srl_inst>:
  3f0:	01000313          	li	t1,16
@@ -401,7 +401,7 @@ Disassembly of section .text:
  414:	00013023          	sd	zero,0(sp)
 
 0000000000000418 <srl_inst_ret>:
- 418:	be9ff06f          	j	0 <main>
+ 418:	00008067          	ret
 
 000000000000041c <sub_inst>:
  41c:	07b00313          	li	t1,123
@@ -420,7 +420,7 @@ Disassembly of section .text:
  440:	00013023          	sd	zero,0(sp)
 
 0000000000000444 <sub_inst_ret>:
- 444:	bbdff06f          	j	0 <main>
+ 444:	00008067          	ret
 
 0000000000000448 <sra_inst>:
  448:	ff000313          	li	t1,-16
@@ -439,7 +439,7 @@ Disassembly of section .text:
  46c:	00013023          	sd	zero,0(sp)
 
 0000000000000470 <sra_inst_ret>:
- 470:	b91ff06f          	j	0 <main>
+ 470:	00008067          	ret
 
 0000000000000474 <fadd_s_inst>:
  474:	42f6f337          	lui	t1,0x42f6f
@@ -454,7 +454,7 @@ Disassembly of section .text:
  498:	f00e8253          	fmv.w.x	ft4,t4
  49c:	a041a2d3          	feq.s	t0,ft3,ft4
  4a0:	00513023          	sd	t0,0(sp)
- 4a4:	b5dff06f          	j	0 <main>
+ 4a4:	00008067          	ret
 
 00000000000004a8 <fsub_s_inst>:
  4a8:	42f6f337          	lui	t1,0x42f6f
@@ -469,7 +469,7 @@ Disassembly of section .text:
  4cc:	f00e8253          	fmv.w.x	ft4,t4
  4d0:	a041a2d3          	feq.s	t0,ft3,ft4
  4d4:	00513023          	sd	t0,0(sp)
- 4d8:	b29ff06f          	j	0 <main>
+ 4d8:	00008067          	ret
 
 00000000000004dc <fmul_s_inst>:
  4dc:	42f6f337          	lui	t1,0x42f6f
@@ -484,7 +484,7 @@ Disassembly of section .text:
  500:	f00e8253          	fmv.w.x	ft4,t4
  504:	a041a2d3          	feq.s	t0,ft3,ft4
  508:	00513023          	sd	t0,0(sp)
- 50c:	af5ff06f          	j	0 <main>
+ 50c:	00008067          	ret
 
 0000000000000510 <fdiv_s_inst>:
  510:	42f6f337          	lui	t1,0x42f6f
@@ -499,7 +499,7 @@ Disassembly of section .text:
  534:	f00e8253          	fmv.w.x	ft4,t4
  538:	a041a2d3          	feq.s	t0,ft3,ft4
  53c:	00513023          	sd	t0,0(sp)
- 540:	ac1ff06f          	j	0 <main>
+ 540:	00008067          	ret
 
 0000000000000544 <fmin_s_inst>:
  544:	42f6f337          	lui	t1,0x42f6f
@@ -514,7 +514,7 @@ Disassembly of section .text:
  568:	f00e8253          	fmv.w.x	ft4,t4
  56c:	a041a2d3          	feq.s	t0,ft3,ft4
  570:	00513023          	sd	t0,0(sp)
- 574:	a8dff06f          	j	0 <main>
+ 574:	00008067          	ret
 
 0000000000000578 <fmax_s_inst>:
  578:	42f6f337          	lui	t1,0x42f6f
@@ -529,7 +529,7 @@ Disassembly of section .text:
  59c:	f00e8253          	fmv.w.x	ft4,t4
  5a0:	a041a2d3          	feq.s	t0,ft3,ft4
  5a4:	00513023          	sd	t0,0(sp)
- 5a8:	a59ff06f          	j	0 <main>
+ 5a8:	00008067          	ret
 
 00000000000005ac <fcvt_w_s_inst>:
  5ac:	41291337          	lui	t1,0x41291
@@ -549,7 +549,7 @@ Disassembly of section .text:
  5d4:	00013023          	sd	zero,0(sp)
 
 00000000000005d8 <fcvt_w_s_inst_ret>:
- 5d8:	a29ff06f          	j	0 <main>
+ 5d8:	00008067          	ret
 
 00000000000005dc <fcvt_s_w_inst>:
  5dc:	07b00313          	li	t1,123
@@ -568,7 +568,7 @@ Disassembly of section .text:
  600:	00013023          	sd	zero,0(sp)
 
 0000000000000604 <fcvt_s_w_inst_ret>:
- 604:	9fdff06f          	j	0 <main>
+ 604:	00008067          	ret
 
 0000000000000608 <fcvt_l_s_inst>:
  608:	41291337          	lui	t1,0x41291
@@ -588,7 +588,7 @@ Disassembly of section .text:
  630:	00013023          	sd	zero,0(sp)
 
 0000000000000634 <fcvt_l_s_inst_ret>:
- 634:	9cdff06f          	j	0 <main>
+ 634:	00008067          	ret
 
 0000000000000638 <fcvt_s_l_inst>:
  638:	07b00313          	li	t1,123
@@ -607,7 +607,7 @@ Disassembly of section .text:
  65c:	00013023          	sd	zero,0(sp)
 
 0000000000000660 <fcvt_s_l_inst_ret>:
- 660:	9a1ff06f          	j	0 <main>
+ 660:	00008067          	ret
 
 0000000000000664 <fsgnj_s_inst>:
  664:	4212b337          	lui	t1,0x4212b
@@ -626,7 +626,7 @@ Disassembly of section .text:
  698:	20208253          	fsgnj.s	ft4,ft1,ft2
  69c:	a041a2d3          	feq.s	t0,ft3,ft4
  6a0:	00513023          	sd	t0,0(sp)
- 6a4:	95dff06f          	j	0 <main>
+ 6a4:	00008067          	ret
 
 00000000000006a8 <fsgnjn_s_inst>:
  6a8:	4212b337          	lui	t1,0x4212b
@@ -645,7 +645,7 @@ Disassembly of section .text:
  6dc:	20209253          	fsgnjn.s	ft4,ft1,ft2
  6e0:	a041a2d3          	feq.s	t0,ft3,ft4
  6e4:	00513023          	sd	t0,0(sp)
- 6e8:	919ff06f          	j	0 <main>
+ 6e8:	00008067          	ret
 
 00000000000006ec <fsgnjx_s_inst>:
  6ec:	4212b337          	lui	t1,0x4212b
@@ -664,7 +664,7 @@ Disassembly of section .text:
  720:	2020a253          	fsgnjx.s	ft4,ft1,ft2
  724:	a041a2d3          	feq.s	t0,ft3,ft4
  728:	00513023          	sd	t0,0(sp)
- 72c:	8d5ff06f          	j	0 <main>
+ 72c:	00008067          	ret
 
 0000000000000730 <feq_s_inst>:
  730:	41457337          	lui	t1,0x41457
@@ -685,7 +685,7 @@ Disassembly of section .text:
  75c:	00013023          	sd	zero,0(sp)
 
 0000000000000760 <feq_s_inst_ret>:
- 760:	8a1ff06f          	j	0 <main>
+ 760:	00008067          	ret
 
 0000000000000764 <flt_s_inst>:
  764:	41457337          	lui	t1,0x41457
@@ -696,7 +696,7 @@ Disassembly of section .text:
  778:	f0038153          	fmv.w.x	ft2,t2
  77c:	a02092d3          	flt.s	t0,ft1,ft2
  780:	00513023          	sd	t0,0(sp)
- 784:	87dff06f          	j	0 <main>
+ 784:	00008067          	ret
 
 0000000000000788 <fle_s_inst>:
  788:	41457337          	lui	t1,0x41457
@@ -707,4 +707,4 @@ Disassembly of section .text:
  79c:	f0038153          	fmv.w.x	ft2,t2
  7a0:	a02082d3          	fle.s	t0,ft1,ft2
  7a4:	00513023          	sd	t0,0(sp)
- 7a8:	859ff06f          	j	0 <main>
+ 7a8:	00008067          	ret

@@ -14,7 +14,7 @@ main:
     addi sp, sp, 4
     jal ra, xori_inst
     addi sp, sp, 4
-    jal ra, sltui_inst
+    jal ra, sltiu_inst
     addi sp, sp, 4
     jal ra, slli_inst
     addi sp, sp, 4
@@ -107,7 +107,7 @@ addi_inst_true:
 addi_inst_false:
     sd x0, 0(sp)
 addi_inst_ret:
-    j ra
+    ret
 
 ############################################
 # SET (IF) LESS THAN IMMEDIATE INSTRUCTION #
@@ -120,7 +120,7 @@ slti_inst:
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
-    j ra
+    ret
 
 #######################################
 # (LOGICAL) AND IMMEDIATE INSTRUCTION #
@@ -138,7 +138,7 @@ andi_inst_true:
 andi_inst_false:
     sd x0, 0(sp)
 andi_inst_ret:
-    j ra
+    ret
 
 ######################################
 # (LOGICAL) OR IMMEDIATE INSTRUCTION #
@@ -156,7 +156,7 @@ ori_inst_true:
 ori_inst_false:
     sd x0, 0(sp)
 ori_inst_ret:
-    j ra
+    ret
 
 #######################################
 # (LOGICAL) XOR IMMEDIATE INSTRUCTION #
@@ -174,7 +174,7 @@ xori_inst_true:
 xori_inst_false:
     sd x0, 0(sp)
 xori_inst_ret:
-    j ra
+    ret
 
 #####################################################
 # SET (IF) LESS THAN IMMEDIATE UNSIGNED INSTRUCTION #
@@ -187,7 +187,7 @@ sltiu_inst:
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
-    j ra
+    ret
 
 ############################################
 # SHIFT LEFT LOGICAL IMMEDIATE INSTRUCTION #
@@ -205,7 +205,7 @@ slli_inst_true:
 slli_inst_false:
     sd x0, 0(sp)
 slli_inst_ret:
-    j ra
+    ret
 
 #############################################
 # SHIFT RIGHT LOGICAL IMMEDIATE INSTRUCTION #
@@ -223,7 +223,7 @@ srli_inst_true:
 srli_inst_false:
     sd x0, 0(sp)
 srli_inst_ret:
-    j ra
+    ret
 
 ################################################
 # SHIFT RIGHT ARITHMETIC IMMEDIATE INSTRUCTION #
@@ -241,7 +241,7 @@ srai_inst_true:
 srai_inst_false:
     sd x0, 0(sp)
 srai_inst_ret:
-    j ra
+    ret
 
 ####################################
 # LOAD UPPER IMMEDIATE INSTRUCTION #
@@ -259,10 +259,10 @@ lui_inst_true:
 lui_inst_false:
     sd x0, 0(sp)
 lui_inst_ret:
-    j ra
+    ret
 
 # auipc_inst:
-#     j ra
+#     ret
 
 ###################
 # ADD INSTRUCTION #
@@ -281,7 +281,7 @@ add_inst_true:
 add_inst_false:
     sd x0, 0(sp)
 add_inst_ret:
-    j ra
+    ret
 
 ##################################
 # SET (IF) LESS THAN INSTRUCTION #
@@ -300,7 +300,7 @@ slt_inst_true:
 slt_inst_false:
     sd x0, 0(sp)
 slt_inst_ret:
-    j ra
+    ret
 
 ###########################################
 # SET (IF) LESS THAN UNSIGNED INSTRUCTION #
@@ -319,7 +319,7 @@ sltu_inst_true:
 sltu_inst_false:
     sd x0, 0(sp)
 sltu_inst_ret:
-    j ra
+    ret
 
 #############################
 # (LOGICAL) AND INSTRUCTION #
@@ -338,7 +338,7 @@ and_inst_true:
 and_inst_false:
     sd x0, 0(sp)
 and_inst_ret:
-    j ra
+    ret
 
 ############################
 # (LOGICAL) OR INSTRUCTION #
@@ -357,7 +357,7 @@ or_inst_true:
 or_inst_false:
     sd x0, 0(sp)
 or_inst_ret:
-    j ra
+    ret
 
 #############################
 # (LOGICAL) XOR INSTRUCTION #
@@ -376,7 +376,7 @@ xor_inst_true:
 xor_inst_false:
     sd x0, 0(sp)
 xor_inst_ret:
-    j ra
+    ret
 
 ##################################
 # SHIFT LEFT LOGICAL INSTRUCTION #
@@ -395,7 +395,7 @@ sll_inst_true:
 sll_inst_false:
     sd x0, 0(sp)
 sll_inst_ret:
-    j ra
+    ret
 
 ###################################
 # SHIFT RIGHT LOGICAL INSTRUCTION #
@@ -414,7 +414,7 @@ srl_inst_true:
 srl_inst_false:
     sd x0, 0(sp)
 srl_inst_ret:
-    j ra
+    ret
 
 ########################
 # SUBTRACT INSTRUCTION #
@@ -433,7 +433,7 @@ sub_inst_true:
 sub_inst_false:
     sd x0, 0(sp)
 sub_inst_ret:
-    j ra
+    ret
 
 ######################################
 # SHIFT RIGHT ARITHMETIC INSTRUCTION #
@@ -452,7 +452,7 @@ sra_inst_true:
 sra_inst_false:
     sd x0, 0(sp)
 sra_inst_ret:
-    j ra
+    ret
 
 # Floating-point instructions
 
@@ -469,7 +469,7 @@ fadd_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ###########################
 # FP SUBTRACT INSTRUCTION #
@@ -484,7 +484,7 @@ fsub_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 #################################
 # FP MULTIPLICATION INSTRUCTION #
@@ -499,7 +499,7 @@ fmul_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ###########################
 # FP DIVISION INSTRUCTION #
@@ -514,7 +514,7 @@ fdiv_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ##########################
 # FP MINIMUM INSTRUCTION #
@@ -529,7 +529,7 @@ fmin_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ##########################
 # FP MAXIMUM INSTRUCTION #
@@ -544,7 +544,7 @@ fmax_s_inst:
     fmv.w.x ft4, t4
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ###############################################
 # FP TO 32-BIT INTEGER CONVERSION INSTRUCTION #
@@ -563,7 +563,7 @@ fcvt_w_s_inst_true:
 fcvt_w_s_inst_false:
     sd x0, 0(sp)
 fcvt_w_s_inst_ret:
-    j ra
+    ret
 
 ###############################################
 # 32-BIT INTEGER TO FP CONVERSION INSTRUCTION #
@@ -582,7 +582,7 @@ fcvt_s_w_inst_true:
 fcvt_s_w_inst_false:
     sd x0, 0(sp)
 fcvt_s_w_inst_ret:
-    j ra
+    ret
 
 ###############################################
 # FP TO 64-BIT INTEGER CONVERSION INSTRUCTION #
@@ -601,7 +601,7 @@ fcvt_l_s_inst_true:
 fcvt_l_s_inst_false:
     sd x0, 0(sp)
 fcvt_l_s_inst_ret:
-    j ra
+    ret
 
 ###############################################
 # 64-BIT INTEGER TO FP CONVERSION INSTRUCTION #
@@ -620,7 +620,7 @@ fcvt_s_l_inst_true:
 fcvt_s_l_inst_false:
     sd x0, 0(sp)
 fcvt_s_l_inst_ret:
-    j ra
+    ret
 
 #################################
 # FP SIGN INJECTION INSTRUCTION #
@@ -635,7 +635,7 @@ fsgnj_s_inst:
     fsgnj.s ft4, ft1, ft2           # ft4 = -36.67558
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 #########################################
 # FP SIGN INJECTION NEGATED INSTRUCTION #
@@ -650,7 +650,7 @@ fsgnjn_s_inst:
     fsgnjn.s ft4, ft1, ft2           # ft4 = 36.67558
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ########################################
 # FP SIGN INJECTION XOR-ED INSTRUCTION #
@@ -665,7 +665,7 @@ fsgnjx_s_inst:
     fsgnjx.s ft4, ft1, ft2           # ft4 = -36.67558
     feq.s t0, ft3, ft4
     sd t0, 0(sp)
-    j ra
+    ret
 
 ###################################
 # FP EQUAL COMPARISON INSTRUCTION #
@@ -684,7 +684,7 @@ feq_s_inst_true:
 feq_s_inst_false:
     sd x0, 0(sp)
 feq_s_inst_ret:
-    j ra
+    ret
 
 #######################################
 # FP LESS THAN COMPARISON INSTRUCTION #
@@ -696,7 +696,7 @@ flt_s_inst:
     fmv.w.x ft2, t2
     flt.s t0, ft1, ft2
     sd t0, 0(sp)
-    j ra
+    ret
 
 ################################################
 # FP LESS THAN OR EQUAL COMPARISON INSTRUCTION #
@@ -708,18 +708,18 @@ fle_s_inst:
     fmv.w.x ft2, t2
     fle.s t0, ft1, ft2
     sd t0, 0(sp)
-    j ra
+    ret
 
 ################################################################
 # MOVE NUMBER FROM INTEGER REGISTER TO FP REGISTER INSTRUCTION #
 ################################################################
 # fmv_x_w:
-#     j ra
+#     ret
 
 ################################################################
 # MOVE NUMBER FROM FP REGISTER TO INTEGER REGISTER INSTRUCTION #
 ################################################################
 # fmv_w_x:
-#     j ra
+#     ret
 
 HALT:
