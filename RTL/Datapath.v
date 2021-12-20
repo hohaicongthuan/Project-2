@@ -1,8 +1,8 @@
-module Datapath(in_ctrl_signal, in_inst, in_DM_data, in_PC, in_load_init_addr, Rst_N, Clk, out_inst_addr, out_addr, out_wr_data, out_flag);
-    input   Clk, Rst_N, in_load_init_addr;
+module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, out_addr, out_wr_data, out_flag);
+    input   Clk, Rst_N;
     input   [21:0] in_ctrl_signal;
     input   [31:0] in_inst;
-    input   [63:0] in_DM_data, in_PC;
+    input   [63:0] in_DM_data;
 
     output  [63:0] out_inst_addr, out_addr, out_wr_data;
     output  [4:0] out_flag;
@@ -43,10 +43,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, in_PC, in_load_init_addr, R
     assign fp_RF_write_data = (!in_ctrl_signal[18] & !in_ctrl_signal[17]) ? in_DM_data[31:0] : fp_wr_dat_wire_1;
     assign fp_wr_dat_wire_1 = (!in_ctrl_signal[18] & in_ctrl_signal[17]) ? out_addr[31:0] : FPU_Out[31:0];
 
-    assign PC_data = (in_load_init_addr) ? in_PC : PC_Src;
-
     REG PC_Reg_Inst0(
-        .in_data(PC_data),
+        .in_data(PC_Src),
         .out_data(out_inst_addr),
         .Clk(Clk),
         .Rst(Rst_N)

@@ -1,7 +1,7 @@
-module RV64IF_top(in_DM_data, in_inst, in_Clk, Rst_N, in_PC, in_load_init_addr, out_inst_addr, out_addr, out_wr_data, out_DM_wr_en);
-    input   in_Clk, Rst_N, in_load_init_addr;
+module RV64IF_top(in_DM_data, in_inst, in_Clk, Rst_N, out_inst_addr, out_addr, out_wr_data, out_DM_wr_en);
+    input   in_Clk, Rst_N;
     input   [31:0] in_inst;
-    input   [63:0] in_DM_data, in_PC;
+    input   [63:0] in_DM_data;
 
     output  out_DM_wr_en;
     output  [63:0] out_inst_addr, out_addr, out_wr_data;
@@ -20,9 +20,7 @@ module RV64IF_top(in_DM_data, in_inst, in_Clk, Rst_N, in_PC, in_load_init_addr, 
         .out_addr(out_addr),
         .out_wr_data(out_wr_data),
         .out_flag(wire_flag),
-        .Rst_N(Rst_N),
-        .in_PC(in_PC),
-        .in_load_init_addr(in_load_init_addr)
+        .Rst_N(Rst_N)
     );
     ControlUnit ControlUnit_Inst0 (
         .in_inst(in_inst),
