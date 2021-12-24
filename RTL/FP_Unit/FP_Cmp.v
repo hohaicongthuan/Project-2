@@ -8,13 +8,14 @@ module FP_Cmp(in_numA, in_numB, in_cmp_type, out_data, out_flag_NV);
                                 // less than (01), and less than or equal comparison (00)
 
     output  out_flag_NV;
-    output  [DATA_WIDTH - 1:0] out_data;
+    output  [63:0] out_data;
 
     // Internal wires
     wire    NaN_exception, numA_sp_exception, numB_sp_exception;
     wire    [DATA_WIDTH - 1:0]  equ_result, lt_result, lte_result,
-                                wire_1, wire_2, wire_3, wire_4, wire_5, wire_6,
+                                wire_1, wire_2, wire_3, wire_4,
                                 sign_cmp, exp_cmp;
+    wire    [63:0] wire_5, wire_6;
 
     // Check NaN in numA as 32-bit FP
     assign numA_sp_exception = ((in_numA[31:23] == 9'b111111111) & (in_numA[22:0] != 23'd0)) ? 1'b1 : 1'b0;
@@ -40,7 +41,7 @@ module FP_Cmp(in_numA, in_numB, in_cmp_type, out_data, out_flag_NV);
     assign lte_result = (equ_result == 32'd1 | lt_result == 32'd1) ? 32'd1 : 32'd0;
 
     // Final output
-    assign out_data = (in_cmp_type == 2'b10) ? equ_result : wire_5;
-    assign wire_5 = (in_cmp_type == 2'b01) ? lt_result : wire_6;
-    assign wire_6 = (in_cmp_type == 2'b00) ? lte_result : 32'd0;
+    assign out_data = (in_cmp_type == 2'b10) ? {32'd0, equ_result} : wire_5;
+    assign wire_5 = (in_cmp_type == 2'b01) ? {32'd0, lt_result} : wire_6;
+    assign wire_6 = (in_cmp_type == 2'b00) ? {32'd0, lte_result} : 64'd0;
 endmodule
