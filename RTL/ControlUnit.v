@@ -44,8 +44,8 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
     parameter FCVT_S_W      = 23'b00001010100000100100000; parameter FCVT_L_S   = 23'b01100100100000000001100;
     parameter FCVT_S_L      = 23'b00001010100000100100000; parameter FSGNJ_S    = 23'b00010010100000000001010;
     parameter FSGNJN_S      = 23'b00010010100000000001010; parameter FSGNJX_S   = 23'b00010010100000000001010;
-    parameter FEQ_S         = 23'b00010010100000000001000; parameter FLT_S      = 23'b00010010100000000001000;
-    parameter FLE_S         = 23'b00010010100000000001000; parameter FMV_X_W    = 23'b01100100100000001001110;
+    parameter FEQ_S         = 23'b01100100100000000001000; parameter FLT_S      = 23'b01100100100000000001000;
+    parameter FLE_S         = 23'b01100100100000000001000; parameter FMV_X_W    = 23'b01100100100000001001110;
     parameter FMV_W_X       = 23'b00001010100000000000000;
     
     input   [4:0] in_flag;
