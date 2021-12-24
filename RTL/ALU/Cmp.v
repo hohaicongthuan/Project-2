@@ -9,9 +9,9 @@ module Cmp(in_numA, in_numB, out_Signed, out_Unsigned, out_flag);
     wire same_sign;
     wire [DATA_WIDTH - 1:0] unsigned_numA, unsigned_numB, same_sign_cmp, diff_sign_cmp;
 
-    assign same_sign = (in_numA[DATA_WIDTH - 1] ^ in_numB[DATA_WIDTH - 1]) ? 1'b0 : 1'b1;
-    assign unsigned_numA = (in_numA[DATA_WIDTH - 1]) ? ((~in_numA) + 64'd1) : in_numA;
-    assign unsigned_numB = (in_numB[DATA_WIDTH - 1]) ? ((~in_numB) + 64'd1) : in_numB;
+    assign same_sign = !(in_numA[DATA_WIDTH - 1] ^ in_numB[DATA_WIDTH - 1]);
+    assign unsigned_numA = (in_numA[DATA_WIDTH - 1]) ? (~in_numA + 64'd1) : in_numA;
+    assign unsigned_numB = (in_numB[DATA_WIDTH - 1]) ? (~in_numB + 64'd1) : in_numB;
     assign same_sign_cmp = (unsigned_numA < unsigned_numB) ? 64'd1 : 64'd0;
     assign diff_sign_cmp = (in_numA[DATA_WIDTH - 1]) ? 64'd1 : 64'd0;
 
