@@ -7,75 +7,75 @@ Disassembly of section .text:
 0000000000000000 <main>:
    0:	00000113          	li	sp,0
    4:	13c000ef          	jal	ra,140 <addi_inst>
-   8:	00410113          	addi	sp,sp,4
+   8:	00810113          	addi	sp,sp,8
    c:	158000ef          	jal	ra,164 <slti_inst>
-  10:	00410113          	addi	sp,sp,4
+  10:	00810113          	addi	sp,sp,8
   14:	170000ef          	jal	ra,184 <andi_inst>
-  18:	00410113          	addi	sp,sp,4
+  18:	00810113          	addi	sp,sp,8
   1c:	190000ef          	jal	ra,1ac <ori_inst>
-  20:	00410113          	addi	sp,sp,4
+  20:	00810113          	addi	sp,sp,8
   24:	1b0000ef          	jal	ra,1d4 <xori_inst>
-  28:	00410113          	addi	sp,sp,4
+  28:	00810113          	addi	sp,sp,8
   2c:	1d0000ef          	jal	ra,1fc <sltiu_inst>
-  30:	00410113          	addi	sp,sp,4
+  30:	00810113          	addi	sp,sp,8
   34:	1e8000ef          	jal	ra,21c <slli_inst>
-  38:	00410113          	addi	sp,sp,4
+  38:	00810113          	addi	sp,sp,8
   3c:	208000ef          	jal	ra,244 <srli_inst>
-  40:	00410113          	addi	sp,sp,4
+  40:	00810113          	addi	sp,sp,8
   44:	228000ef          	jal	ra,26c <srai_inst>
-  48:	00410113          	addi	sp,sp,4
+  48:	00810113          	addi	sp,sp,8
   4c:	248000ef          	jal	ra,294 <lui_inst>
-  50:	00410113          	addi	sp,sp,4
+  50:	00810113          	addi	sp,sp,8
   54:	268000ef          	jal	ra,2bc <add_inst>
-  58:	00410113          	addi	sp,sp,4
+  58:	00810113          	addi	sp,sp,8
   5c:	28c000ef          	jal	ra,2e8 <slt_inst>
-  60:	00410113          	addi	sp,sp,4
+  60:	00810113          	addi	sp,sp,8
   64:	2b0000ef          	jal	ra,314 <sltu_inst>
-  68:	00410113          	addi	sp,sp,4
+  68:	00810113          	addi	sp,sp,8
   6c:	2d4000ef          	jal	ra,340 <and_inst>
-  70:	00410113          	addi	sp,sp,4
+  70:	00810113          	addi	sp,sp,8
   74:	2f8000ef          	jal	ra,36c <or_inst>
-  78:	00410113          	addi	sp,sp,4
+  78:	00810113          	addi	sp,sp,8
   7c:	31c000ef          	jal	ra,398 <xor_inst>
-  80:	00410113          	addi	sp,sp,4
+  80:	00810113          	addi	sp,sp,8
   84:	340000ef          	jal	ra,3c4 <sll_inst>
-  88:	00410113          	addi	sp,sp,4
+  88:	00810113          	addi	sp,sp,8
   8c:	364000ef          	jal	ra,3f0 <srl_inst>
-  90:	00410113          	addi	sp,sp,4
+  90:	00810113          	addi	sp,sp,8
   94:	388000ef          	jal	ra,41c <sub_inst>
-  98:	00410113          	addi	sp,sp,4
+  98:	00810113          	addi	sp,sp,8
   9c:	3ac000ef          	jal	ra,448 <sra_inst>
-  a0:	00410113          	addi	sp,sp,4
+  a0:	00810113          	addi	sp,sp,8
   a4:	3d0000ef          	jal	ra,474 <fadd_s_inst>
-  a8:	00410113          	addi	sp,sp,4
+  a8:	00810113          	addi	sp,sp,8
   ac:	3fc000ef          	jal	ra,4a8 <fsub_s_inst>
-  b0:	00410113          	addi	sp,sp,4
+  b0:	00810113          	addi	sp,sp,8
   b4:	428000ef          	jal	ra,4dc <fmul_s_inst>
-  b8:	00410113          	addi	sp,sp,4
+  b8:	00810113          	addi	sp,sp,8
   bc:	454000ef          	jal	ra,510 <fdiv_s_inst>
-  c0:	00410113          	addi	sp,sp,4
+  c0:	00810113          	addi	sp,sp,8
   c4:	480000ef          	jal	ra,544 <fmin_s_inst>
-  c8:	00410113          	addi	sp,sp,4
+  c8:	00810113          	addi	sp,sp,8
   cc:	4ac000ef          	jal	ra,578 <fmax_s_inst>
-  d0:	00410113          	addi	sp,sp,4
+  d0:	00810113          	addi	sp,sp,8
   d4:	4d8000ef          	jal	ra,5ac <fcvt_w_s_inst>
-  d8:	00410113          	addi	sp,sp,4
+  d8:	00810113          	addi	sp,sp,8
   dc:	500000ef          	jal	ra,5dc <fcvt_s_w_inst>
-  e0:	00410113          	addi	sp,sp,4
+  e0:	00810113          	addi	sp,sp,8
   e4:	524000ef          	jal	ra,608 <fcvt_l_s_inst>
-  e8:	00410113          	addi	sp,sp,4
+  e8:	00810113          	addi	sp,sp,8
   ec:	54c000ef          	jal	ra,638 <fcvt_s_l_inst>
-  f0:	00410113          	addi	sp,sp,4
+  f0:	00810113          	addi	sp,sp,8
   f4:	570000ef          	jal	ra,664 <fsgnj_s_inst>
-  f8:	00410113          	addi	sp,sp,4
+  f8:	00810113          	addi	sp,sp,8
   fc:	5ac000ef          	jal	ra,6a8 <fsgnjn_s_inst>
- 100:	00410113          	addi	sp,sp,4
+ 100:	00810113          	addi	sp,sp,8
  104:	5e8000ef          	jal	ra,6ec <fsgnjx_s_inst>
- 108:	00410113          	addi	sp,sp,4
+ 108:	00810113          	addi	sp,sp,8
  10c:	624000ef          	jal	ra,730 <feq_s_inst>
- 110:	00410113          	addi	sp,sp,4
+ 110:	00810113          	addi	sp,sp,8
  114:	650000ef          	jal	ra,764 <flt_s_inst>
- 118:	00410113          	addi	sp,sp,4
+ 118:	00810113          	addi	sp,sp,8
  11c:	66c000ef          	jal	ra,788 <fle_s_inst>
  120:	02400293          	li	t0,36
  124:	00000113          	li	sp,0
@@ -84,7 +84,7 @@ Disassembly of section .text:
  128:	00013303          	ld	t1,0(sp)
  12c:	68028063          	beqz	t0,7ac <HALT>
  130:	fff28293          	addi	t0,t0,-1
- 134:	00410113          	addi	sp,sp,4
+ 134:	00810113          	addi	sp,sp,8
  138:	ff1ff06f          	j	128 <loop>
  13c:	6700006f          	j	7ac <HALT>
 
@@ -109,7 +109,7 @@ Disassembly of section .text:
  164:	07800313          	li	t1,120
  168:	07b32293          	slti	t0,t1,123
  16c:	00513023          	sd	t0,0(sp)
- 170:	00410113          	addi	sp,sp,4
+ 170:	00810113          	addi	sp,sp,8
  174:	0ff00313          	li	t1,255
  178:	07b32293          	slti	t0,t1,123
  17c:	00513023          	sd	t0,0(sp)
@@ -173,7 +173,7 @@ Disassembly of section .text:
  1fc:	07800313          	li	t1,120
  200:	07b32293          	slti	t0,t1,123
  204:	00513023          	sd	t0,0(sp)
- 208:	00410113          	addi	sp,sp,4
+ 208:	00810113          	addi	sp,sp,8
  20c:	0ff00313          	li	t1,255
  210:	07b32293          	slti	t0,t1,123
  214:	00513023          	sd	t0,0(sp)

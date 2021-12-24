@@ -5,79 +5,79 @@ main:
 
     # BASE INTEGER INSTRUCTIONS
     jal ra, addi_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, slti_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, andi_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, ori_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, xori_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, sltiu_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, slli_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, srli_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, srai_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, lui_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     # jal ra, auipc_inst
-    # addi sp, sp, 4
+    # addi sp, sp, 8
     jal ra, add_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, slt_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, sltu_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, and_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, or_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, xor_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, sll_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, srl_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, sub_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, sra_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
 
     # FLOATING-POINT INSTRUCTIONS
     jal ra, fadd_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fsub_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fmul_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fdiv_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fmin_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fmax_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fcvt_w_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fcvt_s_w_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fcvt_l_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fcvt_s_l_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fsgnj_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fsgnjn_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fsgnjx_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, feq_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, flt_s_inst
-    addi sp, sp, 4
+    addi sp, sp, 8
     jal ra, fle_s_inst
 
     # READ OUT THE RESULTS IN DATA MEM
@@ -87,7 +87,7 @@ loop:
     ld t1, 0(sp)
     beq t0, x0, HALT
     addi t0, t0, -1
-    addi sp, sp, 4
+    addi sp, sp, 8
     j loop
 
     j HALT        # Halts the programme
@@ -116,7 +116,7 @@ slti_inst:
     addi t1, x0, 120
     slti t0, t1, 123
     sd t0, 0(sp)
-    addi sp, sp, 4
+    addi sp, sp, 8
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
@@ -183,7 +183,7 @@ sltiu_inst:
     addi t1, x0, 120
     slti t0, t1, 123
     sd t0, 0(sp)
-    addi sp, sp, 4
+    addi sp, sp, 8
     addi t1, x0, 255
     slti t0, t1, 123
     sd t0, 0(sp)
