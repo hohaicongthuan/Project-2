@@ -49,9 +49,7 @@ module Testbench();
         .out_addr(Addr),
         .out_wr_data(Wr_Data),
         .out_DM_wr_en(DM_wr_en),
-        .Rst_N(Rst_N)//,
-        // .in_PC(in_PC),
-        // .in_load_init_addr(in_load_init_addr)
+        .Rst_N(Rst_N)
     );
 
     IMem IMem_Inst0(

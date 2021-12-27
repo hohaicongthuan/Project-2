@@ -79,16 +79,18 @@ main:
     jal ra, flt_s_inst
     addi sp, sp, 8
     jal ra, fle_s_inst
-
-    # READ OUT THE RESULTS IN DATA MEM
-    addi t0, x0, 36
-    addi sp, x0, 0
-loop:
-    ld t1, 0(sp)
-    beq t0, x0, HALT
-    addi t0, t0, -1
     addi sp, sp, 8
-    j loop
+
+    # BRANCH INSTRUCTIONS
+    jal ra, bne_inst
+    addi sp, sp, 8
+    jal ra, blt_inst
+    addi sp, sp, 8
+    jal ra, bge_inst
+    addi sp, sp, 8
+    jal ra, bltu_inst
+    addi sp, sp, 8
+    jal ra, bgeu_inst
 
     j HALT        # Halts the programme
 
@@ -181,11 +183,11 @@ xori_inst_ret:
 #####################################################
 sltiu_inst:
     addi t1, x0, 120
-    slti t0, t1, 123
+    sltiu t0, t1, 123
     sd t0, 0(sp)
     addi sp, sp, 8
     addi t1, x0, 255
-    slti t0, t1, 123
+    sltiu t0, t1, 123
     sd t0, 0(sp)
     ret
 
@@ -230,7 +232,7 @@ srli_inst_ret:
 ################################################
 srai_inst:
     addi t1, x0, -16
-    srai t2, t1, 3          # -16 >> 3 = -2
+    srai t2, t1, 3          # -16 >>> 3 = -2
     addi t3, x0, -2
     beq t2, t3, srai_inst_true
     j srai_inst_false
@@ -308,7 +310,7 @@ slt_inst_ret:
 sltu_inst:
     addi t1, x0, 123
     addi t2, x0, 456
-    slt t3, t1, t2          # 123 < 456 = 1
+    sltu t3, t1, t2          # 123 < 456 = 1
     addi t4, x0, 1
     beq t3, t4, sltu_inst_true
     j sltu_inst_false
@@ -459,6 +461,7 @@ sra_inst_ret:
 ######################
 # FP ADD INSTRUCTION #
 ######################
+# 0.01 = 0x3C23D70A
 fadd_s_inst:
     li t1, 0x42F6E979               # t1 = 123.456
     fmv.w.x ft1, t1
@@ -467,7 +470,10 @@ fadd_s_inst:
     fadd.s ft3, ft1, ft2            # ft3 = ft1 + ft2 = 123.456 + 12.34 = 135.796
     li t4, 0x4307CBC7               # t4 = 135.796
     fmv.w.x ft4, t4
-    feq.s t0, ft3, ft4
+    fsub.s ft5, ft3, ft4
+    li t3, 0x3C23D70A               # t3 = 0.01
+    fmv.w.x ft6, t3
+    fle.s t0, ft5, ft6
     sd t0, 0(sp)
     ret
 
@@ -482,7 +488,10 @@ fsub_s_inst:
     fsub.s ft3, ft1, ft2            # ft3 = ft1 - ft2 = 123.456 - 12.34 = 111.116
     li t4, 0x42DE3B64               # t4 = 111.116
     fmv.w.x ft4, t4
-    feq.s t0, ft3, ft4
+    fsub.s ft5, ft3, ft4
+    li t3, 0x3C23D70A               # t3 = 0.01
+    fmv.w.x ft6, t3
+    fle.s t0, ft5, ft6
     sd t0, 0(sp)
     ret
 
@@ -497,7 +506,10 @@ fmul_s_inst:
     fmul.s ft3, ft1, ft2            # ft3 = ft1 * ft2 = 123.456 * 12.34 = 1523.447
     li t4, 0x44BE6E4E               # t4 = 1523.447
     fmv.w.x ft4, t4
-    feq.s t0, ft3, ft4
+    fsub.s ft5, ft3, ft4
+    li t3, 0x3C23D70A               # t3 = 0.01
+    fmv.w.x ft6, t3
+    fle.s t0, ft5, ft6
     sd t0, 0(sp)
     ret
 
@@ -512,7 +524,10 @@ fdiv_s_inst:
     fdiv.s ft3, ft1, ft2            # ft3 = ft1 / ft2 = 123.456 / 12.34 = 10.004539
     li t4, 0x41201297               # t4 = 10.004539
     fmv.w.x ft4, t4
-    feq.s t0, ft3, ft4
+    fsub.s ft5, ft3, ft4
+    li t3, 0x3C23D70A               # t3 = 0.01
+    fmv.w.x ft6, t3
+    fle.s t0, ft5, ft6
     sd t0, 0(sp)
     ret
 
@@ -721,5 +736,90 @@ fle_s_inst:
 ################################################################
 # fmv_w_x:
 #     ret
+
+#####################################
+# BRANCH (IF) NOT EQUAL INSTRUCTION #
+#####################################
+bne_inst:
+    li t1, 1
+    li t2, 2
+    bne t1, t2, bne_inst_true
+    j bne_inst_false
+bne_inst_true:
+    li t0, 1
+    sd t0, 0(sp)
+    j bne_inst_ret
+bne_inst_false:
+    sd x0, 0(sp)
+bne_inst_ret:
+    ret
+
+#####################################
+# BRANCH (IF) LESS THAN INSTRUCTION #
+#####################################
+blt_inst:
+    li t1, 1
+    li t2, 2
+    blt t1, t2, blt_inst_true
+    j blt_inst_false
+blt_inst_true:
+    li t0, 1
+    sd t0, 0(sp)
+    j blt_inst_ret
+blt_inst_false:
+    sd x0, 0(sp)
+blt_inst_ret:
+    ret
+
+############################################
+# BRANCH (IF) GREATER OR EQUAL INSTRUCTION #
+############################################
+bge_inst:
+    li t1, 2
+    li t2, 1
+    bge t1, t2, bge_inst_true
+    j bge_inst_false
+bge_inst_true:
+    li t0, 1
+    sd t0, 0(sp)
+    j bge_inst_ret
+bge_inst_false:
+    sd x0, 0(sp)
+bge_inst_ret:
+    ret
+
+##############################################
+# BRANCH (IF) LESS THAN UNSIGNED INSTRUCTION #
+##############################################
+bltu_inst:
+    li t1, 1
+    li t2, -2
+    bltu t1, t2, bltu_inst_true
+    j bltu_inst_false
+bltu_inst_true:
+    li t0, 1
+    sd t0, 0(sp)
+    j bltu_inst_ret
+bltu_inst_false:
+    sd x0, 0(sp)
+bltu_inst_ret:
+    ret
+
+#####################################################
+# BRANCH (IF) GREATER OR EQUAL UNSIGNED INSTRUCTION #
+#####################################################
+bgeu_inst:
+    li t1, -2
+    li t2, 1
+    bgeu t1, t2, bgeu_inst_true
+    j bgeu_inst_false
+bgeu_inst_true:
+    li t0, 1
+    sd t0, 0(sp)
+    j bgeu_inst_ret
+bgeu_inst_false:
+    sd x0, 0(sp)
+bgeu_inst_ret:
+    ret
 
 HALT:
