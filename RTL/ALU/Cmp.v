@@ -18,9 +18,9 @@ module Cmp(in_numA, in_numB, out_Signed, out_Unsigned, out_flag);
     assign out_Signed = (same_sign) ? same_sign_cmp : diff_sign_cmp;
     assign out_Unsigned = (in_numA < in_numB) ? 64'd1 : 64'd0;
 
-    assign out_flag[4] = (in_numA == in_numB) ? 1'b1 : 1'b0; // Equal flag
-    assign out_flag[3] = out_Signed[0]; // Less than flag
-    assign out_flag[2] = out_Unsigned[0]; // Less than flag (unsigned comparison)
-    assign out_flag[1] = (out_flag[4] | (!out_flag[3])); // Greater or equal flag
-    assign out_flag[0] = (out_flag[4] | (!out_flag[2])); // Greater or equal flag (unsigned comparison)
+    assign out_flag[4] = (in_numA == in_numB) ? 1'b1 : 1'b0;    // Equal flag
+    assign out_flag[3] = out_Signed[0];                         // Less than flag
+    assign out_flag[2] = out_Unsigned[0];                       // Less than flag (unsigned comparison)
+    assign out_flag[1] = (out_flag[4] | (!out_flag[3]));        // Greater or equal flag
+    assign out_flag[0] = (out_flag[4] | (!out_flag[2]));        // Greater or equal flag (unsigned comparison)
 endmodule

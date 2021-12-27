@@ -24,7 +24,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU, PC_data;
 
     assign rs2_Src = (in_ctrl_signal[9]) ? ImmGen_Out : int_RF_out_B;
-    assign out_wr_data = (in_ctrl_signal[8]) ? fp_RF_out_B : int_RF_out_B;
+    assign out_wr_data = (in_ctrl_signal[8]) ? {32'd0, fp_RF_out_B} : int_RF_out_B;
 
     // PC Source
     assign PC_Add_Four = out_inst_addr + 64'd4;
