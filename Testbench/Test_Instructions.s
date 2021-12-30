@@ -367,7 +367,7 @@ or_inst_ret:
 xor_inst:
     addi t1, x0, 123
     addi t2, x0, 678
-    and t3, t1, t2          # 123 XOR 678 = 733
+    xor t3, t1, t2          # 123 XOR 678 = 733
     addi t4, x0, 733
     beq t3, t4, xor_inst_true
     j xor_inst_false
@@ -660,7 +660,7 @@ fsgnjn_s_inst:
     fmv.w.x ft1, t1
     li t2, 0xC2F6B180               # t2 = -123.34668
     fmv.w.x ft2, t2
-    li t3, 0xC212B3CB               # t3 = 36.67558
+    li t3, 0x4212B3CB               # t3 = 36.67558
     fmv.w.x ft3, t3
     fsgnjn.s ft4, ft1, ft2           # ft4 = 36.67558
     feq.s t0, ft3, ft4
@@ -696,6 +696,7 @@ feq_s_inst:
 feq_s_inst_true:
     addi t0, x0, 1
     sd t0, 0(sp)
+    j feq_s_inst_ret
 feq_s_inst_false:
     sd x0, 0(sp)
 feq_s_inst_ret:
