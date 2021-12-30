@@ -10,7 +10,7 @@ module ImmGen(in_data, in_inst_type, out_data);
     assign I_Imm = {{53{in_data[31]}}, in_data[30:20]};
     assign S_Imm = {{53{in_data[31]}}, in_data[30:25], in_data[11:7]};
     assign B_Imm = {{52{in_data[31]}}, in_data[7], in_data[30:25], in_data[11:8], 1'b0};
-    assign U_Imm = {{31{in_data[31]}}, in_data[31:12], {13{1'b0}}};
+    assign U_Imm = {{32{in_data[31]}}, in_data[31:12], 12'd0};
     assign J_Imm = {{44{in_data[31]}}, in_data[19:12], in_data[20], in_data[30:21], 1'b0};
 
     assign out_data = (in_inst_type == 3'b000) ? I_Imm : wire_1;
