@@ -70,24 +70,24 @@ Disassembly of section .text:
   f8:	00810113          	addi	sp,sp,8
   fc:	5f8000ef          	jal	ra,6f4 <fsgnjn_s_inst>
  100:	00810113          	addi	sp,sp,8
- 104:	634000ef          	jal	ra,738 <fsgnjx_s_inst>
+ 104:	62c000ef          	jal	ra,730 <fsgnjx_s_inst>
  108:	00810113          	addi	sp,sp,8
- 10c:	670000ef          	jal	ra,77c <feq_s_inst>
+ 10c:	668000ef          	jal	ra,774 <feq_s_inst>
  110:	00810113          	addi	sp,sp,8
- 114:	69c000ef          	jal	ra,7b0 <flt_s_inst>
+ 114:	698000ef          	jal	ra,7ac <flt_s_inst>
  118:	00810113          	addi	sp,sp,8
- 11c:	6b8000ef          	jal	ra,7d4 <fle_s_inst>
+ 11c:	6b4000ef          	jal	ra,7d0 <fle_s_inst>
  120:	00810113          	addi	sp,sp,8
- 124:	6d4000ef          	jal	ra,7f8 <bne_inst>
+ 124:	6d0000ef          	jal	ra,7f4 <bne_inst>
  128:	00810113          	addi	sp,sp,8
- 12c:	6f0000ef          	jal	ra,81c <blt_inst>
+ 12c:	6ec000ef          	jal	ra,818 <blt_inst>
  130:	00810113          	addi	sp,sp,8
- 134:	70c000ef          	jal	ra,840 <bge_inst>
+ 134:	708000ef          	jal	ra,83c <bge_inst>
  138:	00810113          	addi	sp,sp,8
- 13c:	728000ef          	jal	ra,864 <bltu_inst>
+ 13c:	724000ef          	jal	ra,860 <bltu_inst>
  140:	00810113          	addi	sp,sp,8
- 144:	744000ef          	jal	ra,888 <bgeu_inst>
- 148:	7640006f          	j	8ac <HALT>
+ 144:	740000ef          	jal	ra,884 <bgeu_inst>
+ 148:	7600006f          	j	8a8 <HALT>
 
 000000000000014c <addi_inst>:
  14c:	07b00313          	li	t1,123
@@ -350,7 +350,7 @@ Disassembly of section .text:
 00000000000003a4 <xor_inst>:
  3a4:	07b00313          	li	t1,123
  3a8:	2a600393          	li	t2,678
- 3ac:	00737e33          	and	t3,t1,t2
+ 3ac:	00734e33          	xor	t3,t1,t2
  3b0:	2dd00e93          	li	t4,733
  3b4:	01de0463          	beq	t3,t4,3bc <xor_inst_true>
  3b8:	0100006f          	j	3c8 <xor_inst_false>
@@ -633,12 +633,12 @@ Disassembly of section .text:
  6bc:	000c33b7          	lui	t2,0xc3
  6c0:	f6b3839b          	addiw	t2,t2,-149
  6c4:	00c39393          	slli	t2,t2,0xc
- 6c8:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d4>
+ 6c8:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d8>
  6cc:	f0038153          	fmv.w.x	ft2,t2
  6d0:	000c2e37          	lui	t3,0xc2
  6d4:	12be0e1b          	addiw	t3,t3,299
  6d8:	00ce1e13          	slli	t3,t3,0xc
- 6dc:	3cbe0e13          	addi	t3,t3,971 # c23cb <HALT+0xc1b1f>
+ 6dc:	3cbe0e13          	addi	t3,t3,971 # c23cb <HALT+0xc1b23>
  6e0:	f00e01d3          	fmv.w.x	ft3,t3
  6e4:	20208253          	fsgnj.s	ft4,ft1,ft2
  6e8:	a041a2d3          	feq.s	t0,ft3,ft4
@@ -652,161 +652,160 @@ Disassembly of section .text:
  700:	000c33b7          	lui	t2,0xc3
  704:	f6b3839b          	addiw	t2,t2,-149
  708:	00c39393          	slli	t2,t2,0xc
- 70c:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d4>
+ 70c:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d8>
  710:	f0038153          	fmv.w.x	ft2,t2
- 714:	000c2e37          	lui	t3,0xc2
- 718:	12be0e1b          	addiw	t3,t3,299
- 71c:	00ce1e13          	slli	t3,t3,0xc
- 720:	3cbe0e13          	addi	t3,t3,971 # c23cb <HALT+0xc1b1f>
- 724:	f00e01d3          	fmv.w.x	ft3,t3
- 728:	20209253          	fsgnjn.s	ft4,ft1,ft2
- 72c:	a041a2d3          	feq.s	t0,ft3,ft4
- 730:	00513023          	sd	t0,0(sp)
- 734:	00008067          	ret
+ 714:	4212be37          	lui	t3,0x4212b
+ 718:	3cbe0e1b          	addiw	t3,t3,971
+ 71c:	f00e01d3          	fmv.w.x	ft3,t3
+ 720:	20209253          	fsgnjn.s	ft4,ft1,ft2
+ 724:	a041a2d3          	feq.s	t0,ft3,ft4
+ 728:	00513023          	sd	t0,0(sp)
+ 72c:	00008067          	ret
 
-0000000000000738 <fsgnjx_s_inst>:
- 738:	4212b337          	lui	t1,0x4212b
- 73c:	3cb3031b          	addiw	t1,t1,971
- 740:	f00300d3          	fmv.w.x	ft1,t1
- 744:	000c33b7          	lui	t2,0xc3
- 748:	f6b3839b          	addiw	t2,t2,-149
- 74c:	00c39393          	slli	t2,t2,0xc
- 750:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d4>
- 754:	f0038153          	fmv.w.x	ft2,t2
- 758:	000c2e37          	lui	t3,0xc2
- 75c:	12be0e1b          	addiw	t3,t3,299
- 760:	00ce1e13          	slli	t3,t3,0xc
- 764:	3cbe0e13          	addi	t3,t3,971 # c23cb <HALT+0xc1b1f>
- 768:	f00e01d3          	fmv.w.x	ft3,t3
- 76c:	2020a253          	fsgnjx.s	ft4,ft1,ft2
- 770:	a041a2d3          	feq.s	t0,ft3,ft4
- 774:	00513023          	sd	t0,0(sp)
- 778:	00008067          	ret
+0000000000000730 <fsgnjx_s_inst>:
+ 730:	4212b337          	lui	t1,0x4212b
+ 734:	3cb3031b          	addiw	t1,t1,971
+ 738:	f00300d3          	fmv.w.x	ft1,t1
+ 73c:	000c33b7          	lui	t2,0xc3
+ 740:	f6b3839b          	addiw	t2,t2,-149
+ 744:	00c39393          	slli	t2,t2,0xc
+ 748:	18038393          	addi	t2,t2,384 # c3180 <HALT+0xc28d8>
+ 74c:	f0038153          	fmv.w.x	ft2,t2
+ 750:	000c2e37          	lui	t3,0xc2
+ 754:	12be0e1b          	addiw	t3,t3,299
+ 758:	00ce1e13          	slli	t3,t3,0xc
+ 75c:	3cbe0e13          	addi	t3,t3,971 # c23cb <HALT+0xc1b23>
+ 760:	f00e01d3          	fmv.w.x	ft3,t3
+ 764:	2020a253          	fsgnjx.s	ft4,ft1,ft2
+ 768:	a041a2d3          	feq.s	t0,ft3,ft4
+ 76c:	00513023          	sd	t0,0(sp)
+ 770:	00008067          	ret
 
-000000000000077c <feq_s_inst>:
- 77c:	41457337          	lui	t1,0x41457
- 780:	0a43031b          	addiw	t1,t1,164
- 784:	f00300d3          	fmv.w.x	ft1,t1
- 788:	42f6f3b7          	lui	t2,0x42f6f
- 78c:	9793839b          	addiw	t2,t2,-1671
- 790:	f0038153          	fmv.w.x	ft2,t2
- 794:	a020a2d3          	feq.s	t0,ft1,ft2
- 798:	00028463          	beqz	t0,7a0 <feq_s_inst_true>
- 79c:	00c0006f          	j	7a8 <feq_s_inst_false>
+0000000000000774 <feq_s_inst>:
+ 774:	41457337          	lui	t1,0x41457
+ 778:	0a43031b          	addiw	t1,t1,164
+ 77c:	f00300d3          	fmv.w.x	ft1,t1
+ 780:	42f6f3b7          	lui	t2,0x42f6f
+ 784:	9793839b          	addiw	t2,t2,-1671
+ 788:	f0038153          	fmv.w.x	ft2,t2
+ 78c:	a020a2d3          	feq.s	t0,ft1,ft2
+ 790:	00028463          	beqz	t0,798 <feq_s_inst_true>
+ 794:	0100006f          	j	7a4 <feq_s_inst_false>
 
-00000000000007a0 <feq_s_inst_true>:
- 7a0:	00100293          	li	t0,1
- 7a4:	00513023          	sd	t0,0(sp)
+0000000000000798 <feq_s_inst_true>:
+ 798:	00100293          	li	t0,1
+ 79c:	00513023          	sd	t0,0(sp)
+ 7a0:	0080006f          	j	7a8 <feq_s_inst_ret>
 
-00000000000007a8 <feq_s_inst_false>:
- 7a8:	00013023          	sd	zero,0(sp)
+00000000000007a4 <feq_s_inst_false>:
+ 7a4:	00013023          	sd	zero,0(sp)
 
-00000000000007ac <feq_s_inst_ret>:
- 7ac:	00008067          	ret
+00000000000007a8 <feq_s_inst_ret>:
+ 7a8:	00008067          	ret
 
-00000000000007b0 <flt_s_inst>:
- 7b0:	41457337          	lui	t1,0x41457
- 7b4:	0a43031b          	addiw	t1,t1,164
- 7b8:	f00300d3          	fmv.w.x	ft1,t1
- 7bc:	42f6f3b7          	lui	t2,0x42f6f
- 7c0:	9793839b          	addiw	t2,t2,-1671
- 7c4:	f0038153          	fmv.w.x	ft2,t2
- 7c8:	a02092d3          	flt.s	t0,ft1,ft2
- 7cc:	00513023          	sd	t0,0(sp)
- 7d0:	00008067          	ret
+00000000000007ac <flt_s_inst>:
+ 7ac:	41457337          	lui	t1,0x41457
+ 7b0:	0a43031b          	addiw	t1,t1,164
+ 7b4:	f00300d3          	fmv.w.x	ft1,t1
+ 7b8:	42f6f3b7          	lui	t2,0x42f6f
+ 7bc:	9793839b          	addiw	t2,t2,-1671
+ 7c0:	f0038153          	fmv.w.x	ft2,t2
+ 7c4:	a02092d3          	flt.s	t0,ft1,ft2
+ 7c8:	00513023          	sd	t0,0(sp)
+ 7cc:	00008067          	ret
 
-00000000000007d4 <fle_s_inst>:
- 7d4:	41457337          	lui	t1,0x41457
- 7d8:	0a43031b          	addiw	t1,t1,164
- 7dc:	f00300d3          	fmv.w.x	ft1,t1
- 7e0:	42f6f3b7          	lui	t2,0x42f6f
- 7e4:	9793839b          	addiw	t2,t2,-1671
- 7e8:	f0038153          	fmv.w.x	ft2,t2
- 7ec:	a02082d3          	fle.s	t0,ft1,ft2
- 7f0:	00513023          	sd	t0,0(sp)
- 7f4:	00008067          	ret
+00000000000007d0 <fle_s_inst>:
+ 7d0:	41457337          	lui	t1,0x41457
+ 7d4:	0a43031b          	addiw	t1,t1,164
+ 7d8:	f00300d3          	fmv.w.x	ft1,t1
+ 7dc:	42f6f3b7          	lui	t2,0x42f6f
+ 7e0:	9793839b          	addiw	t2,t2,-1671
+ 7e4:	f0038153          	fmv.w.x	ft2,t2
+ 7e8:	a02082d3          	fle.s	t0,ft1,ft2
+ 7ec:	00513023          	sd	t0,0(sp)
+ 7f0:	00008067          	ret
 
-00000000000007f8 <bne_inst>:
- 7f8:	00100313          	li	t1,1
- 7fc:	00200393          	li	t2,2
- 800:	00731463          	bne	t1,t2,808 <bne_inst_true>
- 804:	0100006f          	j	814 <bne_inst_false>
+00000000000007f4 <bne_inst>:
+ 7f4:	00100313          	li	t1,1
+ 7f8:	00200393          	li	t2,2
+ 7fc:	00731463          	bne	t1,t2,804 <bne_inst_true>
+ 800:	0100006f          	j	810 <bne_inst_false>
 
-0000000000000808 <bne_inst_true>:
- 808:	00100293          	li	t0,1
- 80c:	00513023          	sd	t0,0(sp)
- 810:	0080006f          	j	818 <bne_inst_ret>
+0000000000000804 <bne_inst_true>:
+ 804:	00100293          	li	t0,1
+ 808:	00513023          	sd	t0,0(sp)
+ 80c:	0080006f          	j	814 <bne_inst_ret>
 
-0000000000000814 <bne_inst_false>:
- 814:	00013023          	sd	zero,0(sp)
+0000000000000810 <bne_inst_false>:
+ 810:	00013023          	sd	zero,0(sp)
 
-0000000000000818 <bne_inst_ret>:
- 818:	00008067          	ret
+0000000000000814 <bne_inst_ret>:
+ 814:	00008067          	ret
 
-000000000000081c <blt_inst>:
- 81c:	00100313          	li	t1,1
- 820:	00200393          	li	t2,2
- 824:	00734463          	blt	t1,t2,82c <blt_inst_true>
- 828:	0100006f          	j	838 <blt_inst_false>
+0000000000000818 <blt_inst>:
+ 818:	00100313          	li	t1,1
+ 81c:	00200393          	li	t2,2
+ 820:	00734463          	blt	t1,t2,828 <blt_inst_true>
+ 824:	0100006f          	j	834 <blt_inst_false>
 
-000000000000082c <blt_inst_true>:
- 82c:	00100293          	li	t0,1
- 830:	00513023          	sd	t0,0(sp)
- 834:	0080006f          	j	83c <blt_inst_ret>
+0000000000000828 <blt_inst_true>:
+ 828:	00100293          	li	t0,1
+ 82c:	00513023          	sd	t0,0(sp)
+ 830:	0080006f          	j	838 <blt_inst_ret>
 
-0000000000000838 <blt_inst_false>:
- 838:	00013023          	sd	zero,0(sp)
+0000000000000834 <blt_inst_false>:
+ 834:	00013023          	sd	zero,0(sp)
 
-000000000000083c <blt_inst_ret>:
- 83c:	00008067          	ret
+0000000000000838 <blt_inst_ret>:
+ 838:	00008067          	ret
 
-0000000000000840 <bge_inst>:
- 840:	00200313          	li	t1,2
- 844:	00100393          	li	t2,1
- 848:	00735463          	bge	t1,t2,850 <bge_inst_true>
- 84c:	0100006f          	j	85c <bge_inst_false>
+000000000000083c <bge_inst>:
+ 83c:	00200313          	li	t1,2
+ 840:	00100393          	li	t2,1
+ 844:	00735463          	bge	t1,t2,84c <bge_inst_true>
+ 848:	0100006f          	j	858 <bge_inst_false>
 
-0000000000000850 <bge_inst_true>:
- 850:	00100293          	li	t0,1
- 854:	00513023          	sd	t0,0(sp)
- 858:	0080006f          	j	860 <bge_inst_ret>
+000000000000084c <bge_inst_true>:
+ 84c:	00100293          	li	t0,1
+ 850:	00513023          	sd	t0,0(sp)
+ 854:	0080006f          	j	85c <bge_inst_ret>
 
-000000000000085c <bge_inst_false>:
- 85c:	00013023          	sd	zero,0(sp)
+0000000000000858 <bge_inst_false>:
+ 858:	00013023          	sd	zero,0(sp)
 
-0000000000000860 <bge_inst_ret>:
- 860:	00008067          	ret
+000000000000085c <bge_inst_ret>:
+ 85c:	00008067          	ret
 
-0000000000000864 <bltu_inst>:
- 864:	00100313          	li	t1,1
- 868:	ffe00393          	li	t2,-2
- 86c:	00736463          	bltu	t1,t2,874 <bltu_inst_true>
- 870:	0100006f          	j	880 <bltu_inst_false>
+0000000000000860 <bltu_inst>:
+ 860:	00100313          	li	t1,1
+ 864:	ffe00393          	li	t2,-2
+ 868:	00736463          	bltu	t1,t2,870 <bltu_inst_true>
+ 86c:	0100006f          	j	87c <bltu_inst_false>
 
-0000000000000874 <bltu_inst_true>:
- 874:	00100293          	li	t0,1
- 878:	00513023          	sd	t0,0(sp)
- 87c:	0080006f          	j	884 <bltu_inst_ret>
+0000000000000870 <bltu_inst_true>:
+ 870:	00100293          	li	t0,1
+ 874:	00513023          	sd	t0,0(sp)
+ 878:	0080006f          	j	880 <bltu_inst_ret>
 
-0000000000000880 <bltu_inst_false>:
- 880:	00013023          	sd	zero,0(sp)
+000000000000087c <bltu_inst_false>:
+ 87c:	00013023          	sd	zero,0(sp)
 
-0000000000000884 <bltu_inst_ret>:
- 884:	00008067          	ret
+0000000000000880 <bltu_inst_ret>:
+ 880:	00008067          	ret
 
-0000000000000888 <bgeu_inst>:
- 888:	ffe00313          	li	t1,-2
- 88c:	00100393          	li	t2,1
- 890:	00737463          	bgeu	t1,t2,898 <bgeu_inst_true>
- 894:	0100006f          	j	8a4 <bgeu_inst_false>
+0000000000000884 <bgeu_inst>:
+ 884:	ffe00313          	li	t1,-2
+ 888:	00100393          	li	t2,1
+ 88c:	00737463          	bgeu	t1,t2,894 <bgeu_inst_true>
+ 890:	0100006f          	j	8a0 <bgeu_inst_false>
 
-0000000000000898 <bgeu_inst_true>:
- 898:	00100293          	li	t0,1
- 89c:	00513023          	sd	t0,0(sp)
- 8a0:	0080006f          	j	8a8 <bgeu_inst_ret>
+0000000000000894 <bgeu_inst_true>:
+ 894:	00100293          	li	t0,1
+ 898:	00513023          	sd	t0,0(sp)
+ 89c:	0080006f          	j	8a4 <bgeu_inst_ret>
 
-00000000000008a4 <bgeu_inst_false>:
- 8a4:	00013023          	sd	zero,0(sp)
+00000000000008a0 <bgeu_inst_false>:
+ 8a0:	00013023          	sd	zero,0(sp)
 
-00000000000008a8 <bgeu_inst_ret>:
- 8a8:	00008067          	ret
+00000000000008a4 <bgeu_inst_ret>:
+ 8a4:	00008067          	ret
